@@ -10,11 +10,18 @@
             </ProjectSettingsEntry>
           </value>
         </entry>
+        <entry key="acoes-administration">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.12/jars/play_2.12-2.6.20.jar" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
         <entry key="root">
           <value>
             <ProjectSettingsEntry>
               <option name="sourceDir" value="$PROJECT_DIR$/app" />
-              <option name="confDir" value="$PROJECT_DIR$/app" />
+              <option name="confDir" value="D:\Descargas\Drive\Universidad\3º Año\Ingenieria de Requisitos\acoes-administration\app" />
               <option name="templateImports">
                 <list>
                   <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
@@ -45,7 +52,7 @@
                   <option value="play.libs.F" />
                 </list>
               </option>
-              <option name="uri" value="$PROJECT_DIR$" />
+              <option name="uri" value="/D:/Descargas/Drive/Universidad/3º%20Año/Ingenieria%20de%20Requisitos/acoes-administration" />
             </ProjectSettingsEntry>
           </value>
         </entry>

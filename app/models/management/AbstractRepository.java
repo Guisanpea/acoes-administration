@@ -29,7 +29,7 @@ public abstract class AbstractRepository<T> {
 
     public CompletionStage<T> update(T entity) {
         return supplyAsync(() -> jpaWrapper(em -> update(em, entity)), executionContext);
-    }
+    }   
 
     /**
      * This functions wraps a persistence operation to be done with the injected JPAApi of the class

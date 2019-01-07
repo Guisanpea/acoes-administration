@@ -43,17 +43,14 @@ public class RegistroEconomico implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 7)
     @Column(name = "tipo")
     private String tipo;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "concepto")
     private String concepto;

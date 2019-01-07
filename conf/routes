@@ -27,3 +27,9 @@ GET     /renderAddUser              controllers.UserController.renderAddUser()
 POST    /editUser                   controllers.UserController.editUser(userId : Integer)
 
 POST    /addUser                    controllers.UserController.addUser()
+
+GET     /listRegistros              controllers.RegistroEconomicoController.listRegistrosEconomicos()
+
+POST    /renderAddRegistro          controllers.RegistroEconomicoController.renderAddRegistro()
+
+POST    /addRegistro                controllers.RegistroEconomicoController.addRegistro()

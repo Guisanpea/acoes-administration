@@ -1,55 +1,13 @@
+@import models.entities.Usuario
+@import helper._
+@(userForm : Form[Usuario])
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Introducir User</title>
+        <title>Introducir Usuario</title>
     </head>
     <body>
-        <div align="center">
-            <table align="center">
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr>
-                    <td>
-                        <form action="indexagente.scala.html"> @* Guarda al usuario en la base de datos *@
-                        <table align="center" border="1">
-                            <tr>
-                                <td>Nombre: </td>
-                                <td><input type="text" required/></td>
-                            </tr>
-                            <tr>
-                                <td>Rol: </td>
-                                <td><input type="text" required/></td>
-                            </tr>
-                            input type="text" required/></td>
-                            <tr>
-                                <td></td>
-                                <td align="center"><input type="button" value="Guardar"></td>
-                            </tr>
-                        </table>
-                        </form>
-                    </td>
-                    <form action="indexagente.scala.html"> @* Devuelve la vista a lista de usuarios *@
-                    <td><input type="button" value="Cancelar" ></td>
-                    </form>
-                </tr>
-            </table>
-
-        </div>
     </body>
 </html>

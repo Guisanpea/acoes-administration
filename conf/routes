@@ -17,3 +17,13 @@ GET     /hello                      controllers.HomeController.hello
 GET     /db                         controllers.HomeController.newHeadquarter()
 
 GET     /agent                      controllers.AgentController.listSocios()
+
+GET     /listUsers                  controllers.UserController.listUsers()
+
+GET     /renderEditUser             controllers.UserController.renderEditUser(userId : Integer)
+
+GET     /renderAddUser              controllers.UserController.renderAddUser()
+
+POST    /editUser                   controllers.UserController.editUser(userId : Integer)
+
+POST    /addUser                    controllers.UserController.addUser()

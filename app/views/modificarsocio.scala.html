@@ -1,0 +1,106 @@
+@*
+    Aqui pasamos el socio que se va a modificar
+    Dentro de cada input estan los placeholders de los datos vigentes de ese socio
+*@
+@import models.entities.Socio
+@(socio : Socio)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>modificar socio</title>
+    </head>
+    <body>
+        <div align="center">
+            <form align="left">
+                <table align="center">
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr>
+                        <td>
+                            <table align="center" border="1">
+                                <tr>
+                                    <td>Nombre: </td>
+                                    <td><input type="text" value="@socio.getNombre"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Apellidos: </td>
+                                    <td><input type="text" value="@socio.getApellidos"/></td>
+                                </tr>
+                                <tr>
+                                    <td>NIF: </td>
+                                    <td><input type="text" value="@socio.getNif"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Dirección: </td>
+                                    <td><input type="text" value="@socio.getDireccion"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Población: </td>
+                                    <td><input type="text" value="@socio.getPoblacion"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Codigo Postal: </td>
+                                    <td><input type="text" value="@socio.getCodigoPostal"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Provincia: </td>
+                                    <td><input type="text" value="@socio.getProvincia"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Telefono Fijo: </td>
+                                    <td><input type="number" value="@socio.getTelefonoFijo"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Telefono Móvil: </td>
+                                    <td><input type="number" value="@socio.getTelefonoMovil"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Email: </td>
+                                    <td><input type="email" value="@socio.getEmail"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Sector: </td>
+                                    <td><input type="text" value="@socio.getSector"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Fecha de alta: </td>
+                                    <td><input type="date" value="@socio.getFechaAlta"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Fecha de baja: </td>
+                                    <td><input type="date" value="@socio.getFechaBaja"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Observaciones: </td>
+                                    <td><input type="text" value="@socio.getObservaciones"/></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td align="center"><input type="button" value="Guardar"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td><input type="button" value="Cancelar" ></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>

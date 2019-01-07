@@ -1,0 +1,46 @@
+@*
+Aqui pasamos el usuario que se va a modificar.
+Dentro de cada input estan los placeholders de los datos vigentes de ese socio.
+El boton guardar modifica los datos del usuario y devuelve la vista de lista de usuarios. El boton cancelar vuelve a la vista de lista de usuarios.
+*@
+@import models.entities.Usuario
+@(usuario : Usuario)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Modificar usuario</title>
+    </head>
+    <body>
+        <div align="center">
+            <form align="left">
+                <table align="center">
+                    <tr></tr>
+                    <tr></tr>
+
+                    <tr>
+                        <td>
+                            <table align="center" border="1">
+                                <tr>
+                                    <td>Nombre: </td>
+                                    <td><input type="text" value="@usuario.getNombre"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Rol: </td>
+                                    <td><input type="text" value="@usuario.getRol"/></td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td align="center"><input type="button" value="Guardar"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td><input type="button" value="Cancelar" ></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>

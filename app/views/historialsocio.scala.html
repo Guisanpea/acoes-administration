@@ -1,0 +1,33 @@
+@*
+    Aquí vamos a mostrar el historial de un socio: los apadrinamientos y contribuciones. El boton eliminar elimina el apadrinamiento.
+*@
+
+
+@* @(socio : Partner, apadrinamientos : List[apadrinamiento]) *@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Historial</title>
+    </head>
+    <body>
+        <h2>Partner @* @socio.nombre *@</h2>
+        <table border="1" align="center">
+            <tr>
+                <th>Apadrinado</th>
+                <th>Fecha de inicio</th>
+                <th>Fecha de fin</th>
+                <th>Eliminar</th>
+            </tr>
+            @* @for(ap <- apadrinamientos){
+            <tr>
+                <td>@ap.apadrinado</td>
+                <td>@ap.fechaInicio</td>
+                <td>@ap.fechaFin</td>
+                <td><input type="button" value="Eliminar"></td>
+            </tr>
+            }*@
+        </table>
+        <a href="indexagente.scala.html"><b>Volver</b></a>
+    </body>
+</html>

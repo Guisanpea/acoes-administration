@@ -1,0 +1,19 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Map static resources from the /public folder to the /assets URL path
+# prefix must match `play.assets.urlPrefix`
+GET /assets/*file           controllers.Assets.at(file)
+GET /versionedAssets/*file  controllers.Assets.versioned(file)
+
+# An example controller showing a sample home page
+GET     /                           controllers.SessionController.index
+
+POST    /login                      controllers.SessionController.login()
+
+GET     /hello                      controllers.HomeController.hello
+
+GET     /db                         controllers.HomeController.newHeadquarter()
+
+GET     /agent                      controllers.AgentController.listSocios()

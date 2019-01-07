@@ -1,0 +1,80 @@
+@*
+Aqui se va a mostrar la lista de socios para el/la agente.
+*@
+
+@* @(listSocios: List[Partner]) *@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Agente</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td> <a href="indexagente.scala.html"> <b>Partners</b></a> </td>
+                <td> <a href="indexalumnos.scala.html"> <b>Alumnos</b></a> </td>
+            </tr>
+            <tr>
+                <td>
+                    <form>
+                        <input type="text">
+                        <input type="button" value="Buscar">@* Este form sirve para filtrar la tabla de alumnos por nombre*@
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div align="center">
+                        <form action=""> @* Aqui elimina o modifica un socio de la lista*@
+                        <table border="1">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>NIF</th>
+                                <th>Dirección</th>
+                                <th>Población</th>
+                                <th>Codigo Postal</th>
+                                <th>Provincia</th>
+                                <th>Telefono Fijo</th>
+                                <th>Telefono Móvil</th>
+                                <th>Email</th>
+                                <th>Sector</th>
+                                <th>Fecha de alta</th>
+                                <th>Fecha de baja</th>
+                                <th>Observaciones</th>
+                                <th>Modificar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                                @* @for(s <- listaPartners) {
+                                <tr>
+                                    <td>@s.nombre</td>
+                                    <td>@s.apellidos</td>
+                                    <td>@s.nif</td>
+                                    <td>@s.direccion</td>
+                                    <td>@s.poblacion</td>
+                                    <td>@s.codigoPostal</td>
+                                    <td>@s.provincia</td>
+                                    <td>@s.telefonoFijo</td>
+                                    <td>@s.telefonoMovil</td>
+                                    <td>@s.email</td>
+                                    <td>@s.sector</td>
+                                    <td>@s.fechaDeAlta</td>
+                                    <td>@s.fechaDeBaja</td>
+                                    <td>@s.observaciones</td>
+                                    <td><input type="button" value="Modificar"></td>
+                                    <td><input type="button" value="Eliminar"></td>
+                                </tr>
+                            }-*@
+                        </table>
+                        </form>
+                        <form action="introducirsocio.scala.html">
+                            <input type="button" value="Añadir Partner">
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

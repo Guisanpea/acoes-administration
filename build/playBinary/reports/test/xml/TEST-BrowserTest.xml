@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="BrowserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-11-15T09:31:18" hostname="TP-Link" time="5.241">
+  <properties/>
+  <testcase name="test" classname="BrowserTest" time="5.241"/>
+  <system-out><![CDATA[[?[37minfo?[0m] application - Creating Pool for datasource 'default'
+[?[37minfo?[0m] application - Shutting down connection pool.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

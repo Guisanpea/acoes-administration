@@ -1,68 +1,45 @@
-@* @(listAlumnos: List[Alumno]) *@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Alumnos</title>
-    </head>
-    <body>
+@import helper._
+@import models.entities.Alumno
 
-        <table>
-            <tr>
-                <td> <a href="indexagente.scala.html"> <b>Partners</b></a> </td>
-                <td> <a href="indexalumnos.scala.html"> <b>Alumnos</b></a> </td>
+@(alumnoList: List[Alumno])
 
-            </tr>
-            <tr>
-                <td>
-                    <form>
-                        <input type="text">
-                        <input type="button" value="Buscar">@* Este form sirve para filtrar la tabla de alumnos por nombre*@
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div align="center">
-                        <table border="1">
-                            <tr>
-                                <th>Código</th>
-                                <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th>Estado</th>
-                                <th>Sexo</th>
-                                <th>Foto</th>
-                                <th>Fecha de nacimiento</th>
-                                <th>Fecha de entrada ACOES</th>
-                                <th>Fecha de alta</th>
-                                <th>Fecha de salida ACOES</th>
-                                <th>Grado</th>
-                                <th>Colonia de procedencia</th>
-                                <th>Colonia actual</th>
-                                <th>Observaciones</th>
-                            </tr>
-                                @* @for(a <- listaAlumnos) {
-                            <tr>
-                                <td>@a.codigo</td>
-                                <td>@a.nombre</td>
-                                <td>@a.apellidos</td>
-                                <td>@a.estado</td>
-                                <td>@a.sexo</td>
-                                <td>@a.foto</td>
-                                <td>@a.fechaDeNacimiento</td>
-                                <td>@a.fechaDeEntradaACOES</td>
-                                <td>@a.fechaDeAlta</td>
-                                <td>@a.fechaDeSalidaACOES</td>
-                                <td>@a.gradoDelCurso</td>
-                                <td>@a.coloniaDeProcedencia</td>
-                                <td>@a.coloniaActual</td>
-                                <td>@a.observaciones</td>
-                            </tr>
-                        } *@
-                        </table>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </body>
-</html>
+<h1>Alumnos</h1>
+
+<table border="1">
+    <tr>
+        <th>Codigo</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Estado</th>
+        <th>Sexo</th>
+        <th>Fecha Nacimiento</th> @* Codigo Beneficiario *@
+        <th>Fecha Entrada ACOES</th>
+        <th>Fecha Alta</th>
+        <th>Fecha Salida ACOES</th>
+        <th>Grado Curso</th>
+        <th>Colonia de procedencia</th>
+        <th>Colonia actual</th>
+        <th>Observaciones</th>
+    </tr>
+    @for(alumno <- alumnoList) {
+        <tr>
+            <td>@alumno.getCodigo</td>
+            <td>@alumno.getNombre</td>
+            <td>@alumno.getApellidos</td>
+            <td>@alumno.getEstado</td>
+            <td>@alumno.getSexo</td>
+            <td>@alumno.getFechaNacimiento</td>
+            <td>@alumno.getFechaEntradaAcoes</td>
+            <td>@alumno.getFechaAlta</td>
+            <td>@alumno.getFechaSalidaAcoes</td>
+            <td>@alumno.getGradoCurso</td>
+            <td>@alumno.getColoniaProcedencia</td>
+            <td>@alumno.getColoniaActual</td>
+            <td>@alumno.getObservaciones</td>
+        </tr>
+    }
+    @form(action = routes.AlumnoController.renderAddAlumno()) {
+        @helper.CSRF.formField
+        <button type="submit">Añadir alumno</button>
+    }
+</table>

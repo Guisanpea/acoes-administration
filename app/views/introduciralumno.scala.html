@@ -1,0 +1,31 @@
+@import helper._
+@import models.entities.Alumno
+
+@(alumnoForm: Form[Alumno])
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Introducir Alumno</title>
+    </head>
+    <body>
+        @form(action = routes.AlumnoController.addAlumno() ){
+            @CSRF.formField
+            @inputText(alumnoForm("nombre"))
+            @inputText(alumnoForm("apellidos"))
+            @inputText(alumnoForm("estado"))
+            @inputText(alumnoForm("sexo"))
+            @inputDate(alumnoForm("fechaNacimiento"))
+            @inputDate(alumnoForm("fechaEntradaAcoes"))
+            @inputDate(alumnoForm("fechaAlta"))
+            @inputDate(alumnoForm("fechaSalidaAcoes"))
+            @inputText(alumnoForm("gradoCurso"))
+            @inputText(alumnoForm("coloniaProcedencia"))
+            @inputText(alumnoForm("coloniaActual"))
+            @inputText(alumnoForm("observaciones"))
+
+            <button type="submit">Añadir alumno</button>
+        }
+    </body>
+</html>

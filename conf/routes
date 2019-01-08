@@ -30,6 +30,18 @@ POST    /addUser                    controllers.UserController.addUser()
 
 GET     /listRegistros              controllers.RegistroEconomicoController.listRegistrosEconomicos()
 
-POST    /renderAddRegistro          controllers.RegistroEconomicoController.renderAddRegistro()
+GET     /renderAddRegistro          controllers.RegistroEconomicoController.renderAddRegistro()
 
-POST    /addRegistro                controllers.RegistroEconomicoController.addRegistro()
+POST    /addRegistro                controllers.RegistroEconomicoController.addRegistro(proyecto : Integer)
+
+GET     /listAlumnos                controllers.AlumnoController.listAlumnos()
+
+GET     /renderAddAlumno            controllers.AlumnoController.renderAddAlumno()
+
+POST    /addAlumno                  controllers.AlumnoController.addAlumno()
+
+GET     /listSocios                 controllers.SocioController.listSocios()
+
+GET     /renderAddSocio             controllers.SocioController.renderAddSocio()
+
+POST    /addSocio                   controllers.SocioController.addSocio()

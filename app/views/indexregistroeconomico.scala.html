@@ -15,9 +15,9 @@
         <th>Codigo Beneficiario</th>
         <th>Observaciones</th>
         <th>Codigo Servicio</th>
+        <th>Proyecto</th>
         <th>Numero Socio</th>
         <th>Responsable Economico</th>
-
     </tr>
     @for(registro <- registroList) {
         <tr>
@@ -30,7 +30,7 @@
             <td>@registro.getCodigoServicio</td>
             <td>@registro.getProyecto</td>
             <td>@registro.getNumeroSocio</td>
-            <td>@registro.getResponsable</td>
+            <td>@registro.getResponsable.getNombre</td>
         </tr>
     }
     @form(action = routes.RegistroEconomicoController.renderAddRegistro()) {

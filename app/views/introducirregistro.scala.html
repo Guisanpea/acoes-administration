@@ -12,7 +12,7 @@
         <title>Introducir Usuario</title>
     </head>
     <body>
-        @form(action = routes.RegistroEconomicoController.addRegistro(2) ){
+        @form(action = routes.RegistroEconomicoController.addRegistro() ){
             @CSRF.formField
             @inputDate(registroForm("Fecha"))
             @inputText(registroForm("Tipo"))

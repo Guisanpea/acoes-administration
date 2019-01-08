@@ -12,7 +12,7 @@
         <th>Tipo</th>
         <th>Concepto</th>
         <th>Importe</th>
-        <th>Codigo Beneficiario</th>
+        <th>Beneficiario</th> @* Codigo Beneficiario *@
         <th>Observaciones</th>
         <th>Codigo Servicio</th>
         <th>Numero Socio</th>
@@ -26,9 +26,10 @@
             <td>@registro.getTipo</td>
             <td>@registro.getConcepto</td>
             <td>@registro.getImporte</td>
+            <td>@registro.getCodigoBeneficiario.getNombre @registro.getCodigoBeneficiario.getApellidos</td>
             <td>@registro.getObservaciones</td>
             <td>@registro.getCodigoServicio</td>
-            <td>@registro.getProyecto</td>
+            <td>@registro.getProyecto.getId</td>
             <td>@registro.getNumeroSocio</td>
             <td>@registro.getResponsable</td>
         </tr>

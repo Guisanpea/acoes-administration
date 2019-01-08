@@ -32,4 +32,4 @@ GET     /listRegistros              controllers.RegistroEconomicoController.list
 
 POST    /renderAddRegistro          controllers.RegistroEconomicoController.renderAddRegistro()
 
-POST    /addRegistro                controllers.RegistroEconomicoController.addRegistro()
+POST    /addRegistro                controllers.RegistroEconomicoController.addRegistro(proyecto : Integer)

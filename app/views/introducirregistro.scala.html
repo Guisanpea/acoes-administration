@@ -2,6 +2,7 @@
 @import controllers.RegistroEconomicoController
 @import play.data.Form
 @import helper._
+@import models.entities.Proyecto
 @(registroForm : Form[RegistroEconomico])
 
 <!DOCTYPE html>
@@ -11,18 +12,18 @@
         <title>Introducir Usuario</title>
     </head>
     <body>
-        @form(action = routes.RegistroEconomicoController.addRegistro() ){
+        @form(action = routes.RegistroEconomicoController.addRegistro(2) ){
             @CSRF.formField
-            @inputText(registroForm("Fecha"))
-            @inputText(registroForm("Tipo"))
-            @inputText(registroForm("Concepto"))
-            @inputText(registroForm("Importe"))
-            @inputText(registroForm("Codigo beneficiario"))
-            @inputText(registroForm("Observaciones"))
-            @inputText(registroForm("Codigo servicio"))
-            @inputText(registroForm("Proyecto"))
-            @inputText(registroForm("Numero socio"))
-            @inputText(registroForm("Responsable"))
+            @inputText(registroForm("fecha"))
+            @inputText(registroForm("tipo"))
+            @inputText(registroForm("concepto"))
+            @inputText(registroForm("importe"))
+            @inputText(registroForm("codigoBeneficiario"))
+            @inputText(registroForm("observaciones"))
+            @inputText(registroForm("codigoServicio"))
+            @inputText(registroForm("proyecto.id"))
+            @inputText(registroForm("numeroSocio"))
+            @inputText(registroForm("responsable"))
             <button type="submit">Añadir registro economico</button>
         }
     </body>

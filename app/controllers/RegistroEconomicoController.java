@@ -1,8 +1,10 @@
 package controllers;
 
 import lombok.SneakyThrows;
+import models.entities.Proyecto;
 import models.entities.RegistroEconomico;
 import models.management.RegistroRepository;
+import models.management.ProyectoRepository;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -17,6 +19,7 @@ import java.util.concurrent.ExecutionException;
 public class RegistroEconomicoController extends Controller {
 
     private RegistroRepository registroRepository;
+    private ProyectoRepository proyectoRepository;
     private FormFactory formFactory;
 
     @Inject
@@ -37,11 +40,14 @@ public class RegistroEconomicoController extends Controller {
         return ok(introducirregistro.render(registroForm));
     }
 
-    public Result addRegistro() {
+    public Result addRegistro(Integer proyecto) {
         RegistroEconomico newRegistro = formFactory.form(RegistroEconomico.class).bindFromRequest(
                 "fecha", "tipo", "concepto", "importe",
-                "codigo_beneficiario", "observaciones", "codigo_servicio",
-                "proyecto", "numero_socio", "responsable").get();
+                "observaciones", "codigoServicio",
+                "proyecto.id").get();
+        Proyecto newProyecto = proyectoRepository.findById(newRegistro.getProyecto().getId());
+        newRegistro.setProyecto(newProyecto);
+
         registroRepository.add(newRegistro);
 
         return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());

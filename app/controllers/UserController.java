@@ -1,5 +1,6 @@
 package controllers;
 
+import beanUtils.PropertyUtils;
 import models.entities.Usuario;
 import models.management.UsuarioRepository;
 import play.data.Form;
@@ -53,9 +54,7 @@ public class UserController extends Controller {
         Usuario editedUser = formFactory.form(Usuario.class).bindFromRequest("id", "nombre", "email", "rol").get();
 
         return usuarioRepository.findById(editedUser.getId()).thenCompose( dbUser -> {
-            dbUser.setNombre(editedUser.getNombre());
-            dbUser.setRol(editedUser.getRol());
-            dbUser.setEmail(editedUser.getEmail());
+            PropertyUtils.copyNonNullProperties(editedUser, dbUser);
 
             return usuarioRepository.update(dbUser).thenApplyAsync( u ->
                   redirect(routes.UserController.listUsers())

@@ -17,7 +17,7 @@ public class PropertyUtils {
     }
 
     // then use Spring BeanUtils to copy and ignore null
-    public static void myCopyProperties(Object src, Object target) {
+    public static void copyNonNullProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
     }
 }

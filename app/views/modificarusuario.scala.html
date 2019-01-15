@@ -3,10 +3,11 @@ Aqui pasamos el usuario que se va a modificar.
 Dentro de cada input estan los placeholders de los datos vigentes de ese socio.
 El boton guardar modifica los datos del usuario y devuelve la vista de lista de usuarios. El boton cancelar vuelve a la vista de lista de usuarios.
 *@
+@import helper._
 @import models.entities.Usuario
 @import play.data.Form
-@import helper._
-@(userId : Integer, userForm : Form[Usuario])
+
+@(userForm : Form[Usuario])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,12 +17,11 @@ El boton guardar modifica los datos del usuario y devuelve la vista de lista de 
     </head>
     <body>
         <div align="center">
-            @form(action = routes.UserController.editUser(userId) ){
+            @form(action = routes.UserController.editUser() ){
                 @CSRF.formField
-                <input type="hidden" name="userId" value="@userId" />
+                @inputText(userForm("id"))
                 @inputText(userForm("nombre"))
                 @inputText(userForm("email"))
-                @inputPassword(userForm("contrasena"))
                 @inputText(userForm("rol"))
                 <button type="submit">Editar usuario</button>
             }

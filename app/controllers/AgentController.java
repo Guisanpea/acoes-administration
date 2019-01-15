@@ -1,29 +1,31 @@
 package controllers;
 
-import models.entities.Socio;
 import models.management.SocioRepository;
-import models.management.UsuarioRepository;
+import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.listasocios;
 
 import javax.inject.Inject;
-import java.util.List;
+import java.util.concurrent.CompletionStage;
 
 public class AgentController extends Controller {
 
-    private SocioRepository socioRepository;
+    private final SocioRepository socioRepository;
+    private final HttpExecutionContext httpExecutionContext;
 
     @Inject
-    public AgentController(SocioRepository socioRepository){
+    public AgentController(SocioRepository socioRepository, HttpExecutionContext ec) {
         this.socioRepository = socioRepository;
+        this.httpExecutionContext = ec;
     }
 
-    public Result listSocios() {
+    public CompletionStage<Result> listSocios() {
         session("userId");
 
-        List<Socio> socioList = socioRepository.list();
-
-        return ok(listasocios.render(socioList));
+        return socioRepository.list().thenApplyAsync(socioList ->
+                    ok(listasocios.render(socioList))
+              , httpExecutionContext.current()
+        );
     }
 }

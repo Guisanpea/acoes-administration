@@ -2,10 +2,8 @@
 // @SOURCE:/home/archie/Programming/Java/acoes-admin/conf/routes
 // @DATE:Mon Nov 19 20:11:17 CET 2018
 
-import play.api.routing.JavaScriptReverseRoute
-
-
 import _root_.controllers.Assets.Asset
+import play.api.routing.JavaScriptReverseRoute
 
 // @LINE:6
 package controllers.javascript {

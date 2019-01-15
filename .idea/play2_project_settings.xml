@@ -20,8 +20,8 @@
         <entry key="root">
           <value>
             <ProjectSettingsEntry>
-              <option name="sourceDir" value="$PROJECT_DIR$/app" />
-              <option name="confDir" value="D:\Descargas\Drive\Universidad\3º Año\Ingenieria de Requisitos\acoes-administration\app" />
+              <option name="sourceDir" value="D:\Descargas\Drive\Universidad\3º Año\Ingenieria de Requisitos\acoes-administration\app" />
+              <option name="confDir" value="$PROJECT_DIR$/app" />
               <option name="templateImports">
                 <list>
                   <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
@@ -52,7 +52,7 @@
                   <option value="play.libs.F" />
                 </list>
               </option>
-              <option name="uri" value="/D:/Descargas/Drive/Universidad/3º%20Año/Ingenieria%20de%20Requisitos/acoes-administration" />
+              <option name="uri" value="$PROJECT_DIR$" />
             </ProjectSettingsEntry>
           </value>
         </entry>

@@ -1,33 +1,36 @@
 package controllers;
 
-import lombok.SneakyThrows;
 import models.entities.Socio;
 import models.management.SocioRepository;
-import models.management.UsuarioRepository;
 import play.data.Form;
 import play.data.FormFactory;
+import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.introducirsocio;
 import views.html.listasocios;
 
 import javax.inject.Inject;
-import java.util.List;
+import java.util.concurrent.CompletionStage;
 
 public class SocioController extends Controller {
 
-    private SocioRepository socioRepository;
-    private FormFactory formFactory;
+    private final SocioRepository socioRepository;
+    private final FormFactory formFactory;
+    private final HttpExecutionContext httpExecutionContext;
 
     @Inject
-    public SocioController(SocioRepository socioRepository, FormFactory formFactory){
+    public SocioController(SocioRepository socioRepository, FormFactory formFactory, HttpExecutionContext ec) {
         this.socioRepository = socioRepository;
         this.formFactory = formFactory;
+        this.httpExecutionContext = ec;
     }
 
-    public Result listSocios() {
-        List<Socio> socioList = socioRepository.list();
-        return ok(listasocios.render(socioList));
+    public CompletionStage<Result> listSocios() {
+        return socioRepository.list().thenApplyAsync(socioList ->
+                    ok(listasocios.render(socioList))
+              , httpExecutionContext.current()
+        );
     }
 
     public Result renderAddSocio() {
@@ -36,17 +39,17 @@ public class SocioController extends Controller {
         return ok(introducirsocio.render(socioForm));
     }
 
-    @SneakyThrows(Exception.class)
-    public Result addSocio() {
+    public CompletionStage<Result> addSocio() {
         Socio newSocio = formFactory.form(Socio.class).bindFromRequest(
-                "nombre", "apellidos", "estado", "nif",
-                "direccion", "poblacion",
-                "codigoPostal", "provincia", "telefonoFijo", "telefonoMovil",
-                "email", "relacion", "certificado", "sector",
-                "fechaAlta", "fechaBaja", "observaciones").get();
+              "nombre", "apellidos", "estado", "nif",
+              "direccion", "poblacion",
+              "codigoPostal", "provincia", "telefonoFijo", "telefonoMovil",
+              "email", "relacion", "certificado", "sector",
+              "fechaAlta", "fechaBaja", "observaciones").get();
 
-        socioRepository.add(newSocio).toCompletableFuture().get();
-
-        return redirect(routes.SocioController.listSocios());
+        return socioRepository.add(newSocio).toCompletableFuture().thenApplyAsync(socio ->
+                    redirect(routes.SocioController.listSocios())
+              , httpExecutionContext.current()
+        );
     }
 }

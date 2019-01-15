@@ -24,7 +24,7 @@ GET     /renderEditUser             controllers.UserController.renderEditUser(us
 
 GET     /renderAddUser              controllers.UserController.renderAddUser()
 
-POST    /editUser                   controllers.UserController.editUser(userId : Integer)
+POST    /editUser                   controllers.UserController.editUser()
 
 POST    /addUser                    controllers.UserController.addUser()
 

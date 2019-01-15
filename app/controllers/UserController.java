@@ -1,10 +1,10 @@
 package controllers;
 
-import lombok.SneakyThrows;
 import models.entities.Usuario;
 import models.management.UsuarioRepository;
 import play.data.Form;
 import play.data.FormFactory;
+import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.introducirusuario;
@@ -12,29 +12,26 @@ import views.html.modificarusuario;
 import views.html.panelusuarios;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletionStage;
 
 public class UserController extends Controller {
 
-    private UsuarioRepository usuarioRepository;
-    private FormFactory formFactory;
+    private final UsuarioRepository usuarioRepository;
+    private final FormFactory formFactory;
+    private final HttpExecutionContext httpExecutionContext;
 
     @Inject
-    public UserController(UsuarioRepository usuarioRepository, FormFactory formFactory){
+    public UserController(UsuarioRepository usuarioRepository, FormFactory formFactory, HttpExecutionContext ec) {
         this.usuarioRepository = usuarioRepository;
         this.formFactory = formFactory;
+        this.httpExecutionContext = ec;
     }
 
-    public Result listUsers(){
-        List<Usuario> userList = usuarioRepository.list();
-
-        return ok(panelusuarios.render(userList));
-    }
-
-    public Result renderEditUser(Integer userId){
-        Form<Usuario> userForm = formFactory.form(Usuario.class);
-        return ok(modificarusuario.render(userId, userForm));
+    public CompletionStage<Result> listUsers() {
+        return usuarioRepository.list().thenApplyAsync(userList ->
+                    ok(panelusuarios.render(userList))
+              , httpExecutionContext.current()
+        );
     }
 
     public Result renderAddUser() {
@@ -43,20 +40,35 @@ public class UserController extends Controller {
         return ok(introducirusuario.render(userForm));
     }
 
-    @SneakyThrows({InterruptedException.class, ExecutionException.class})
-    public Result editUser(Integer userId) {
-        Usuario editedUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "contrasena", "rol").get();
-        editedUser.setId(userId);
+    public CompletionStage<Result> renderEditUser(Integer userId) {
+        final Form<Usuario> userForm = formFactory.form(Usuario.class);
 
-        usuarioRepository.update(editedUser).toCompletableFuture().get();
-
-        return redirect(routes.UserController.listUsers());
+        return usuarioRepository.findById(userId).thenApplyAsync(user ->
+                    ok(modificarusuario.render(userForm.fill(user)))
+              , httpExecutionContext.current()
+        );
     }
 
-    public Result addUser() {
-        Usuario newUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "contrasena", "rol").get();
-        usuarioRepository.add(newUser);
+    public CompletionStage<Result> editUser() {
+        Usuario editedUser = formFactory.form(Usuario.class).bindFromRequest("id", "nombre", "email", "rol").get();
 
-        return redirect(routes.UserController.listUsers());
+        return usuarioRepository.findById(editedUser.getId()).thenCompose( dbUser -> {
+            dbUser.setNombre(editedUser.getNombre());
+            dbUser.setRol(editedUser.getRol());
+            dbUser.setEmail(editedUser.getEmail());
+
+            return usuarioRepository.update(dbUser).thenApplyAsync( u ->
+                  redirect(routes.UserController.listUsers())
+            );
+        });
+    }
+
+    public CompletionStage<Result> addUser() {
+        Usuario newUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "contrasena", "rol").get();
+
+        return usuarioRepository.add(newUser).thenApplyAsync(user ->
+                    redirect(routes.UserController.listUsers())
+              , httpExecutionContext.current()
+        );
     }
 }

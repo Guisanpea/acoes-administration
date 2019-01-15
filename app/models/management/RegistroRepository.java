@@ -1,13 +1,12 @@
 package models.management;
 
-import lombok.SneakyThrows;
 import models.entities.RegistroEconomico;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletionStage;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
@@ -18,12 +17,10 @@ public class RegistroRepository extends AbstractRepository<RegistroEconomico> {
         super(jpaApi, executionContext);
     }
 
-    @SneakyThrows({InterruptedException.class, ExecutionException.class})
-    public List<RegistroEconomico> list() {
+    public CompletionStage<List<RegistroEconomico>> list() {
         return supplyAsync(
-              () -> jpaWrapper(em -> list(em)),
-              executionContext)
-              .get();
+              () -> jpaWrapper(this::list),
+              executionContext);
     }
 
     private List<RegistroEconomico> list(EntityManager em) {

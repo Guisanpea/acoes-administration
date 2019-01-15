@@ -11,35 +11,37 @@ import views.html.login;
 
 import javax.inject.Inject;
 import java.util.Objects;
+import java.util.concurrent.CompletionStage;
 
 public class SessionController extends Controller {
 
     private final FormFactory formFactory;
     private final UsuarioRepository usuarioRepository;
+    private final HttpExecutionContext httpExecutionContext;
 
     @Inject
-    public SessionController(FormFactory formFactory, UsuarioRepository usuarioRepository){
+    public SessionController(FormFactory formFactory, UsuarioRepository usuarioRepository, HttpExecutionContext ec){
         this.formFactory = formFactory;
         this.usuarioRepository = usuarioRepository;
+        this.httpExecutionContext = ec;
     }
 
     public Result index(){
         Form<Usuario> userForm = formFactory.form(Usuario.class);
+
         return ok(login.render(userForm, false));
     }
 
-    public Result login(){
-        Result redirection;
+    public CompletionStage<Result> login(){
         Usuario formUser = formFactory.form(Usuario.class).bindFromRequest("email", "contrasena").get();
-        Usuario databaseUser = usuarioRepository.findByEmail(formUser.getEmail());
 
-        if (userIsCorrect(formUser, databaseUser)){
-            redirection = listSocios(databaseUser);
-        } else {
-            redirection = reLogin();
-        }
-
-        return redirection;
+        return usuarioRepository.findByEmail(formUser.getEmail()).thenApplyAsync(databaseUser -> {
+            if (userIsCorrect(formUser, databaseUser)){
+                return listSocios(databaseUser);
+            } else {
+                return reLogin();
+            }
+        }, httpExecutionContext.current());
     }
 
     private boolean userIsCorrect(Usuario formUser, Usuario databaseUser) {

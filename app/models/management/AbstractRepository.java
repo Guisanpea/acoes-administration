@@ -23,13 +23,28 @@ public abstract class AbstractRepository<T> {
         return supplyAsync(() -> jpaWrapper(em -> insert(em, entity)), executionContext);
     }
 
+    private T insert(EntityManager em, T entity) {
+        em.persist(entity);
+        return entity;
+    }
+
     public CompletionStage<T> delete(T entity) {
         return supplyAsync(() -> jpaWrapper(em -> remove(em, entity)), executionContext);
     }
 
+    private T remove(EntityManager em, T entity) {
+        em.remove(entity);
+        return entity;
+    }
+
     public CompletionStage<T> update(T entity) {
         return supplyAsync(() -> jpaWrapper(em -> update(em, entity)), executionContext);
-    }   
+    }
+
+    private T update(EntityManager em, T entity) {
+        em.merge(entity);
+        return entity;
+    }
 
     /**
      * This functions wraps a persistence operation to be done with the injected JPAApi of the class
@@ -38,20 +53,5 @@ public abstract class AbstractRepository<T> {
      */
     <U> U jpaWrapper(Function<EntityManager, U> function) {
         return jpaApi.withTransaction(function);
-    }
-
-    private T insert(EntityManager em, T entity) {
-        em.persist(entity);
-        return entity;
-    }
-
-    private T remove(EntityManager em, T entity) {
-        em.remove(entity);
-        return entity;
-    }
-
-    private T update(EntityManager em, T entity) {
-        em.refresh(entity);
-        return entity;
     }
 }

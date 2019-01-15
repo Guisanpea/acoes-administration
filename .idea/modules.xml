@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/acoes-admin.iml" filepath="$PROJECT_DIR$/.idea/modules/acoes-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/acoes-admin-build.iml" filepath="$PROJECT_DIR$/.idea/modules/acoes-admin-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/root-build.iml" filepath="$PROJECT_DIR$/.idea/modules/root-build.iml" />
     </modules>
   </component>

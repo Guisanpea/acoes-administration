@@ -34,6 +34,7 @@ public class Sede implements Serializable {
     @Size(min = 1, max = 6)
     @Column(name = "region")
     private String region;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -43,4 +44,21 @@ public class Sede implements Serializable {
     private Integer id;
     @OneToMany(mappedBy = "sedeUsuarioLocal")
     private Collection<Usuario> usuarioCollection;
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
+    }
+
 }

@@ -48,4 +48,44 @@ public class Centro implements Serializable {
     private Collection<Usuario> usuarioCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "centro1")
     private Collection<EstaEn> estaEnCollection;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Proyecto getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
+    }
+
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
+    }
+
+    public Collection<EstaEn> getEstaEnCollection() {
+        return estaEnCollection;
+    }
+
+    public void setEstaEnCollection(Collection<EstaEn> estaEnCollection) {
+        this.estaEnCollection = estaEnCollection;
+    }
 }

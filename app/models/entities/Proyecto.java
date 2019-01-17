@@ -68,6 +68,79 @@ public class Proyecto implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "region_ayuda")
     private String regionAyuda;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public double getRepartoCombustible() {
+        return repartoCombustible;
+    }
+
+    public void setRepartoCombustible(double repartoCombustible) {
+        this.repartoCombustible = repartoCombustible;
+    }
+
+    public double getRepartoMantenimiento() {
+        return repartoMantenimiento;
+    }
+
+    public void setRepartoMantenimiento(double repartoMantenimiento) {
+        this.repartoMantenimiento = repartoMantenimiento;
+    }
+
+    public double getRepartoCtaContenedor() {
+        return repartoCtaContenedor;
+    }
+
+    public void setRepartoCtaContenedor(double repartoCtaContenedor) {
+        this.repartoCtaContenedor = repartoCtaContenedor;
+    }
+
+    public String getRegionAyuda() {
+        return regionAyuda;
+    }
+
+    public void setRegionAyuda(String regionAyuda) {
+        this.regionAyuda = regionAyuda;
+    }
+
+    public Collection<RegistroEconomico> getRegistroEconomicoCollection() {
+        return registroEconomicoCollection;
+    }
+
+    public void setRegistroEconomicoCollection(Collection<RegistroEconomico> registroEconomicoCollection) {
+        this.registroEconomicoCollection = registroEconomicoCollection;
+    }
+
+    public Collection<Centro> getCentroCollection() {
+        return centroCollection;
+    }
+
+    public void setCentroCollection(Collection<Centro> centroCollection) {
+        this.centroCollection = centroCollection;
+    }
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proyecto")
     private Collection<RegistroEconomico> registroEconomicoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proyecto")

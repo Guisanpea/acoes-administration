@@ -3,7 +3,10 @@ de la cual se selecciona uno y se presiona el botón Apadrinar
 para añadir el apadrinamiento entre el socio y ese alumno al sistema.
 Después devuelve la vista a la vista de apadrinamientos.*@
 
-@* @(socio: Partner, listAlumnos: List[Alumno]) *@
+@import models.entities.Socio
+@import models.entities.Alumno
+
+@(socio: Form[Socio], listAlumnos: List[Alumno])
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,7 +15,7 @@ Después devuelve la vista a la vista de apadrinamientos.*@
     </head>
     <body>
 
-        <h2>Partner @* @socio.nombre *@</h2>
+        <h2>Socio @socio.getNombre</h2>
 
         <table>
             <tr>
@@ -36,14 +39,14 @@ Después devuelve la vista a la vista de apadrinamientos.*@
                                 <th>Observaciones</th>
                                 <th>Apadrinar</th>
                             </tr>
-                            @* @for(a <- listaAlumnos) {
+                            @for(a <- listAlumnos) {
                             <tr>
-                            <td>@a.codigo</td>
-                            <td>@a.nombre</td>
-                            <td>@a.apellidos</td>
-                            <td>@a.estado</td>
-                            <td>@a.sexo</td>
-                            <td>@a.foto</td>
+                            <td>@a.getCodigo</td>
+                            <td>@a.getNombre</td>
+                            <td>@a.getApellidos</td>
+                            <td>@a.getEstado</td>
+                            <td>@a.getSexo</td>
+                            <td>@a.getFoto</td>
                             <td>@a.fechaDeNacimiento</td>
                             <td>@a.fechaDeEntradaACOES</td>
                             <td>@a.fechaDeAlta</td>

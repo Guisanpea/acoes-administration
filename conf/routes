@@ -20,7 +20,7 @@ GET     /agent                      controllers.AgentController.listSocios()
 
 GET     /listUsers                  controllers.UserController.listUsers()
 
-GET     /renderEditUser             controllers.UserController.renderEditUser(userId : Integer)
+GET     /user/:id                   controllers.UserController.renderEditUser(id : Integer)
 
 GET     /renderAddUser              controllers.UserController.renderAddUser()
 

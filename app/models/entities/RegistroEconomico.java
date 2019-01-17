@@ -73,4 +73,92 @@ public class RegistroEconomico implements Serializable {
     @JoinColumn(name = "proyecto", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Proyecto proyecto;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getConcepto() {
+        return concepto;
+    }
+
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
+    }
+
+    public double getImporte() {
+        return importe;
+    }
+
+    public void setImporte(double importe) {
+        this.importe = importe;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public Integer getCodigoServicio() {
+        return codigoServicio;
+    }
+
+    public void setCodigoServicio(Integer codigoServicio) {
+        this.codigoServicio = codigoServicio;
+    }
+
+    public Socio getNumeroSocio() {
+        return numeroSocio;
+    }
+
+    public void setNumeroSocio(Socio numeroSocio) {
+        this.numeroSocio = numeroSocio;
+    }
+
+    public Alumno getCodigoBeneficiario() {
+        return codigoBeneficiario;
+    }
+
+    public void setCodigoBeneficiario(Alumno codigoBeneficiario) {
+        this.codigoBeneficiario = codigoBeneficiario;
+    }
+
+    public Usuario getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(Usuario responsable) {
+        this.responsable = responsable;
+    }
+
+    public Proyecto getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
+    }
 }

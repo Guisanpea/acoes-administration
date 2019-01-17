@@ -71,4 +71,76 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "sede_usuario_local", referencedColumnName = "id")
     @ManyToOne
     private Sede sedeUsuarioLocal;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    public Collection<AdministracionApadrinamiento> getAdministracionApadrinamientoCollection() {
+        return administracionApadrinamientoCollection;
+    }
+
+    public void setAdministracionApadrinamientoCollection(Collection<AdministracionApadrinamiento> administracionApadrinamientoCollection) {
+        this.administracionApadrinamientoCollection = administracionApadrinamientoCollection;
+    }
+
+    public Collection<RegistroEconomico> getRegistroEconomicoCollection() {
+        return registroEconomicoCollection;
+    }
+
+    public void setRegistroEconomicoCollection(Collection<RegistroEconomico> registroEconomicoCollection) {
+        this.registroEconomicoCollection = registroEconomicoCollection;
+    }
+
+    public Centro getCentro() {
+        return centro;
+    }
+
+    public void setCentro(Centro centro) {
+        this.centro = centro;
+    }
+
+    public Sede getSedeUsuarioLocal() {
+        return sedeUsuarioLocal;
+    }
+
+    public void setSedeUsuarioLocal(Sede sedeUsuarioLocal) {
+        this.sedeUsuarioLocal = sedeUsuarioLocal;
+    }
 }

@@ -33,8 +33,6 @@ import java.util.Date;
     , @NamedQuery(name = "Alumno.findByColoniaProcedencia", query = "SELECT a FROM Alumno a WHERE a.coloniaProcedencia = :coloniaProcedencia")
     , @NamedQuery(name = "Alumno.findByColoniaActual", query = "SELECT a FROM Alumno a WHERE a.coloniaActual = :coloniaActual")
     , @NamedQuery(name = "Alumno.findByObservaciones", query = "SELECT a FROM Alumno a WHERE a.observaciones = :observaciones")})
-@Getter
-@Setter
 @ToString
 @Builder
 @NoArgsConstructor
@@ -111,4 +109,140 @@ public class Alumno implements Serializable {
     private Collection<RegistroEconomico> registroEconomicoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "alumno1")
     private Collection<EstaEn> estaEnCollection;
+
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Date getFechaEntradaAcoes() {
+        return fechaEntradaAcoes;
+    }
+
+    public void setFechaEntradaAcoes(Date fechaEntradaAcoes) {
+        this.fechaEntradaAcoes = fechaEntradaAcoes;
+    }
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public Date getFechaSalidaAcoes() {
+        return fechaSalidaAcoes;
+    }
+
+    public void setFechaSalidaAcoes(Date fechaSalidaAcoes) {
+        this.fechaSalidaAcoes = fechaSalidaAcoes;
+    }
+
+    public int getGradoCurso() {
+        return gradoCurso;
+    }
+
+    public void setGradoCurso(int gradoCurso) {
+        this.gradoCurso = gradoCurso;
+    }
+
+    public String getColoniaProcedencia() {
+        return coloniaProcedencia;
+    }
+
+    public void setColoniaProcedencia(String coloniaProcedencia) {
+        this.coloniaProcedencia = coloniaProcedencia;
+    }
+
+    public String getColoniaActual() {
+        return coloniaActual;
+    }
+
+    public void setColoniaActual(String coloniaActual) {
+        this.coloniaActual = coloniaActual;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public Collection<Apadrinamiento> getApadrinamientoCollection() {
+        return apadrinamientoCollection;
+    }
+
+    public void setApadrinamientoCollection(Collection<Apadrinamiento> apadrinamientoCollection) {
+        this.apadrinamientoCollection = apadrinamientoCollection;
+    }
+
+    public Collection<RegistroEconomico> getRegistroEconomicoCollection() {
+        return registroEconomicoCollection;
+    }
+
+    public void setRegistroEconomicoCollection(Collection<RegistroEconomico> registroEconomicoCollection) {
+        this.registroEconomicoCollection = registroEconomicoCollection;
+    }
+
+    public Collection<EstaEn> getEstaEnCollection() {
+        return estaEnCollection;
+    }
+
+    public void setEstaEnCollection(Collection<EstaEn> estaEnCollection) {
+        this.estaEnCollection = estaEnCollection;
+    }
 }

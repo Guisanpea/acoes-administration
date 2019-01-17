@@ -2,6 +2,8 @@
 
 package models.entities;
 
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,6 +25,12 @@ import java.util.Collection;
     , @NamedQuery(name = "Proyecto.findByRepartoMantenimiento", query = "SELECT p FROM Proyecto p WHERE p.repartoMantenimiento = :repartoMantenimiento")
     , @NamedQuery(name = "Proyecto.findByRepartoCtaContenedor", query = "SELECT p FROM Proyecto p WHERE p.repartoCtaContenedor = :repartoCtaContenedor")
     , @NamedQuery(name = "Proyecto.findByRegionAyuda", query = "SELECT p FROM Proyecto p WHERE p.regionAyuda = :regionAyuda")})
+@Getter
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Proyecto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,6 +38,8 @@ public class Proyecto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
+    @Setter(AccessLevel.NONE)
+    @EqualsAndHashCode.Include
     private Integer id;
     @Basic(optional = false)
     @NotNull
@@ -62,121 +72,4 @@ public class Proyecto implements Serializable {
     private Collection<RegistroEconomico> registroEconomicoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proyecto")
     private Collection<Centro> centroCollection;
-
-    public Proyecto() {
-    }
-
-    public Proyecto(Integer id) {
-        this.id = id;
-    }
-
-    public Proyecto(Integer id, String nombre, String descripcion, double repartoCombustible, double repartoMantenimiento, double repartoCtaContenedor, String regionAyuda) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.repartoCombustible = repartoCombustible;
-        this.repartoMantenimiento = repartoMantenimiento;
-        this.repartoCtaContenedor = repartoCtaContenedor;
-        this.regionAyuda = regionAyuda;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public double getRepartoCombustible() {
-        return repartoCombustible;
-    }
-
-    public void setRepartoCombustible(double repartoCombustible) {
-        this.repartoCombustible = repartoCombustible;
-    }
-
-    public double getRepartoMantenimiento() {
-        return repartoMantenimiento;
-    }
-
-    public void setRepartoMantenimiento(double repartoMantenimiento) {
-        this.repartoMantenimiento = repartoMantenimiento;
-    }
-
-    public double getRepartoCtaContenedor() {
-        return repartoCtaContenedor;
-    }
-
-    public void setRepartoCtaContenedor(double repartoCtaContenedor) {
-        this.repartoCtaContenedor = repartoCtaContenedor;
-    }
-
-    public String getRegionAyuda() {
-        return regionAyuda;
-    }
-
-    public void setRegionAyuda(String regionAyuda) {
-        this.regionAyuda = regionAyuda;
-    }
-
-    @XmlTransient
-    public Collection<RegistroEconomico> getRegistroEconomicoCollection() {
-        return registroEconomicoCollection;
-    }
-
-    public void setRegistroEconomicoCollection(Collection<RegistroEconomico> registroEconomicoCollection) {
-        this.registroEconomicoCollection = registroEconomicoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Centro> getCentroCollection() {
-        return centroCollection;
-    }
-
-    public void setCentroCollection(Collection<Centro> centroCollection) {
-        this.centroCollection = centroCollection;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Proyecto)) {
-            return false;
-        }
-        Proyecto other = (Proyecto) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "models.entities.Proyecto[ id=" + id + " ]";
-    }
-
 }

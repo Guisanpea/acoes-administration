@@ -35,13 +35,35 @@ public class SessionController extends Controller {
     public CompletionStage<Result> login(){
         Usuario formUser = formFactory.form(Usuario.class).bindFromRequest("email", "contrasena").get();
 
-        return usuarioRepository.findByEmail(formUser.getEmail()).thenApplyAsync(databaseUser -> {
-            if (userIsCorrect(formUser, databaseUser)){
-                return listSocios(databaseUser);
+        return usuarioRepository.findByEmail(formUser.getEmail()).thenApplyAsync( user -> {
+            if (userIsCorrect(formUser, user)){
+                return redirectAndSetSession(user);
             } else {
                 return reLogin();
             }
         }, httpExecutionContext.current());
+    }
+
+    private Result redirectAndSetSession(Usuario user) {
+        createUserSession(user);
+        switch (user.getRol()){
+            case Agente:
+                return redirect(routes.AgentController.listSocios());
+            case GerenteSede:
+                return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());
+            case GerenteRegional:
+                return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());
+            case CoordinadorLocal:
+                return redirect(routes.AlumnoController.listAlumnos());
+            case CoordinadorGeneral:
+                return redirect(routes.AlumnoController.listAlumnos());
+            case AdministradorLocal:
+                return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());
+            case AdministradorGeneral:
+                return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());
+            default:
+                return internalServerError("Unhandled Role");
+        }
     }
 
     private boolean userIsCorrect(Usuario formUser, Usuario databaseUser) {
@@ -50,7 +72,6 @@ public class SessionController extends Controller {
     }
 
     private Result listSocios(Usuario databaseUser) {
-        createUserSession(databaseUser);
         return redirect(routes.AgentController.listSocios());
     }
 

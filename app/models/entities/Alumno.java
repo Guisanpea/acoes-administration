@@ -2,6 +2,8 @@
 
 package models.entities;
 
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,6 +33,12 @@ import java.util.Date;
     , @NamedQuery(name = "Alumno.findByColoniaProcedencia", query = "SELECT a FROM Alumno a WHERE a.coloniaProcedencia = :coloniaProcedencia")
     , @NamedQuery(name = "Alumno.findByColoniaActual", query = "SELECT a FROM Alumno a WHERE a.coloniaActual = :coloniaActual")
     , @NamedQuery(name = "Alumno.findByObservaciones", query = "SELECT a FROM Alumno a WHERE a.observaciones = :observaciones")})
+@Getter
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Alumno implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,6 +46,8 @@ public class Alumno implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "codigo")
+    @Setter(AccessLevel.NONE)
+    @EqualsAndHashCode.Include
     private Integer codigo;
     @Basic(optional = false)
     @NotNull
@@ -101,189 +111,4 @@ public class Alumno implements Serializable {
     private Collection<RegistroEconomico> registroEconomicoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "alumno1")
     private Collection<EstaEn> estaEnCollection;
-
-    public Alumno() {
-    }
-
-    public Alumno(Integer codigo) {
-        this.codigo = codigo;
-    }
-
-    public Alumno(Integer codigo, String nombre, String apellidos, String sexo, Date fechaNacimiento, Date fechaEntradaAcoes, Date fechaAlta, int gradoCurso, String coloniaProcedencia, String coloniaActual) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.sexo = sexo;
-        this.fechaNacimiento = fechaNacimiento;
-        this.fechaEntradaAcoes = fechaEntradaAcoes;
-        this.fechaAlta = fechaAlta;
-        this.gradoCurso = gradoCurso;
-        this.coloniaProcedencia = coloniaProcedencia;
-        this.coloniaActual = coloniaActual;
-    }
-
-    public Integer getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public Date getFechaEntradaAcoes() {
-        return fechaEntradaAcoes;
-    }
-
-    public void setFechaEntradaAcoes(Date fechaEntradaAcoes) {
-        this.fechaEntradaAcoes = fechaEntradaAcoes;
-    }
-
-    public Date getFechaAlta() {
-        return fechaAlta;
-    }
-
-    public void setFechaAlta(Date fechaAlta) {
-        this.fechaAlta = fechaAlta;
-    }
-
-    public Date getFechaSalidaAcoes() {
-        return fechaSalidaAcoes;
-    }
-
-    public void setFechaSalidaAcoes(Date fechaSalidaAcoes) {
-        this.fechaSalidaAcoes = fechaSalidaAcoes;
-    }
-
-    public int getGradoCurso() {
-        return gradoCurso;
-    }
-
-    public void setGradoCurso(int gradoCurso) {
-        this.gradoCurso = gradoCurso;
-    }
-
-    public String getColoniaProcedencia() {
-        return coloniaProcedencia;
-    }
-
-    public void setColoniaProcedencia(String coloniaProcedencia) {
-        this.coloniaProcedencia = coloniaProcedencia;
-    }
-
-    public String getColoniaActual() {
-        return coloniaActual;
-    }
-
-    public void setColoniaActual(String coloniaActual) {
-        this.coloniaActual = coloniaActual;
-    }
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    @XmlTransient
-    public Collection<Apadrinamiento> getApadrinamientoCollection() {
-        return apadrinamientoCollection;
-    }
-
-    public void setApadrinamientoCollection(Collection<Apadrinamiento> apadrinamientoCollection) {
-        this.apadrinamientoCollection = apadrinamientoCollection;
-    }
-
-    @XmlTransient
-    public Collection<RegistroEconomico> getRegistroEconomicoCollection() {
-        return registroEconomicoCollection;
-    }
-
-    public void setRegistroEconomicoCollection(Collection<RegistroEconomico> registroEconomicoCollection) {
-        this.registroEconomicoCollection = registroEconomicoCollection;
-    }
-
-    @XmlTransient
-    public Collection<EstaEn> getEstaEnCollection() {
-        return estaEnCollection;
-    }
-
-    public void setEstaEnCollection(Collection<EstaEn> estaEnCollection) {
-        this.estaEnCollection = estaEnCollection;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Alumno)) {
-            return false;
-        }
-        Alumno other = (Alumno) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "models.entities.Alumno[ codigo=" + codigo + " ]";
-    }
-
 }

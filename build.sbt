@@ -15,7 +15,7 @@ libraryDependencies ++= Seq(
   "org.hibernate" % "hibernate-core" % "5.3.6.Final",
   javaWs % "test",
   guice,
-  "org.projectlombok" % "lombok" % "1.16.16",
+  "org.projectlombok" % "lombok" % "1.18.4" % "provided",
   "commons-beanutils" % "commons-beanutils" % "1.9.3"
 )
 

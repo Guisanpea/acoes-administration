@@ -2,6 +2,8 @@
 
 package models.entities;
 
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -21,10 +23,18 @@ import java.util.Date;
     , @NamedQuery(name = "Apadrinamiento.findByPadrino", query = "SELECT a FROM Apadrinamiento a WHERE a.apadrinamientoPK.padrino = :padrino")
     , @NamedQuery(name = "Apadrinamiento.findByFechaInicio", query = "SELECT a FROM Apadrinamiento a WHERE a.fechaInicio = :fechaInicio")
     , @NamedQuery(name = "Apadrinamiento.findByFechaFin", query = "SELECT a FROM Apadrinamiento a WHERE a.fechaFin = :fechaFin")})
+@Getter
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Apadrinamiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
+    @Setter(AccessLevel.NONE)
+    @EqualsAndHashCode.Include
     protected ApadrinamientoPK apadrinamientoPK;
     @Basic(optional = false)
     @NotNull
@@ -44,104 +54,4 @@ public class Apadrinamiento implements Serializable {
     private Collection<Envio> envioCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "apadrinamiento")
     private Collection<AdministracionApadrinamiento> administracionApadrinamientoCollection;
-
-    public Apadrinamiento() {
-    }
-
-    public Apadrinamiento(ApadrinamientoPK apadrinamientoPK) {
-        this.apadrinamientoPK = apadrinamientoPK;
-    }
-
-    public Apadrinamiento(ApadrinamientoPK apadrinamientoPK, Date fechaInicio) {
-        this.apadrinamientoPK = apadrinamientoPK;
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Apadrinamiento(int id, int apadrinado, int padrino) {
-        this.apadrinamientoPK = new ApadrinamientoPK(id, apadrinado, padrino);
-    }
-
-    public ApadrinamientoPK getApadrinamientoPK() {
-        return apadrinamientoPK;
-    }
-
-    public void setApadrinamientoPK(ApadrinamientoPK apadrinamientoPK) {
-        this.apadrinamientoPK = apadrinamientoPK;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public Alumno getAlumno() {
-        return alumno;
-    }
-
-    public void setAlumno(Alumno alumno) {
-        this.alumno = alumno;
-    }
-
-    public Socio getSocio() {
-        return socio;
-    }
-
-    public void setSocio(Socio socio) {
-        this.socio = socio;
-    }
-
-    @XmlTransient
-    public Collection<Envio> getEnvioCollection() {
-        return envioCollection;
-    }
-
-    public void setEnvioCollection(Collection<Envio> envioCollection) {
-        this.envioCollection = envioCollection;
-    }
-
-    @XmlTransient
-    public Collection<AdministracionApadrinamiento> getAdministracionApadrinamientoCollection() {
-        return administracionApadrinamientoCollection;
-    }
-
-    public void setAdministracionApadrinamientoCollection(Collection<AdministracionApadrinamiento> administracionApadrinamientoCollection) {
-        this.administracionApadrinamientoCollection = administracionApadrinamientoCollection;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (apadrinamientoPK != null ? apadrinamientoPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Apadrinamiento)) {
-            return false;
-        }
-        Apadrinamiento other = (Apadrinamiento) object;
-        if ((this.apadrinamientoPK == null && other.apadrinamientoPK != null) || (this.apadrinamientoPK != null && !this.apadrinamientoPK.equals(other.apadrinamientoPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "models.entities.Apadrinamiento[ apadrinamientoPK=" + apadrinamientoPK + " ]";
-    }
-
 }

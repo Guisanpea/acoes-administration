@@ -2,6 +2,8 @@
 
 package models.entities;
 
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,6 +20,12 @@ import java.util.Collection;
     @NamedQuery(name = "Centro.findAll", query = "SELECT c FROM Centro c")
     , @NamedQuery(name = "Centro.findById", query = "SELECT c FROM Centro c WHERE c.id = :id")
     , @NamedQuery(name = "Centro.findByNombre", query = "SELECT c FROM Centro c WHERE c.nombre = :nombre")})
+@Getter
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Centro implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,6 +33,8 @@ public class Centro implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
+    @Setter(AccessLevel.NONE)
+    @EqualsAndHashCode.Include
     private Integer id;
     @Basic(optional = false)
     @NotNull
@@ -38,84 +48,4 @@ public class Centro implements Serializable {
     private Collection<Usuario> usuarioCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "centro1")
     private Collection<EstaEn> estaEnCollection;
-
-    public Centro() {
-    }
-
-    public Centro(Integer id) {
-        this.id = id;
-    }
-
-    public Centro(Integer id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Proyecto getProyecto() {
-        return proyecto;
-    }
-
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
-    }
-
-    @XmlTransient
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
-    }
-
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
-    }
-
-    @XmlTransient
-    public Collection<EstaEn> getEstaEnCollection() {
-        return estaEnCollection;
-    }
-
-    public void setEstaEnCollection(Collection<EstaEn> estaEnCollection) {
-        this.estaEnCollection = estaEnCollection;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Centro)) {
-            return false;
-        }
-        Centro other = (Centro) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "models.entities.Centro[ id=" + id + " ]";
-    }
-
 }

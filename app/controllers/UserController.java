@@ -29,7 +29,7 @@ public class UserController extends Controller {
     }
 
     public CompletionStage<Result> listUsers() {
-        return usuarioRepository.list().thenApplyAsync(userList ->
+        return usuarioRepository.list().thenApplyAsync( userList ->
                     ok(panelusuarios.render(userList))
               , httpExecutionContext.current()
         );
@@ -44,7 +44,7 @@ public class UserController extends Controller {
     public CompletionStage<Result> renderEditUser(Integer userId) {
         final Form<Usuario> userForm = formFactory.form(Usuario.class);
 
-        return usuarioRepository.findById(userId).thenApplyAsync(user ->
+        return usuarioRepository.findById(userId).thenApplyAsync( user ->
                     ok(modificarusuario.render(userForm.fill(user)))
               , httpExecutionContext.current()
         );
@@ -65,7 +65,7 @@ public class UserController extends Controller {
     public CompletionStage<Result> addUser() {
         Usuario newUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "contrasena", "rol").get();
 
-        return usuarioRepository.add(newUser).thenApplyAsync(user ->
+        return usuarioRepository.add(newUser).thenApplyAsync( user ->
                     redirect(routes.UserController.listUsers())
               , httpExecutionContext.current()
         );

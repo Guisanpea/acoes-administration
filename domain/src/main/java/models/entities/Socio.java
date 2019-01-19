@@ -36,11 +36,13 @@ import java.util.Date;
     , @NamedQuery(name = "Socio.findBySector", query = "SELECT s FROM Socio s WHERE s.sector = :sector")
     , @NamedQuery(name = "Socio.findByFechaAlta", query = "SELECT s FROM Socio s WHERE s.fechaAlta = :fechaAlta")
     , @NamedQuery(name = "Socio.findByFechaBaja", query = "SELECT s FROM Socio s WHERE s.fechaBaja = :fechaBaja")
-    , @NamedQuery(name = "Socio.findByObservaciones", query = "SELECT s FROM Socio s WHERE s.observaciones = :observaciones")})
+    , @NamedQuery(name = "Socio.findByObservaciones", query = "SELECT s FROM Socio s WHERE s.observaciones = :observaciones")
+    , @NamedQuery(name = "Socio.findByContribucionEconomica", query = "SELECT s FROM Socio s WHERE s.contribucionEconomica = :contribucionEconomica")})
 @Getter
 @Setter
 @ToString
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Socio implements Serializable {
@@ -126,168 +128,15 @@ public class Socio implements Serializable {
     @Size(max = 100)
     @Column(name = "observaciones")
     private String observaciones;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "contribucion_economica")
+    private Double contribucionEconomica;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "socio")
     private Collection<Apadrinamiento> apadrinamientoCollection;
-    @OneToMany(mappedBy = "numeroSocio")
-    private Collection<RegistroEconomico> registroEconomicoCollection;
+    @JoinColumn(name = "responsable", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Usuario responsable;
+    @OneToMany(mappedBy = "beneficiarioSocio")
+    private Collection<Egreso> egresoCollection;
 
-    public Integer getNumeroDeSocio() {
-        return numeroDeSocio;
-    }
-
-    public void setNumeroDeSocio(Integer numeroDeSocio) {
-        this.numeroDeSocio = numeroDeSocio;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getNif() {
-        return nif;
-    }
-
-    public void setNif(String nif) {
-        this.nif = nif;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getPoblacion() {
-        return poblacion;
-    }
-
-    public void setPoblacion(String poblacion) {
-        this.poblacion = poblacion;
-    }
-
-    public String getCodigoPostal() {
-        return codigoPostal;
-    }
-
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
-    }
-
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
-
-    public Integer getTelefonoFijo() {
-        return telefonoFijo;
-    }
-
-    public void setTelefonoFijo(Integer telefonoFijo) {
-        this.telefonoFijo = telefonoFijo;
-    }
-
-    public int getTelefonoMovil() {
-        return telefonoMovil;
-    }
-
-    public void setTelefonoMovil(int telefonoMovil) {
-        this.telefonoMovil = telefonoMovil;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRelacion() {
-        return relacion;
-    }
-
-    public void setRelacion(String relacion) {
-        this.relacion = relacion;
-    }
-
-    public boolean isCertificado() {
-        return certificado;
-    }
-
-    public void setCertificado(boolean certificado) {
-        this.certificado = certificado;
-    }
-
-    public String getSector() {
-        return sector;
-    }
-
-    public void setSector(String sector) {
-        this.sector = sector;
-    }
-
-    public Date getFechaAlta() {
-        return fechaAlta;
-    }
-
-    public void setFechaAlta(Date fechaAlta) {
-        this.fechaAlta = fechaAlta;
-    }
-
-    public Date getFechaBaja() {
-        return fechaBaja;
-    }
-
-    public void setFechaBaja(Date fechaBaja) {
-        this.fechaBaja = fechaBaja;
-    }
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public Collection<Apadrinamiento> getApadrinamientoCollection() {
-        return apadrinamientoCollection;
-    }
-
-    public void setApadrinamientoCollection(Collection<Apadrinamiento> apadrinamientoCollection) {
-        this.apadrinamientoCollection = apadrinamientoCollection;
-    }
-
-    public Collection<RegistroEconomico> getRegistroEconomicoCollection() {
-        return registroEconomicoCollection;
-    }
-
-    public void setRegistroEconomicoCollection(Collection<RegistroEconomico> registroEconomicoCollection) {
-        this.registroEconomicoCollection = registroEconomicoCollection;
-    }
 }

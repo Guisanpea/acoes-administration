@@ -1,7 +1,6 @@
 package controllers;
 
-import models.entities.RegistroEconomico;
-import models.management.RegistroRepository;
+import models.management.IngresoRepository;
 import play.data.Form;
 import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
@@ -15,19 +14,19 @@ import java.util.concurrent.CompletionStage;
 
 public class RegistroEconomicoController extends Controller {
 
-    private final RegistroRepository registroRepository;
+    private final IngresoRepository ingresoRepository;
     private final FormFactory formFactory;
     private final HttpExecutionContext httpExecutionContext;
 
     @Inject
-    public RegistroEconomicoController(RegistroRepository registroRepository, FormFactory formFactory, HttpExecutionContext ec) {
-        this.registroRepository = registroRepository;
+    public RegistroEconomicoController(IngresoRepository ingresoRepository, FormFactory formFactory, HttpExecutionContext ec) {
+        this.ingresoRepository = ingresoRepository;
         this.formFactory = formFactory;
         this.httpExecutionContext = ec;
     }
 
     public CompletionStage<Result> listRegistrosEconomicos() {
-        return registroRepository.list().thenApplyAsync(registroList ->
+        return ingresoRepository.list().thenApplyAsync(registroList ->
               ok(indexregistroeconomico.render(registroList))
               , httpExecutionContext.current()
         );
@@ -45,7 +44,7 @@ public class RegistroEconomicoController extends Controller {
               "codigo_beneficiario", "observaciones", "codigo_servicio",
               "proyecto", "numero_socio", "responsable").get();
 
-        return registroRepository.add(newRegistro).thenApplyAsync( registro ->
+        return ingresoRepository.add(newRegistro).thenApplyAsync(registro ->
               redirect(routes.RegistroEconomicoController.listRegistrosEconomicos())
               , httpExecutionContext.current()
         );

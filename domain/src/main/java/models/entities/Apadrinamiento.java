@@ -7,7 +7,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -28,6 +27,7 @@ import java.util.Date;
 @ToString
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Apadrinamiento implements Serializable {
 
@@ -55,59 +55,4 @@ public class Apadrinamiento implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "apadrinamiento")
     private Collection<AdministracionApadrinamiento> administracionApadrinamientoCollection;
 
-    public ApadrinamientoPK getApadrinamientoPK() {
-        return apadrinamientoPK;
-    }
-
-    public void setApadrinamientoPK(ApadrinamientoPK apadrinamientoPK) {
-        this.apadrinamientoPK = apadrinamientoPK;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public Alumno getAlumno() {
-        return alumno;
-    }
-
-    public void setAlumno(Alumno alumno) {
-        this.alumno = alumno;
-    }
-
-    public Socio getSocio() {
-        return socio;
-    }
-
-    public void setSocio(Socio socio) {
-        this.socio = socio;
-    }
-
-    public Collection<Envio> getEnvioCollection() {
-        return envioCollection;
-    }
-
-    public void setEnvioCollection(Collection<Envio> envioCollection) {
-        this.envioCollection = envioCollection;
-    }
-
-    public Collection<AdministracionApadrinamiento> getAdministracionApadrinamientoCollection() {
-        return administracionApadrinamientoCollection;
-    }
-
-    public void setAdministracionApadrinamientoCollection(Collection<AdministracionApadrinamiento> administracionApadrinamientoCollection) {
-        this.administracionApadrinamientoCollection = administracionApadrinamientoCollection;
-    }
 }

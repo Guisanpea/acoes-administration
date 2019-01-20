@@ -49,7 +49,7 @@
                     </tr>
                 }
             </table>
-            @form(action = routes.SocioController.renderAddSocio()) {
+            @form(action = routes.SocioController.renderCreateSocio()) {
                 @helper.CSRF.formField
                 <button type="submit">Añadir Socio</button>
             }

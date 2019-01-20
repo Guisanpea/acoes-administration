@@ -38,7 +38,7 @@
             <td>@alumno.getObservaciones</td>
         </tr>
     }
-    @form(action = routes.AlumnoController.renderAddAlumno()) {
+    @form(action = routes.AlumnoController.renderCreateAlumno()) {
         @helper.CSRF.formField
         <button type="submit">Añadir alumno</button>
     }

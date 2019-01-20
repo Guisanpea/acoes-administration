@@ -7,7 +7,7 @@ El boton guardar modifica los datos del usuario y devuelve la vista de lista de 
 @import models.entities.Usuario
 @import play.data.Form
 
-@(userForm : Form[Usuario])
+@(userForm: Form[Usuario], userId: Int)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,9 +17,10 @@ El boton guardar modifica los datos del usuario y devuelve la vista de lista de 
     </head>
     <body>
         <div align="center">
-            @form(action = routes.UserController.editUser() ){
+            Illo vaya mierda loko
+            @form(action = routes.UserController.editUser(userId)){
                 @CSRF.formField
-                @inputText(userForm("id"))
+                <input type="hidden" name="id" value="@userId.toString">
                 @inputText(userForm("nombre"))
                 @inputText(userForm("email"))
                 @inputText(userForm("rol"))

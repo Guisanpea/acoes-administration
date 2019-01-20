@@ -1,5 +1,6 @@
 package models.management;
 
+import models.ResultHelpers.JpaResultHelper;
 import models.entities.Alumno;
 import play.db.jpa.JPAApi;
 
@@ -25,5 +26,18 @@ public class AlumnoRepository extends AbstractRepository<Alumno> {
 
     private List<Alumno> list(EntityManager em) {
         return em.createNamedQuery("Alumno.findAll", Alumno.class).getResultList();
+    }
+
+    public CompletionStage<Alumno> findById(int id) {
+        return supplyAsync(
+              () -> jpaWrapper( (em) -> findById(id, em) ),
+              executionContext);
+    }
+
+    private Alumno findById(int id, EntityManager em) {
+        return (Alumno) JpaResultHelper.getSingleResultOrNull(
+              em.createNamedQuery("Alumno.findByCodigo", Alumno.class)
+                    .setParameter("codigo", id)
+        );
     }
 }

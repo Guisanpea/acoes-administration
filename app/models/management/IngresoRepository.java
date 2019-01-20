@@ -1,5 +1,6 @@
 package models.management;
 
+import models.entities.Ingreso;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
@@ -9,20 +10,20 @@ import java.util.concurrent.CompletionStage;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
-public class RegistroRepository extends AbstractRepository<RegistroEconomico> {
+public class IngresoRepository extends AbstractRepository<Ingreso> {
 
     @Inject
-    public RegistroRepository(JPAApi jpaApi, DatabaseExecutionContext executionContext) {
+    public IngresoRepository(JPAApi jpaApi, DatabaseExecutionContext executionContext) {
         super(jpaApi, executionContext);
     }
 
-    public CompletionStage<List<RegistroEconomico>> list() {
+    public CompletionStage<List<Ingreso>> list() {
         return supplyAsync(
               () -> jpaWrapper(this::list),
               executionContext);
     }
 
-    private List<RegistroEconomico> list(EntityManager em) {
-        return em.createNamedQuery("RegistroEconomico.findAll", RegistroEconomico.class).getResultList();
+    private List<Ingreso> list(EntityManager em) {
+        return em.createNamedQuery("Ingreso.findAll", Ingreso.class).getResultList();
     }
 }

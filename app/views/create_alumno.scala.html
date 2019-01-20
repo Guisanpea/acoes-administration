@@ -10,7 +10,7 @@
         <title>Introducir Alumno</title>
     </head>
     <body>
-        @form(action = routes.AlumnoController.addAlumno() ){
+        @form(action = routes.AlumnoController.createAlumno() ){
             @CSRF.formField
             @inputText(alumnoForm("nombre"))
             @inputText(alumnoForm("apellidos"))

@@ -10,7 +10,7 @@
         <title>Introducir Socio</title>
     </head>
     <body>
-        @form(action = routes.SocioController.addSocio() ){
+        @form(action = routes.SocioController.createSocio() ){
             @CSRF.formField
             @inputText(socioForm("nombre"))
             @inputText(socioForm("apellidos"))

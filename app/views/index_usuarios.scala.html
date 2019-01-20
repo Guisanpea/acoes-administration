@@ -28,8 +28,8 @@
             </td>
         </tr>
     }
-    @form(action = routes.UserController.addUser()) {
+    @form(action = routes.UserController.renderCreateUser()) {
         @helper.CSRF.formField
-        <button type="submit">Añadir usuario"</button>
+        <button type="submit">Añadir usuario</button>
     }
 </table>

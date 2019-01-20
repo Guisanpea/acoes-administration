@@ -2,7 +2,12 @@ name := """acoes-admin"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava)
+lazy val root = (project in file("."))
+  .enablePlugins(PlayJava)
+  .aggregate(domain)
+  .dependsOn(domain)
+
+lazy val domain = project
 
 scalaVersion := "2.12.6"
 

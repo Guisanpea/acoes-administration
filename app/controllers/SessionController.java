@@ -48,19 +48,23 @@ public class SessionController extends Controller {
         createUserSession(user);
         switch (user.getRol()){
             case Agente:
-                return redirect(routes.AgentController.listSocios());
+                return redirect(routes.SocioController.listSocios());
+                /*
             case GerenteSede:
                 return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());
             case GerenteRegional:
                 return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());
+                */
             case CoordinadorLocal:
                 return redirect(routes.AlumnoController.listAlumnos());
             case CoordinadorGeneral:
                 return redirect(routes.AlumnoController.listAlumnos());
+                /*
             case AdministradorLocal:
                 return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());
             case AdministradorGeneral:
                 return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());
+                */
             default:
                 return internalServerError("Unhandled Role");
         }
@@ -72,7 +76,7 @@ public class SessionController extends Controller {
     }
 
     private Result listSocios(Usuario databaseUser) {
-        return redirect(routes.AgentController.listSocios());
+        return redirect(routes.SocioController.listSocios());
     }
 
     private void createUserSession(Usuario databaseUser) {

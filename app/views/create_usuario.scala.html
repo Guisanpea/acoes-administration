@@ -1,0 +1,23 @@
+@import models.entities.Usuario
+@import helper._
+@(userForm : Form[Usuario])
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Introducir Usuario</title>
+    </head>
+    <body>
+        <div align="center">
+            @form(action = routes.UserController.createUser() ){
+                @CSRF.formField
+                @inputText(userForm("nombre"))
+                @inputText(userForm("email"))
+                @inputText(userForm("rol"))
+                @inputText(userForm("contrasena"))
+                <button type="submit">Crear usuario</button>
+            }
+        </div>
+    </body>
+</html>

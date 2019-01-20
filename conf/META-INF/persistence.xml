@@ -3,6 +3,27 @@
 
   <persistence-unit name="DefaultPU">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>models.entities.Socio</class>
+    <class>models.entities.RegionAyuda</class>
+    <class>models.entities.Proyecto</class>
+    <class>models.entities.Tercero</class>
+    <class>models.entities.Colaborador</class>
+    <class>models.entities.Apadrinamiento</class>
+    <class>models.entities.Partida</class>
+    <class>models.entities.Egreso</class>
+    <class>models.entities.AdministracionApadrinamiento</class>
+    <class>models.entities.Sede</class>
+    <class>models.entities.Region</class>
+    <class>models.entities.TipoProyecto</class>
+    <class>models.entities.Envio</class>
+    <class>models.entities.EnvioPK</class>
+    <class>models.entities.EstaEnPK</class>
+    <class>models.entities.AdministracionApadrinamientoPK</class>
+    <class>models.entities.Usuario</class>
+    <class>models.entities.EstaEn</class>
+    <class>models.entities.Ingreso</class>
+    <class>models.entities.ApadrinamientoPK</class>
+    <class>models.entities.Alumno</class>
     <properties>
       <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver"/>
       <property name="hibernate.connection.url" value="jdbc:mariadb://localhost:3306/acoes"/>
@@ -13,7 +34,8 @@
       <property name="hibernate.format_sql" value="true"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB103Dialect"/>
       <property name="hbm2ddl.auto" value="update"/>
-      <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
+      <property name="hibernate.transaction.jta.platform"
+                value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
     </properties>
   </persistence-unit>
 </persistence>

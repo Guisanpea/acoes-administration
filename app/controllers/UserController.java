@@ -8,9 +8,9 @@ import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.introducirusuario;
-import views.html.modificarusuario;
-import views.html.panelusuarios;
+import views.html.create_usuario;
+import views.html.edit_usuario;
+import views.html.index_usuarios;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
@@ -29,45 +29,45 @@ public class UserController extends Controller {
     }
 
     public CompletionStage<Result> listUsers() {
-        return usuarioRepository.list().thenApplyAsync( userList ->
-                    ok(panelusuarios.render(userList))
+        return usuarioRepository.list().thenApplyAsync(userList ->
+                    ok(index_usuarios.render(userList))
               , httpExecutionContext.current()
         );
     }
 
-    public Result renderAddUser() {
+    public Result renderCreateUser() {
         Form<Usuario> userForm = formFactory.form(Usuario.class);
 
-        return ok(introducirusuario.render(userForm));
+        return ok(create_usuario.render(userForm));
+    }
+
+    public CompletionStage<Result> createUser() {
+        Usuario newUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "contrasena", "rol").get();
+
+        return usuarioRepository.add(newUser).thenApplyAsync(user ->
+                    redirect(routes.UserController.listUsers())
+              , httpExecutionContext.current()
+        );
     }
 
     public CompletionStage<Result> renderEditUser(Integer userId) {
         final Form<Usuario> userForm = formFactory.form(Usuario.class);
 
-        return usuarioRepository.findById(userId).thenApplyAsync( user ->
-                    ok(modificarusuario.render(userForm.fill(user)))
+        return usuarioRepository.findById(userId).thenApplyAsync(user ->
+                    ok(edit_usuario.render(userForm.fill(user), userId))
               , httpExecutionContext.current()
         );
     }
 
-    public CompletionStage<Result> editUser() {
-        Usuario editedUser = formFactory.form(Usuario.class).bindFromRequest("id", "nombre", "email", "rol").get();
+    public CompletionStage<Result> editUser(Integer userId) {
+        Usuario editedUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "rol").get();
 
-        return usuarioRepository.findById(editedUser.getId()).thenCompose( dbUser -> {
+        return usuarioRepository.findById(editedUser.getId()).thenCompose(dbUser -> {
             PropertyUtils.copyNonNullProperties(editedUser, dbUser);
 
-            return usuarioRepository.update(dbUser).thenApplyAsync( u ->
+            return usuarioRepository.update(dbUser).thenApplyAsync(u ->
                   redirect(routes.UserController.listUsers())
             );
         });
-    }
-
-    public CompletionStage<Result> addUser() {
-        Usuario newUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "contrasena", "rol").get();
-
-        return usuarioRepository.add(newUser).thenApplyAsync( user ->
-                    redirect(routes.UserController.listUsers())
-              , httpExecutionContext.current()
-        );
     }
 }

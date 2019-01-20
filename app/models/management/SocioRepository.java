@@ -1,5 +1,6 @@
 package models.management;
 
+import models.ResultHelpers.JpaResultHelper;
 import models.entities.Socio;
 import play.db.jpa.JPAApi;
 
@@ -25,5 +26,17 @@ public class SocioRepository extends AbstractRepository<Socio> {
 
     private List<Socio> list(EntityManager em) {
         return em.createNamedQuery("Socio.findAll", Socio.class).getResultList();
+    }
+    public CompletionStage<Socio> findById(int id) {
+        return supplyAsync(
+              () -> jpaWrapper( (em) -> findById(id, em) ),
+              executionContext);
+    }
+
+    private Socio findById(int id, EntityManager em) {
+        return (Socio) JpaResultHelper.getSingleResultOrNull(
+              em.createNamedQuery("Socio.findByNumeroDeSocio", Socio.class)
+                    .setParameter("numeroDeSocio", id)
+        );
     }
 }

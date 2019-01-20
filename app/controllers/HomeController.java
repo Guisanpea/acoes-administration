@@ -50,7 +50,6 @@ public class HomeController extends Controller {
 
     public CompletionStage<Result> newHeadquarter() {
         Sede sede = new Sede();
-        sede.setRegion("Espana");
         return sedeRepository.add(sede).thenApplyAsync(newSede ->
                     ok(toJson(newSede))
               , httpExecutionContext.current()

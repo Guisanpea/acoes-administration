@@ -50,24 +50,19 @@ public class Usuario implements Serializable {
     @EqualsAndHashCode.Include
     private Integer id;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "nombre")
     private String nombre;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "email")
     private String email;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 15)
     @Column(name = "contrasena")
     private String contrasena;
     @Enumerated(EnumType.STRING)
-    @NotNull
-    @Size(min = 1, max = 21)
     @Column(name = "rol")
     private Rol rol;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "responsable")

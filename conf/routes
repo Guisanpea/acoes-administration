@@ -4,44 +4,36 @@
 
 # Map static resources from the /public folder to the /assets URL path
 # prefix must match `play.assets.urlPrefix`
-GET /assets/*file           controllers.Assets.at(file)
-GET /versionedAssets/*file  controllers.Assets.versioned(file)
+GET         /assets/*file                          controllers.Assets.at(file)
+GET         /versionedAssets/*file                 controllers.Assets.versioned(file)
 
 # An example controller showing a sample home page
-GET     /                           controllers.SessionController.index
+GET         /                                      controllers.SessionController.index
 
-POST    /login                      controllers.SessionController.login()
+POST        /login                                 controllers.SessionController.login()
 
-GET     /hello                      controllers.HomeController.hello
+GET         /hello                                 controllers.HomeController.hello
 
-GET     /db                         controllers.HomeController.newHeadquarter()
+GET         /db                                    controllers.HomeController.newHeadquarter()
 
-GET     /agent                      controllers.AgentController.listSocios()
+GET         /usuarios                              controllers.UserController.listUsers
 
-GET     /listUsers                  controllers.UserController.listUsers()
+GET         /usuarios/new                          controllers.UserController.renderCreateUser()
 
-GET     /renderEditUser             controllers.UserController.renderEditUser(userId : Integer)
+POST        /usuarios                              controllers.UserController.createUser()
 
-GET     /renderAddUser              controllers.UserController.renderAddUser()
+GET         /usuarios/:id                          controllers.UserController.renderEditUser(id: Integer)
 
-POST    /editUser                   controllers.UserController.editUser(userId : Integer)
+PUT         /usuarios/:id                          controllers.UserController.editUser(id: Integer)
 
-POST    /addUser                    controllers.UserController.addUser()
+GET         /alumnos                               controllers.AlumnoController.listAlumnos()
 
-GET     /listRegistros              controllers.RegistroEconomicoController.listRegistrosEconomicos()
+GET         /alumnos/new                           controllers.AlumnoController.renderCreateAlumno()
 
-GET     /renderAddRegistro          controllers.RegistroEconomicoController.renderAddRegistro()
+POST        /alumnos                               controllers.AlumnoController.createAlumno()
 
-POST    /addRegistro                controllers.RegistroEconomicoController.addRegistro()
+GET         /socios                                controllers.SocioController.listSocios()
 
-GET     /listAlumnos                controllers.AlumnoController.listAlumnos()
+GET         /socios/new                            controllers.SocioController.renderCreateSocio()
 
-GET     /renderAddAlumno            controllers.AlumnoController.renderAddAlumno()
-
-POST    /addAlumno                  controllers.AlumnoController.addAlumno()
-
-GET     /listSocios                 controllers.SocioController.listSocios()
-
-GET     /renderAddSocio             controllers.SocioController.renderAddSocio()
-
-POST    /addSocio                   controllers.SocioController.addSocio()
+POST        /socios                                controllers.SocioController.createSocio()

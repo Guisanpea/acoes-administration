@@ -1,62 +1,73 @@
 package controllers;
 
-import lombok.SneakyThrows;
+import beanUtils.PropertyUtils;
 import models.entities.Usuario;
 import models.management.UsuarioRepository;
 import play.data.Form;
 import play.data.FormFactory;
+import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.introducirusuario;
-import views.html.modificarusuario;
-import views.html.panelusuarios;
+import views.html.create_usuario;
+import views.html.edit_usuario;
+import views.html.index_usuarios;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletionStage;
 
 public class UserController extends Controller {
 
-    private UsuarioRepository usuarioRepository;
-    private FormFactory formFactory;
+    private final UsuarioRepository usuarioRepository;
+    private final FormFactory formFactory;
+    private final HttpExecutionContext httpExecutionContext;
 
     @Inject
-    public UserController(UsuarioRepository usuarioRepository, FormFactory formFactory){
+    public UserController(UsuarioRepository usuarioRepository, FormFactory formFactory, HttpExecutionContext ec) {
         this.usuarioRepository = usuarioRepository;
         this.formFactory = formFactory;
+        this.httpExecutionContext = ec;
     }
 
-    public Result listUsers(){
-        List<Usuario> userList = usuarioRepository.list();
-
-        return ok(panelusuarios.render(userList));
+    public CompletionStage<Result> listUsers() {
+        return usuarioRepository.list().thenApplyAsync(userList ->
+                    ok(index_usuarios.render(userList))
+              , httpExecutionContext.current()
+        );
     }
 
-    public Result renderEditUser(Integer userId){
-        Form<Usuario> userForm = formFactory.form(Usuario.class);
-        return ok(modificarusuario.render(userId, userForm));
-    }
-
-    public Result renderAddUser() {
+    public Result renderCreateUser() {
         Form<Usuario> userForm = formFactory.form(Usuario.class);
 
-        return ok(introducirusuario.render(userForm));
+        return ok(create_usuario.render(userForm));
     }
 
-    @SneakyThrows({InterruptedException.class, ExecutionException.class})
-    public Result editUser(Integer userId) {
-        Usuario editedUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "contrasena", "rol").get();
-        editedUser.setId(userId);
-
-        usuarioRepository.update(editedUser).toCompletableFuture().get();
-
-        return redirect(routes.UserController.listUsers());
-    }
-
-    public Result addUser() {
+    public CompletionStage<Result> createUser() {
         Usuario newUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "contrasena", "rol").get();
-        usuarioRepository.add(newUser);
 
-        return redirect(routes.UserController.listUsers());
+        return usuarioRepository.add(newUser).thenApplyAsync(user ->
+                    redirect(routes.UserController.listUsers())
+              , httpExecutionContext.current()
+        );
+    }
+
+    public CompletionStage<Result> renderEditUser(Integer userId) {
+        final Form<Usuario> userForm = formFactory.form(Usuario.class);
+
+        return usuarioRepository.findById(userId).thenApplyAsync(user ->
+                    ok(edit_usuario.render(userForm.fill(user), userId))
+              , httpExecutionContext.current()
+        );
+    }
+
+    public CompletionStage<Result> editUser(Integer userId) {
+        Usuario editedUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "rol").get();
+
+        return usuarioRepository.findById(editedUser.getId()).thenCompose(dbUser -> {
+            PropertyUtils.copyNonNullProperties(editedUser, dbUser);
+
+            return usuarioRepository.update(dbUser).thenApplyAsync(u ->
+                  redirect(routes.UserController.listUsers())
+            );
+        });
     }
 }

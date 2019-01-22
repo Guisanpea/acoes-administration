@@ -1,14 +1,13 @@
 package models.management;
 
-import lombok.SneakyThrows;
-import models.entities.Sede;
+import models.ResultHelpers.JpaResultHelper;
 import models.entities.Socio;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletionStage;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
@@ -19,15 +18,25 @@ public class SocioRepository extends AbstractRepository<Socio> {
         super(jpaApi, executionContext);
     }
 
-    @SneakyThrows({InterruptedException.class, ExecutionException.class})
-    public List<Socio> list() {
+    public CompletionStage<List<Socio>> list() {
         return supplyAsync(
-              () -> jpaWrapper(em -> list(em)),
-              executionContext)
-              .get();
+              () -> jpaWrapper(this::list),
+              executionContext);
     }
 
     private List<Socio> list(EntityManager em) {
         return em.createNamedQuery("Socio.findAll", Socio.class).getResultList();
+    }
+    public CompletionStage<Socio> findById(int id) {
+        return supplyAsync(
+              () -> jpaWrapper( (em) -> findById(id, em) ),
+              executionContext);
+    }
+
+    private Socio findById(int id, EntityManager em) {
+        return (Socio) JpaResultHelper.getSingleResultOrNull(
+              em.createNamedQuery("Socio.findByNumeroDeSocio", Socio.class)
+                    .setParameter("numeroDeSocio", id)
+        );
     }
 }

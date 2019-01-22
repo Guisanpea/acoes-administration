@@ -1,8 +1,8 @@
 package models.ResultHelpers;
 
 import org.hibernate.NonUniqueResultException;
-import javax.persistence.Query;
 
+import javax.persistence.Query;
 import java.util.List;
 
 public class JpaResultHelper {

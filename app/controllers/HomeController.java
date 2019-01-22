@@ -5,12 +5,14 @@ import models.entities.Usuario;
 import models.management.SedeRepository;
 import play.data.Form;
 import play.data.FormFactory;
+import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.hello;
 import views.html.login;
 
 import javax.inject.Inject;
+import java.util.concurrent.CompletionStage;
 
 import static play.libs.Json.toJson;
 
@@ -22,11 +24,13 @@ public class HomeController extends Controller {
 
     private final SedeRepository sedeRepository;
     private final FormFactory formFactory;
+    private final HttpExecutionContext httpExecutionContext;
 
     @Inject
-    public HomeController(SedeRepository sedeRepository, FormFactory formFactory) {
+    public HomeController(SedeRepository sedeRepository, FormFactory formFactory, HttpExecutionContext ec) {
         this.sedeRepository = sedeRepository;
         this.formFactory = formFactory;
+        this.httpExecutionContext = ec;
     }
 
     /**
@@ -44,10 +48,11 @@ public class HomeController extends Controller {
         return ok(hello.render());
     }
 
-    public Result newHeadquarter() {
+    public CompletionStage<Result> newHeadquarter() {
         Sede sede = new Sede();
-        sede.setRegion("Espana");
-        sedeRepository.add(sede);
-        return ok(toJson(sede));
+        return sedeRepository.add(sede).thenApplyAsync(newSede ->
+                    ok(toJson(newSede))
+              , httpExecutionContext.current()
+        );
     }
 }

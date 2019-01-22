@@ -2,10 +2,8 @@
 // @SOURCE:/home/archie/Programming/Java/acoes-admin/conf/routes
 // @DATE:Mon Nov 19 20:11:17 CET 2018
 
-import play.api.mvc.Call
-
-
 import _root_.controllers.Assets.Asset
+import play.api.mvc.Call
 
 // @LINE:6
 package controllers {

@@ -1,0 +1,58 @@
+@import java.util.List
+
+@import helper._
+@import models.entities.Socio
+
+@(listaSocios: List[Socio])
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <div align="center">
+            <table border="1">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>NIF</th>
+                    <th>Dirección</th>
+                    <th>Población</th>
+                    <th>Codigo Postal</th>
+                    <th>Provincia</th>
+                    <th>Telefono Fijo</th>
+                    <th>Telefono Móvil</th>
+                    <th>Email</th>
+                    <th>Sector</th>
+                    <th>Fecha de alta</th>
+                    <th>Fecha de baja</th>
+                    <th>Observaciones</th>
+                </tr>
+                @for(socio <- listaSocios) {
+                    <tr>
+                        <td>@socio.getNombre</td>
+                        <td>@socio.getApellidos</td>
+                        <td>@socio.getNif</td>
+                        <td>@socio.getDireccion</td>
+                        <td>@socio.getPoblacion</td>
+                        <td>@socio.getCodigoPostal</td>
+                        <td>@socio.getProvincia</td>
+                        <td>@socio.getTelefonoFijo</td>
+                        <td>@socio.getTelefonoMovil</td>
+                        <td>@socio.getEmail</td>
+                        <td>@socio.getSector</td>
+                        <td>@socio.getFechaAlta</td>
+                        <td>@socio.getFechaBaja</td>
+                        <td>@socio.getObservaciones</td>
+                    </tr>
+                }
+            </table>
+            @form(action = routes.SocioController.renderCreateSocio()) {
+                @helper.CSRF.formField
+                <button type="submit">Añadir Socio</button>
+            }
+        </div>
+    </body>
+</html>

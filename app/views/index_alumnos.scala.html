@@ -1,0 +1,45 @@
+@import helper._
+@import models.entities.Alumno
+
+@(alumnoList: List[Alumno])
+
+<h1>Alumnos</h1>
+
+<table border="1">
+    <tr>
+        <th>Codigo</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Estado</th>
+        <th>Sexo</th>
+        <th>Fecha Nacimiento</th> @* Codigo Beneficiario *@
+        <th>Fecha Entrada ACOES</th>
+        <th>Fecha Alta</th>
+        <th>Fecha Salida ACOES</th>
+        <th>Grado Curso</th>
+        <th>Colonia de procedencia</th>
+        <th>Colonia actual</th>
+        <th>Observaciones</th>
+    </tr>
+    @for(alumno <- alumnoList) {
+        <tr>
+            <td>@alumno.getCodigo</td>
+            <td>@alumno.getNombre</td>
+            <td>@alumno.getApellidos</td>
+            <td>@alumno.getEstado</td>
+            <td>@alumno.getSexo</td>
+            <td>@alumno.getFechaNacimiento</td>
+            <td>@alumno.getFechaEntradaAcoes</td>
+            <td>@alumno.getFechaAlta</td>
+            <td>@alumno.getFechaSalidaAcoes</td>
+            <td>@alumno.getGradoCurso</td>
+            <td>@alumno.getColoniaProcedencia</td>
+            <td>@alumno.getColoniaActual</td>
+            <td>@alumno.getObservaciones</td>
+        </tr>
+    }
+    @form(action = routes.AlumnoController.renderCreateAlumno()) {
+        @helper.CSRF.formField
+        <button type="submit">Añadir alumno</button>
+    }
+</table>

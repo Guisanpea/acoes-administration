@@ -1,0 +1,38 @@
+@*
+Aqui pasamos el usuario que se va a modificar.
+Dentro de cada input estan los placeholders de los datos vigentes de ese socio.
+El boton guardar modifica los datos del usuario y devuelve la vista de lista de usuarios. El boton cancelar vuelve a la vista de lista de usuarios.
+*@
+@import helper._
+@import models.entities.Proyecto
+@import play.data.Form
+
+@(proyectoForm: Form[Proyecto], proyectoId: Int)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Modificar proyecto</title>
+    </head>
+    <body>
+        @* Global errors are not tied to any particular form field *@
+        @if(proyectoForm.hasGlobalErrors) {
+            @for( error <- proyectoForm.globalErrors) {
+                <div>
+                    @error.toString
+                </div>
+            }
+        }
+        <div align="center">
+            @form(action = routes.ProyectoController.editProyecto(proyectoId)) {
+                @CSRF.formField
+                @inputText(proyectoForm("nombre"))
+                @inputText(proyectoForm("descripcion"))
+                @inputText(proyectoForm("tipo_proyecto"))
+                @inputText(proyectoForm("region_ayuda"))
+                <button type="submit">Editar proyecto</button>
+            }
+    </div>
+    </body>
+</html>

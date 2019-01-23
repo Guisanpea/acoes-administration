@@ -1,0 +1,23 @@
+@import models.entities.Proyecto
+@import helper._
+@(proyectoForm : Form[Proyecto])
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Introducir proyecto</title>
+    </head>
+    <body>
+        <div align="center">
+            @form(action = routes.ProyectoController.createProyecto() ){
+                @CSRF.formField
+                @inputText(proyectoForm("nombre"))
+                @inputText(proyectoForm("descripcion"))
+                @inputText(proyectoForm("tipo_proyecto"))
+                @inputText(proyectoForm("region_ayuda"))
+                <button type="submit">Crear proyecto</button>
+            }
+        </div>
+    </body>
+</html>

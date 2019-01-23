@@ -1,6 +1,8 @@
 package controllers;
 
 import models.entities.Ingreso;
+import models.entities.Partida;
+import models.entities.Proyecto;
 import models.management.IngresoRepository;
 import play.data.Form;
 import play.data.FormFactory;

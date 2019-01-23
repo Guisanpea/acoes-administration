@@ -41,3 +41,13 @@ GET         /socios                       controllers.SocioController.listSocios
 GET         /socios/new                   controllers.SocioController.renderCreateSocio()
 
 POST        /socios                       controllers.SocioController.createSocio()
+
+GET         /tipos-proyecto               controllers.TipoProyectoController.listTiposProyecto
+
+GET         /tipos-proyecto/new           controllers.TipoProyectoController.renderCreateTipoProyecto()
+
+POST        /tipos-proyecto               controllers.TipoProyectoController.createTipoProyecto()
+
+GET         /tipos-proyecto/:id           controllers.TipoProyectoController.renderEditTipoProyecto(id: Int)
+
+POST        /tipos-proyecto/:id           controllers.TipoProyectoController.editTipoProyecto(id: Int)

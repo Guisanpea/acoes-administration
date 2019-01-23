@@ -1,0 +1,32 @@
+@import helper._
+@import models.entities.TipoProyecto
+
+@(tipoList: List[TipoProyecto])
+
+<h1>Lista de tipos de proyectos</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+    </tr>
+    @for(tipo <- tipoList) {
+        <tr>
+            <td>@tipo.getId</td>
+            <td>@tipo.getNombre</td>
+            <td>@tipo.getDescripcion</td>
+            <td>
+            @form(action = routes.TipoProyectoController.renderEditTipoProyecto(tipo.getId)) {
+                @helper.CSRF.formField
+                <input type="hidden" name="tipoId" value="@tipo.getId" />
+                <button type="submit">Editar tipo de proyecto"</button>
+            }
+            </td>
+        </tr>
+    }
+    @form(action = routes.TipoProyectoController.renderCreateTipoProyecto()) {
+        @helper.CSRF.formField
+        <button type="submit">Añadir tipo de proyecto</button>
+    }
+</table>

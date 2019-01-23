@@ -34,7 +34,7 @@ public class SessionController extends Controller {
 
     public Result index() {
         Form<Usuario> userForm = formFactory.form(Usuario.class);
-
+        System.out.println("\n\n\n"+ httpExecutionContext.current());
         return ok(login.render(userForm, false));
     }
 

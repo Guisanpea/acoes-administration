@@ -1,0 +1,34 @@
+@import helper._
+@import models.entities.Proyecto
+
+@(proyectosList: List[Proyecto])
+
+<h1>Lista de proyectos</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Tipo de proyecto</th>
+        <th>Region de ayuda</th>
+    </tr>
+    @for(proyecto <- proyectosList) {
+        <tr>
+            <td>@proyecto.getId</td>
+            <td>@proyecto.getNombre</td>
+            <td>@proyecto.getTipoProyecto</td>
+            <td>@proyecto.getRegionAyuda</td>
+            <td>
+            @form(action = routes.ProyectoController.renderEditProyecto(proyecto.getId)) {
+                @helper.CSRF.formField
+                <input type="hidden" name="proyectoId" value="@proyecto.getId" />
+                <button type="submit">Editar proyecto"</button>
+            }
+            </td>
+        </tr>
+    }
+    @form(action = routes.ProyectoController.renderCreateProyecto()) {
+        @helper.CSRF.formField
+        <button type="submit">Añadir proyecto</button>
+    }
+</table>

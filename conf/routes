@@ -51,3 +51,13 @@ POST        /tipos-proyecto               controllers.TipoProyectoController.cre
 GET         /tipos-proyecto/:id           controllers.TipoProyectoController.renderEditTipoProyecto(id: Int)
 
 POST        /tipos-proyecto/:id           controllers.TipoProyectoController.editTipoProyecto(id: Int)
+
+GET         /proyectos                    controllers.ProyectoController.listProyectos
+
+GET         /proyectos/new                controllers.ProyectoController.renderCreateProyecto()
+
+POST        /proyectos                    controllers.ProyectoController.createProyecto()
+
+GET         /proyectos/:id                controllers.ProyectoController.renderEditProyecto(id: Int)
+
+POST        /proyectos/:id                controllers.ProyectoController.editProyecto(id: Int)

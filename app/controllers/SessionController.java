@@ -7,6 +7,7 @@ import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.login;
 
 import javax.inject.Inject;
@@ -45,29 +46,39 @@ public class SessionController extends Controller {
     }
 
     private Result redirectAndSetSession(Usuario user) {
+        //TODO finish roles
         createUserSession(user);
         switch (user.getRol()){
             case Agente:
                 return redirect(routes.SocioController.listSocios());
-                /*
             case GerenteSede:
-                return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());
+                return TODO;
             case GerenteRegional:
-                return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());
-                */
+                return TODO;
             case CoordinadorLocal:
                 return redirect(routes.AlumnoController.listAlumnos());
             case CoordinadorGeneral:
                 return redirect(routes.AlumnoController.listAlumnos());
-                /*
             case AdministradorLocal:
-                return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());
+                return TODO;
             case AdministradorGeneral:
-                return redirect(routes.RegistroEconomicoController.listRegistrosEconomicos());
-                */
+                return TODO;
             default:
                 return internalServerError("Unhandled Role");
         }
+    }
+
+    private Result reLogin() {
+        Form<Usuario> userForm = formFactory.form(Usuario.class);
+
+        return unauthorized(login.render(userForm, true));
+    }
+
+    @Security.Authenticated(UserAuthenticator.class)
+    public Result logOut() {
+        session().clear();
+        flash("message", "Has cerrado sesión correctamente");
+        return redirect(routes.SessionController.index());
     }
 
     private boolean userIsCorrect(Usuario formUser, Usuario databaseUser) {
@@ -75,18 +86,8 @@ public class SessionController extends Controller {
               && formUser.getContrasena().equals(databaseUser.getContrasena());
     }
 
-    private Result listSocios(Usuario databaseUser) {
-        return redirect(routes.SocioController.listSocios());
-    }
-
     private void createUserSession(Usuario databaseUser) {
         String userId = String.valueOf(databaseUser.getId());
-        session("userId", userId);
-    }
-
-    private Result reLogin() {
-        Form<Usuario> userForm = formFactory.form(Usuario.class);
-
-        return unauthorized(login.render(userForm, true));
+        session("email", databaseUser.getEmail());
     }
 }

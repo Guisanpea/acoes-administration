@@ -12,6 +12,8 @@ GET         /                                      controllers.SessionController
 
 POST        /login                                 controllers.SessionController.login()
 
+POST        /logout                                controllers.SessionController.logOut()
+
 GET         /hello                                 controllers.HomeController.hello
 
 GET         /db                                    controllers.HomeController.newHeadquarter()
@@ -22,9 +24,9 @@ GET         /usuarios/new                          controllers.UserController.re
 
 POST        /usuarios                              controllers.UserController.createUser()
 
-GET         /usuarios/:id                          controllers.UserController.renderEditUser(id: Integer)
+GET         /usuarios/:id                          controllers.UserController.renderEditUser(id: Int)
 
-PUT         /usuarios/:id                          controllers.UserController.editUser(id: Integer)
+POST        /usuarios/:id                          controllers.UserController.editUser(id: Int)
 
 GET         /alumnos                               controllers.AlumnoController.listAlumnos()
 

@@ -7,12 +7,14 @@ import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.create_socio;
 import views.html.index_socios;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
 
+// TODO @Security.Authenticated(UserAuthenticator.class)
 public class SocioController extends Controller {
 
     private final SocioRepository socioRepository;

@@ -8,6 +8,7 @@ import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.create_usuario;
 import views.html.edit_usuario;
 import views.html.index_usuarios;
@@ -15,6 +16,7 @@ import views.html.index_usuarios;
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
 
+// TODO @Security.Authenticated(UserAuthenticator.class)
 public class UserController extends Controller {
 
     private final UsuarioRepository usuarioRepository;
@@ -41,6 +43,7 @@ public class UserController extends Controller {
         return ok(create_usuario.render(userForm));
     }
 
+    @Security.Authenticated
     public CompletionStage<Result> createUser() {
         Usuario newUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "contrasena", "rol").get();
 
@@ -60,9 +63,9 @@ public class UserController extends Controller {
     }
 
     public CompletionStage<Result> editUser(Integer userId) {
-        Usuario editedUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "rol").get();
+        Usuario editedUser = formFactory.form(Usuario.class).bindFromRequest("id", "nombre", "email", "rol").get();
 
-        return usuarioRepository.findById(editedUser.getId()).thenCompose(dbUser -> {
+        return usuarioRepository.findById(userId).thenCompose(dbUser -> {
             PropertyUtils.copyNonNullProperties(editedUser, dbUser);
 
             return usuarioRepository.update(dbUser).thenApplyAsync(u ->

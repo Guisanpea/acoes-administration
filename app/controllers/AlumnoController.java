@@ -8,12 +8,14 @@ import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.create_alumno;
 import views.html.index_alumnos;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
 
+//TODO @Security.Authenticated(UserAuthenticator.class)
 public class AlumnoController extends Controller {
 
     private final AlumnoRepository alumnoRepository;

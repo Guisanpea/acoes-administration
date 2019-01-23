@@ -1,7 +1,7 @@
 @import helper._
 @import models.entities.Usuario
 
-@(userForm: Form[Usuario], incorrectLogin : Boolean = false)
+@(userForm: Form[Usuario], incorrectLogin: Boolean = false)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,14 +10,19 @@
         <title>Login</title>
     </head>
     <body>
+        @if(flash().contains("message")) {
+            <p class="message">
+            @flash.get("message")
+            </p>
+        }
         <div class="login-page">
             <div class="form">
-                @form(action = routes.SessionController.login()) {
-                    @helper.CSRF.formField
-                    @inputText(userForm("email"))
-                    @inputPassword(userForm("contrasena"))
-                    <button type="submit">Login</button>
-                }
+            @form(action = routes.SessionController.login()) {
+                @helper.CSRF.formField
+                @inputText(userForm("email"))
+                @inputPassword(userForm("contrasena"))
+                <button type="submit">Login</button>
+            }
             </div>
             <p class="message">¿No se acuerda de la contraseña?
                 <!--TODO Add route -->

@@ -16,16 +16,23 @@ El boton guardar modifica los datos del usuario y devuelve la vista de lista de 
         <title>Modificar usuario</title>
     </head>
     <body>
+        @* Global errors are not tied to any particular form field *@
+        @if(userForm.hasGlobalErrors) {
+            @for( error <- userForm.globalErrors) {
+                <div>
+                    @error.toString
+                </div>
+            }
+        }
         <div align="center">
             Illo vaya mierda loko
-            @form(action = routes.UserController.editUser(userId)){
+            @form(action = routes.UserController.editUser(userId)) {
                 @CSRF.formField
-                <input type="hidden" name="id" value="@userId.toString">
                 @inputText(userForm("nombre"))
                 @inputText(userForm("email"))
                 @inputText(userForm("rol"))
                 <button type="submit">Editar usuario</button>
             }
-        </div>
+    </div>
     </body>
 </html>

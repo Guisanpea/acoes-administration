@@ -1,0 +1,21 @@
+@import models.entities.TipoProyecto
+@import helper._
+@(tipoForm : Form[TipoProyecto])
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Introducir tipo de proyecto</title>
+    </head>
+    <body>
+        <div align="center">
+            @form(action = routes.TipoProyectoController.createTipoProyecto() ){
+                @CSRF.formField
+                @inputText(tipoForm("nombre"))
+                @inputText(tipoForm("descripcion"))
+                <button type="submit">Crear tipo de proyecto</button>
+            }
+        </div>
+    </body>
+</html>

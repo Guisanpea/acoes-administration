@@ -49,13 +49,10 @@ create table acoes.sede
 
 create table acoes.tipo_proyecto
 (
-  id           int auto_increment
+  id          int auto_increment
     primary key,
-  nombre       varchar(45)  not null,
-  descripcion  varchar(100) not null,
-  region_ayuda int          not null,
-  constraint tipo_proyecto_region_ayuda_fk
-    foreign key (region_ayuda) references region_ayuda (id)
+  nombre      varchar(45)  not null,
+  descripcion varchar(100) not null
 );
 
 create table acoes.proyecto
@@ -64,10 +61,13 @@ create table acoes.proyecto
     primary key,
   nombre        varchar(50) not null,
   tipo_proyecto int         not null,
+  region_ayuda  int         not null,
   constraint fk_centro_proyecto
     foreign key (tipo_proyecto) references tipo_proyecto (id)
       on update cascade
-      on delete cascade
+      on delete cascade,
+  constraint proyecto_region_ayuda_fk
+    foreign key (region_ayuda) references region_ayuda (id)
 );
 
 create table acoes.esta_en
@@ -98,7 +98,7 @@ create table acoes.usuario
   contrasena         varchar(15)                                                                                                                                                        not null,
   rol                enum ('Agente', 'GerenteSede', 'GerenteRegional', 'CoordinadorLocal', 'CoordinadorGeneral', 'AdministradorLocal', 'AdministradorGeneral', 'AdministradorUsuarios') not null,
   sede_usuario_local int                                                                                                                                                                null,
-  centro            int                                                                                                                                                                null,
+  centro             int                                                                                                                                                                null,
   constraint fk_usuario_centro1
     foreign key (centro) references proyecto (id),
   constraint fk_usuario_sede1
@@ -137,6 +137,7 @@ create table acoes.apadrinamiento
   id           int auto_increment,
   apadrinado   int  not null,
   padrino      int  not null,
+  aportacion   int  not null,
   fecha_inicio date not null,
   fecha_fin    date null,
   primary key (id, apadrinado, padrino),

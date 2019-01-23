@@ -49,5 +49,7 @@ public class Proyecto implements Serializable {
     private Collection<EstaEn> estaEnCollection;
     @OneToMany(mappedBy = "centro")
     private Collection<Usuario> usuarioCollection;
-
+    @JoinColumn(name = "region_ayuda", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private RegionAyuda regionAyuda;
 }

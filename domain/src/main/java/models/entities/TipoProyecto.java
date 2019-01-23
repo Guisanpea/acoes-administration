@@ -48,9 +48,6 @@ public class TipoProyecto implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "descripcion")
     private String descripcion;
-    @JoinColumn(name = "region_ayuda", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private RegionAyuda regionAyuda;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoProyecto")
     private Collection<Proyecto> proyectoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proyecto")

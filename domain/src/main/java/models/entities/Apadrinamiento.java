@@ -36,6 +36,10 @@ public class Apadrinamiento implements Serializable {
     @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Include
     protected ApadrinamientoPK apadrinamientoPK;
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = "aportacion")
+    private Integer aportacion;
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_inicio")

@@ -21,7 +21,9 @@ libraryDependencies ++= Seq(
   javaWs % "test",
   guice,
   "org.projectlombok" % "lombok" % "1.18.4" % "provided",
-  "commons-beanutils" % "commons-beanutils" % "1.9.3"
+  "commons-beanutils" % "commons-beanutils" % "1.9.3",
+  "com.sendgrid" % "sendgrid-java" % "4.0.1",
+  "org.apache.commons" % "commons-lang3" % "3.8.1",
 )
 
 PlayKeys.externalizeResources := false

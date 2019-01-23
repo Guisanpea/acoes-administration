@@ -1,0 +1,49 @@
+@import helper._
+@import models.entities.Egreso
+
+@(egresoList: List[Egreso])
+
+<h1>egresos</h1>
+
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Fecha</th>
+        <th>Concepto</th>
+        <th>Importe</th>
+        <th>Alumno</th>
+        <th>Colaborador</th>
+        <th>Tercero</th>
+        <th>Socio</th>
+        <th>tipo de Beneficiario</th>
+        <th>Observaciones</th>
+        <th>Partida</th>
+        <th>Proyecto</th>
+        <th>Creador</th>
+        <th>Válido</th>
+        <th>Responsable</th>
+    </tr>
+    @for(egreso <- egresoList) {
+        <tr>
+            <td>@egreso.getId</td>
+            <td>@egreso.getFecha</td>
+            <td>@egreso.getConcepto</td>
+            <td>@egreso.getImporte</td>
+            <td>@egreso.getBeneficiarioAlumno</td>
+            <td>@egreso.getBeneficiarioColaborador</td>
+            <td>@egreso.getBeneficiarioTercero</td>
+            <td>@egreso.getBeneficiarioSocio</td>
+            <td>@egreso.getTipoBeneficiario</td>
+            <td>@egreso.getObservaciones</td>
+            <td>@egreso.getPartida</td>
+            <td>@egreso.getProyecto</td>
+            <td>@egreso.getCreador</td>
+            <td>@egreso.getValido</td>
+            <td>@egreso.getResponsable</td>
+        </tr>
+    }
+    @form(action = routes.egresoController.renderCreateEgreso()) {
+        @helper.CSRF.formField
+        <button type="submit">Añadir egreso</button>
+    }
+</table>

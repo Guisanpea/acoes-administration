@@ -1,0 +1,41 @@
+@import helper._
+@import models.entities.Ingreso
+
+@(ingresoList: List[Ingreso])
+
+<h1>ingresos</h1>
+
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Fecha</th>
+        <th>Concepto</th>
+        <th>Importe</th>
+        <th>Emisor</th>
+        <th>Observaciones</th>
+        <th>Partida</th>
+        <th>Proyecto</th>
+        <th>Creador</th>
+        <th>Válido</th>
+        <th>Responsable</th>
+    </tr>
+    @for(ingreso <- ingresoList) {
+        <tr>
+            <td>@ingreso.getId</td>
+            <td>@ingreso.getFecha</td>
+            <td>@ingreso.getConcepto</td>
+            <td>@ingreso.getImporte</td>
+            <td>@ingreso.getEmisor</td>
+            <td>@ingreso.getObservaciones</td>
+            <td>@ingreso.getPartida</td>
+            <td>@ingreso.getProyecto</td>
+            <td>@ingreso.getCreador</td>
+            <td>@ingreso.getValido</td>
+            <td>@ingreso.getResponsable</td>
+        </tr>
+    }
+    @form(action = routes.IngresoController.renderCreateIngreso()) {
+        @helper.CSRF.formField
+        <button type="submit">Añadir ingreso</button>
+    }
+</table>

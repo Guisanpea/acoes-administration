@@ -28,30 +28,33 @@ public class IngresoController extends Controller {
 
 
     public CompletionStage<Result> listIngresos() {
-        return ingresoRepository.list().thenApplyAsync(registroList ->
-              ok(indexregistroeconomico.render(registroList))
+        return ingresoRepository.list().thenApplyAsync(ingresoList ->
+              ok(index_ingresos.render(ingresoList))
               , httpExecutionContext.current()
         );
     }
-    /*
-    public Result renderAddRegistro() {
-        Form<Ingreso> registroForm = formFactory.form(Ingreso.class);
 
-        return ok(introducirregistro.render(registroForm));
+    public Result renderAddIngreso() {
+        Form<Ingreso> ingresoForm = formFactory.form(Ingreso.class);
+        List<String> partidas = Arrays.stream(Partida.Nombre.values())
+              .map(Enum::name)
+              .collect(Collectors.toList());
+        List<String> proyectos = Arrays.stream(Proyecto.Nombre.values())
+              .map(Enum::name)
+              .collect(Collectors.toList());
+        return ok(create_ingreso.render(ingresoForm, partidas, proyectos));
     }
 
-*/
-    /*
-    public CompletionStage<Result> addRegistro() {
-        Ingreso newRegistro = formFactory.form(Ingreso.class).bindFromRequest(
-              "fecha", "tipo", "concepto", "importe",
-              "codigo_beneficiario", "observaciones", "codigo_servicio",
-              "proyecto", "numero_socio", "responsable").get();
+    public CompletionStage<Result> addIngreso() {
+        Ingreso newIngreso = formFactory.form(Ingreso.class).bindFromRequest(
+              "fecha", "concepto", "importe",
+              "emisor", "observaciones", "partida",
+              "proyecto", "creador", "validado", "responsable").get();
 
-        return ingresoRepository.add(newRegistro).thenApplyAsync(registro ->
+        return ingresoRepository.add(newIngreso).thenApplyAsync(ingreso ->
               redirect(routes.IngresoController.listIngresos())
               , httpExecutionContext.current()
         );
     }
-    */
+
 }

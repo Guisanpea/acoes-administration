@@ -68,4 +68,12 @@ POST        /proyectos/:id                controllers.ProyectoController.editPro
 
 GET         /ingresos                     controllers.IngresoController.listIngresos()
 
+GET         /ingresos/new                 controllers.IngresoController.renderCreateIngreso()
+
+POST        /ingreso                      controllers.IngresoController.createIngreso()
+
 GET         /egresos                      controllers.EgresoController.listaEgresos()
+
+GET         /egresos/new                  controllers.EgresoController.renderCreateEgreso()
+
+POST        /egresos                      controllers.EgresoController.createEgreso()

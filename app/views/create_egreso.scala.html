@@ -1,0 +1,31 @@
+@import models.entities.Ingreso
+@import helper._
+@import java.util
+@(ingresoForm: Form[Ingreso], partidas: util.List[String], proyectos: util.List[String])
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Introducir Ingreso</title>
+    </head>
+    <body>
+        <div align="center">
+            @form(action = routes.IngresoController.createIngreso() ){
+                @CSRF.formField
+                @inputDate(ingresoForm("fecha"))
+                @inputText(ingresoForm("concepto"))
+                @inputText(ingresoForm("importe"))
+                @inputText(ingresoForm("emisor"))
+
+                @inputText(ingresoForm("observaciones"))
+                @select(ingresoForm("partida"), options = options(partidas))
+                @select(ingresoForm("proyecto"), options = options(proyectos))
+                @inputText(ingresoForm("creador"))
+                @inputText(ingresoForm("responsable"))
+                @inputText(ingresoForm("validado"))
+                <button type="submit">Crear ingreso</button>
+            }
+        </div>
+    </body>
+</html>

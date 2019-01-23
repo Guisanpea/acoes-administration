@@ -1,5 +1,6 @@
 package models.management;
 
+import models.ResultHelpers.JpaResultHelper;
 import models.entities.Proyecto;
 import play.db.jpa.JPAApi;
 
@@ -26,5 +27,19 @@ public class ProyectoRepository extends AbstractRepository<Proyecto> {
     private List<Proyecto> list(EntityManager em) {
         return em.createNamedQuery("Proyecto.findAll", Proyecto.class).getResultList();
     }
+
+    public CompletionStage<Proyecto> findById(int id) {
+        return supplyAsync(
+                () -> jpaWrapper( (em) -> findById(id, em) ),
+                executionContext);
+    }
+
+    private Proyecto findById(int id, EntityManager em) {
+        return (Proyecto) JpaResultHelper.getSingleResultOrNull(
+                em.createNamedQuery("Proyecto.findById", Proyecto.class)
+                        .setParameter("id", id)
+        );
+    }
+
 
 }

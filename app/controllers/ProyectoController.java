@@ -64,7 +64,7 @@ public class ProyectoController extends Controller {
     }
 
     public CompletionStage<Result> editProyecto(Integer proyectoId) {
-        proyecto editedProyecto = formFactory.form(Proyecto.class).bindFromRequest("id", "nombre", "tipo_proyecto", "region_ayuda").get();
+        Proyecto editedProyecto = formFactory.form(Proyecto.class).bindFromRequest("id", "nombre", "tipo_proyecto", "region_ayuda").get();
 
         return proyectoRepository.findById(proyectoId).thenCompose(dbProyecto -> {
             PropertyUtils.copyNonNullProperties(editedProyecto, dbProyecto);

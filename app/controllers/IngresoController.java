@@ -26,14 +26,14 @@ public class IngresoController extends Controller {
         this.httpExecutionContext = ec;
     }
 
-    /*
-    public CompletionStage<Result> listRegistrosEconomicos() {
+
+    public CompletionStage<Result> listIngresos() {
         return ingresoRepository.list().thenApplyAsync(registroList ->
               ok(indexregistroeconomico.render(registroList))
               , httpExecutionContext.current()
         );
     }
-
+    /*
     public Result renderAddRegistro() {
         Form<Ingreso> registroForm = formFactory.form(Ingreso.class);
 

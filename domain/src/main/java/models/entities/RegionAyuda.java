@@ -43,6 +43,6 @@ public class RegionAyuda implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "regionAyuda")
-    private Collection<TipoProyecto> tipoProyectoCollection;
+    private Collection<Proyecto> proyectoCollection;
 
 }

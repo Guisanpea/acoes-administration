@@ -65,3 +65,7 @@ POST        /proyectos                    controllers.ProyectoController.createP
 GET         /proyectos/:id                controllers.ProyectoController.renderEditProyecto(id: Int)
 
 POST        /proyectos/:id                controllers.ProyectoController.editProyecto(id: Int)
+
+GET         /ingresos                     controllers.IngresoController.listIngresos()
+
+GET         /egresos                      controllers.EgresoController.listaEgresos()

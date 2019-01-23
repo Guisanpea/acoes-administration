@@ -22,12 +22,13 @@ import java.util.concurrent.CompletionStage;
 public class SocioController extends Controller {
 
     private final SocioRepository socioRepository;
+    private final UsuarioRepository usuarioRepository;
     private final FormFactory formFactory;
     private final HttpExecutionContext httpExecutionContext;
 
     @Inject
     public SocioController(SocioRepository socioRepository, FormFactory formFactory, HttpExecutionContext ec) {
-        this.socioRepository = socioRepository;
+        this.socioRepository = socioRepository
         this.formFactory = formFactory;
         this.httpExecutionContext = ec;
     }
@@ -47,7 +48,7 @@ public class SocioController extends Controller {
 
     public CompletionStage<Result> createSocio() {
         String emailSession = session("email");
-        return UsuarioRepository.findByEmail(emailSession).thenCompose(user -> {
+        return usuarioRepository.findByEmail(emailSession).thenCompose(user -> {
             Socio newSocio = formFactory.form(Socio.class).bindFromRequest(
                     "nombre", "apellidos", "estado", "nif",
                     "direccion", "poblacion",

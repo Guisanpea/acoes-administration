@@ -36,7 +36,7 @@ public class IngresoController extends Controller {
         );
     }
 
-    public Result renderAddIngreso() {
+    public Result renderCreateIngreso() {
         Form<Ingreso> ingresoForm = formFactory.form(Ingreso.class);
         List<String> partidas = Arrays.stream(Partida.Nombre.values())
               .map(Enum::name)
@@ -47,7 +47,7 @@ public class IngresoController extends Controller {
         return ok(create_ingreso.render(ingresoForm, partidas, proyectos));
     }
 
-    public CompletionStage<Result> addIngreso() {
+    public CompletionStage<Result> createIngreso() {
         Ingreso newIngreso = formFactory.form(Ingreso.class).bindFromRequest(
               "fecha", "concepto", "importe",
               "emisor", "observaciones", "partida",

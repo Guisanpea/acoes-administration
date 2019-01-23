@@ -7,7 +7,7 @@ El boton guardar modifica los datos del usuario y devuelve la vista de lista de 
 @import models.entities.Usuario
 @import play.data.Form
 
-@(userForm: Form[Usuario], userId: Int)
+@(userForm: Form[Usuario], userId: Int, roles: List[String])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,23 +16,14 @@ El boton guardar modifica los datos del usuario y devuelve la vista de lista de 
         <title>Modificar usuario</title>
     </head>
     <body>
-        @* Global errors are not tied to any particular form field *@
-        @if(userForm.hasGlobalErrors) {
-            @for( error <- userForm.globalErrors) {
-                <div>
-                    @error.toString
-                </div>
-            }
-        }
         <div align="center">
-            Illo vaya mierda loko
             @form(action = routes.UserController.editUser(userId)) {
                 @CSRF.formField
                 @inputText(userForm("nombre"))
                 @inputText(userForm("email"))
-                @inputText(userForm("rol"))
+                @select(userForm("rol"), options = options(roles))
                 <button type="submit">Editar usuario</button>
             }
-    </div>
+        </div>
     </body>
 </html>

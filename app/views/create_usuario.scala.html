@@ -1,6 +1,7 @@
 @import models.entities.Usuario
 @import helper._
-@(userForm : Form[Usuario])
+@import java.util
+@(userForm: Form[Usuario], roles: util.List[String])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +15,7 @@
                 @CSRF.formField
                 @inputText(userForm("nombre"))
                 @inputText(userForm("email"))
-                @inputText(userForm("rol"))
+                @select(userForm("rol"), options = options(roles))
                 @inputText(userForm("contrasena"))
                 <button type="submit">Crear usuario</button>
             }

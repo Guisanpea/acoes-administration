@@ -14,7 +14,11 @@ import views.html.edit_usuario;
 import views.html.index_usuarios;
 
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletionStage;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 // TODO @Security.Authenticated(UserAuthenticator.class)
 public class UserController extends Controller {
@@ -39,11 +43,12 @@ public class UserController extends Controller {
 
     public Result renderCreateUser() {
         Form<Usuario> userForm = formFactory.form(Usuario.class);
-
-        return ok(create_usuario.render(userForm));
+        List<String> roles = Arrays.stream(Usuario.Rol.values())
+              .map(Enum::name)
+              .collect(Collectors.toList());
+        return ok(create_usuario.render(userForm, roles));
     }
 
-    @Security.Authenticated
     public CompletionStage<Result> createUser() {
         Usuario newUser = formFactory.form(Usuario.class).bindFromRequest("nombre", "email", "contrasena", "rol").get();
 
@@ -55,9 +60,12 @@ public class UserController extends Controller {
 
     public CompletionStage<Result> renderEditUser(Integer userId) {
         final Form<Usuario> userForm = formFactory.form(Usuario.class);
+        List<String> roles = Arrays.stream(Usuario.Rol.values())
+              .map(Enum::name)
+              .collect(Collectors.toList());
 
         return usuarioRepository.findById(userId).thenApplyAsync(user ->
-                    ok(edit_usuario.render(userForm.fill(user), userId))
+                    ok(edit_usuario.render(userForm.fill(user), userId, roles))
               , httpExecutionContext.current()
         );
     }

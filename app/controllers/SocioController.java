@@ -27,8 +27,9 @@ public class SocioController extends Controller {
     private final HttpExecutionContext httpExecutionContext;
 
     @Inject
-    public SocioController(SocioRepository socioRepository, FormFactory formFactory, HttpExecutionContext ec) {
-        this.socioRepository = socioRepository
+    public SocioController(SocioRepository socioRepository, UsuarioRepository usuarioRepository, FormFactory formFactory, HttpExecutionContext ec) {
+        this.socioRepository = socioRepository;
+        this.usuarioRepository = usuarioRepository;
         this.formFactory = formFactory;
         this.httpExecutionContext = ec;
     }

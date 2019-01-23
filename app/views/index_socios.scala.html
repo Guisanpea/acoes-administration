@@ -1,7 +1,7 @@
 @import java.util.List
-
 @import helper._
 @import models.entities.Socio
+@import java.util.List
 
 @(listaSocios: List[Socio])
 
@@ -46,13 +46,11 @@
                         <td>@socio.getFechaAlta</td>
                         <td>@socio.getFechaBaja</td>
                         <td>@socio.getObservaciones</td>
+                        <td>@socio.getResponsable</td>
+                        <td>@socio.getContribucionEconomica</td>
                     </tr>
                 }
             </table>
-            @form(action = routes.SocioController.renderCreateSocio()) {
-                @helper.CSRF.formField
-                <button type="submit">Añadir Socio</button>
-            }
         </div>
     </body>
 </html>

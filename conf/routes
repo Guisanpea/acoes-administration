@@ -42,6 +42,10 @@ GET         /socios/new                   controllers.SocioController.renderCrea
 
 POST        /socios                       controllers.SocioController.createSocio()
 
+GET         /socios/:socioId              controllers.SocioController.renderEditSocio(socioId: Int)
+
+POST        /socios/:socioId              controllers.SocioController.editSocio(socioId: Int)
+
 GET         /tipos-proyecto               controllers.TipoProyectoController.listTiposProyecto
 
 GET         /tipos-proyecto/new           controllers.TipoProyectoController.renderCreateTipoProyecto()

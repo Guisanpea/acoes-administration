@@ -49,7 +49,7 @@ public class SocioController extends Controller {
 
     public CompletionStage<Result> createSocio() {
         String emailSession = session("email");
-        return usuarioRepository.findByEmail(emailSession).thenCompose(user -> {
+        return usuarioRepository.findByEmail(emailSession).thenComposeAsync(user -> {
             Socio newSocio = formFactory.form(Socio.class).bindFromRequest(
                     "nombre", "apellidos", "estado", "nif",
                     "direccion", "poblacion",

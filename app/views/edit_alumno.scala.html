@@ -24,22 +24,18 @@
                 @inputText(alumnoForm("nombre"))
                 @inputText(alumnoForm("apellidos"))
                 @inputText(alumnoForm("estado"))
-                @inputText(alumnoForm("nif"))
-                @inputText(alumnoForm("direccion"))
-                @inputText(alumnoForm("poblacion"))
-                @inputText(alumnoForm("codigoPostal"))
-                @inputText(alumnoForm("provincia"))
-                @inputText(alumnoForm("telefonoFijo"))
-                @inputText(alumnoForm("telefonoMovil"))
-                @inputText(alumnoForm("email"))
-                @inputText(alumnoForm("relacion"))
-                @inputText(alumnoForm("certificado"))
-                @inputText(alumnoForm("sector"))
+                @inputText(alumnoForm("sexo"))
+                @inputDate(alumnoForm("fechaNacimiento"))
+                @inputDate(alumnoForm("fechaEntradaAcoes"))
                 @inputDate(alumnoForm("fechaAlta"))
-                @inputText(alumnoForm("fechaBaja"))
+                @inputDate(alumnoForm("fechaSalidaAcoes"))
+                @inputText(alumnoForm("gradoCurso"))
+                @inputText(alumnoForm("coloniaProcedencia"))
+                @inputText(alumnoForm("coloniaActual"))
                 @inputText(alumnoForm("observaciones"))
-                @inputText(alumnoForm("respondable"))
-                @inputText(alumnoForm("contribucionEconomica"))
+                Apadrinable <input type="checkbox"
+                name="apadrinable"
+                value="@alumnoForm("apadrinable")"><br>
                 <button type="submit">Editar alumno</button>
             }
     </div>

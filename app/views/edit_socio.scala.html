@@ -33,7 +33,9 @@
                 @inputText(socioForm("telefonoMovil"))
                 @inputText(socioForm("email"))
                 @inputText(socioForm("relacion"))
-                @inputText(socioForm("certificado"))
+                Certificado <input type="checkbox"
+                name="certificado"
+                value="@socioForm("certificado")"><br>
                 @inputText(socioForm("sector"))
                 @inputDate(socioForm("fechaAlta"))
                 @inputText(socioForm("fechaBaja"))

@@ -36,6 +36,8 @@
                     <th>Fecha de alta</th>
                     <th>Fecha de baja</th>
                     <th>Observaciones</th>
+                    <th>Responsable</th>
+                    <th>Contribucion economica</th>
                 </tr>
                 @for(socio <- listaSocios) {
                     <tr>
@@ -53,7 +55,7 @@
                         <td>@socio.getFechaAlta</td>
                         <td>@socio.getFechaBaja</td>
                         <td>@socio.getObservaciones</td>
-                        <td>@socio.getResponsable</td>
+                        <td>@socio.getResponsable.getNombre</td>
                         <td>@socio.getContribucionEconomica</td>
                         <td>
                             @form(action = routes.SocioController.renderEditSocio(socio.getNumeroDeSocio)) {

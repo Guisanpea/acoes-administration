@@ -21,7 +21,8 @@ public class UsuarioRepository extends AbstractRepository<Usuario> {
     public CompletionStage<List<Usuario>> list() {
         return supplyAsync(
               () -> jpaWrapper(this::list),
-              executionContext);
+              executionContext
+        );
     }
 
     private List<Usuario> list(EntityManager em) {
@@ -31,7 +32,8 @@ public class UsuarioRepository extends AbstractRepository<Usuario> {
     public CompletionStage<Usuario> findByEmail(String email) {
         return supplyAsync(
               () -> jpaWrapper(em -> findByEmail(email, em)),
-              executionContext);
+              executionContext
+        );
     }
 
     private Usuario findByEmail(String email, EntityManager em) {
@@ -44,7 +46,8 @@ public class UsuarioRepository extends AbstractRepository<Usuario> {
     public CompletionStage<Usuario> findById(int id) {
         return supplyAsync(
               () -> jpaWrapper(em -> findById(id, em)),
-              executionContext);
+              executionContext
+        );
     }
 
     private Usuario findById(int id, EntityManager em) {

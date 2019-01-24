@@ -19,9 +19,8 @@
                 @inputText(ingresoForm("importe"))
                 @inputText(ingresoForm("emisor"))
                 @inputText(ingresoForm("observaciones"))
-                @select(ingresoForm("partida"), options = options(partidas))
-                @select(ingresoForm("proyecto"), options = options(proyectos))
-                @inputText(ingresoForm("creador"))
+                @select(ingresoForm("nombrePartida"), options = options(partidas))
+                @select(ingresoForm("nombreProyecto"), options = options(proyectos))
                 <button type="submit">Crear ingreso</button>
             }
         </div>

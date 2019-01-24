@@ -22,7 +22,7 @@ import java.util.Collection;
     , @NamedQuery(name = "Proyecto.findByNombre", query = "SELECT p FROM Proyecto p WHERE p.nombre = :nombre")})
 @Getter
 @Setter
-@ToString
+@ToString(onlyExplicitlyIncluded = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,6 +36,7 @@ public class Proyecto implements Serializable {
     @Column(name = "id")
     @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Include
+    @ToString.Include
     private Integer id;
     @Basic(optional = false)
     @NotNull

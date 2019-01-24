@@ -20,7 +20,10 @@ public abstract class AbstractRepository<T> {
     }
 
     public CompletionStage<T> add(T entity) {
-        return supplyAsync(() -> jpaWrapper(em -> insert(em, entity)), executionContext);
+        return supplyAsync(
+              () -> jpaWrapper(em -> insert(em, entity))
+              , executionContext
+        );
     }
 
     private T insert(EntityManager em, T entity) {
@@ -29,7 +32,10 @@ public abstract class AbstractRepository<T> {
     }
 
     public CompletionStage<T> delete(T entity) {
-        return supplyAsync(() -> jpaWrapper(em -> remove(em, entity)), executionContext);
+        return supplyAsync(
+              () -> jpaWrapper(em -> remove(em, entity))
+              , executionContext
+        );
     }
 
     private T remove(EntityManager em, T entity) {
@@ -38,7 +44,10 @@ public abstract class AbstractRepository<T> {
     }
 
     public CompletionStage<T> update(T entity) {
-        return supplyAsync(() -> jpaWrapper(em -> update(em, entity)), executionContext);
+        return supplyAsync(
+              () -> jpaWrapper(em -> update(em, entity))
+              , executionContext
+        );
     }
 
     private T update(EntityManager em, T entity) {

@@ -44,7 +44,8 @@ public class PartidaRepository extends AbstractRepository<Partida> {
     public CompletionStage<Partida> findByNombre(String nombre) {
         return supplyAsync(
               () -> jpaWrapper((em) -> findByName(nombre, em)),
-              executionContext);
+              executionContext
+        );
     }
 
     private Partida findByName(String nombre, EntityManager em) {

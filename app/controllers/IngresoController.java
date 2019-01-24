@@ -5,10 +5,12 @@ import models.entities.Ingreso;
 import models.entities.Partida;
 import models.entities.Proyecto;
 import models.entities.Usuario;
+import models.forms.IngresoForm;
 import models.management.IngresoRepository;
 import models.management.PartidaRepository;
 import models.management.ProyectoRepository;
 import models.management.UsuarioRepository;
+import org.springframework.beans.BeanUtils;
 import play.data.Form;
 import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
@@ -20,7 +22,6 @@ import views.html.index_ingresos;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletionException;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ public class IngresoController extends Controller {
     private final PartidaRepository partidaRepository;
     private final UsuarioRepository usuarioRepository;
     private final FormFactory formFactory;
-    private final HttpExecutionContext httpExecutionContext;
+    private final HttpExecutionContext ec;
 
     @Inject
     public IngresoController(IngresoRepository ingresoRepository, ProyectoRepository proyectoRepository, PartidaRepository partidaRepository, UsuarioRepository usuarioRepository, FormFactory formFactory, HttpExecutionContext ec) {
@@ -42,19 +43,19 @@ public class IngresoController extends Controller {
         this.partidaRepository = partidaRepository;
         this.usuarioRepository = usuarioRepository;
         this.formFactory = formFactory;
-        this.httpExecutionContext = ec;
+        this.ec = ec;
     }
 
 
     public CompletionStage<Result> listIngresos() {
         return ingresoRepository.list().thenApplyAsync(ingresoList ->
                     ok(index_ingresos.render(ingresoList))
-              , httpExecutionContext.current()
+              , ec.current()
         );
     }
 
     public CompletionStage<Result> renderCreateIngreso() {
-        Form<Ingreso> ingresoForm = formFactory.form(Ingreso.class);
+        Form<IngresoForm> ingresoForm = formFactory.form(IngresoForm.class);
 
         return proyectoRepository.list().thenCompose(proyectos -> {
             List<String> proyectosNames = proyectos.stream()
@@ -65,28 +66,27 @@ public class IngresoController extends Controller {
                             .map(Partida::getNombre)
                             .collect(Collectors.toCollection(ArrayList::new));
                       return ok(create_ingreso.render(ingresoForm, proyectosNames, partidasNames));
-                  }, httpExecutionContext.current()
+                  }, ec.current()
             );
         });
     }
 
     @SneakyThrows({ExecutionException.class, InterruptedException.class})
     public Result createIngreso() {
-        Ingreso newIngreso = formFactory.form(Ingreso.class).bindFromRequest(
-              "fecha", "concepto", "importe",
-              "emisor", "observaciones", "creador", "validado").get();
-        String sPartida = formFactory.form(Ingreso.class).bindFromRequest("partida").field("partida").getValue().get();
-        String sProyecto = formFactory.form(Ingreso.class).bindFromRequest("proyecto").field("proyecto").getValue().get();
-        Partida partida = partidaRepository.findByNombre(sPartida).toCompletableFuture().get();
-        Proyecto proyecto = proyectoRepository.findByNombre(sProyecto).toCompletableFuture().get();
+        IngresoForm ingresoForm = formFactory.form(IngresoForm.class).bindFromRequest().get();
+        Partida partida = partidaRepository.findByNombre(ingresoForm.nombrePartida).toCompletableFuture().get();
+        Proyecto proyecto = proyectoRepository.findByNombre(ingresoForm.nombreProyecto).toCompletableFuture().get();
 
         String usuarioEmail = session("email");
         Usuario usuario = usuarioRepository.findByEmail(usuarioEmail).toCompletableFuture().get();
-        newIngreso.setPartida(partida);
-        newIngreso.setProyecto(proyecto);
-        newIngreso.setCreador(usuario);
 
-        ingresoRepository.add(newIngreso).toCompletableFuture().get();
+        Ingreso ingreso = new Ingreso();
+        BeanUtils.copyProperties(ingresoForm, ingreso);
+        ingreso.setPartida(partida);
+        ingreso.setProyecto(proyecto);
+        ingreso.setCreador(usuario);
+
+        ingresoRepository.add(ingreso).toCompletableFuture().get();
         return redirect(routes.SocioController.listSocios());
 
         /*
@@ -99,7 +99,7 @@ public class IngresoController extends Controller {
                       newIngreso.setCreador(usuario);
                       return ingresoRepository.add(newIngreso).thenApplyAsync(i ->
                                   redirect(routes.SocioController.listSocios())
-                            , httpExecutionContext.current());
+                            , ec.current());
                   });
               })
         );

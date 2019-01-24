@@ -71,23 +71,35 @@ public class ProyectoController extends Controller {
     }
 
     public CompletionStage<Result> renderEditProyecto(Integer proyectoId) {
-        final Form<Proyecto> proyectoForm = formFactory.form(Proyecto.class);
+        final Form<ProyectoForm> proyectoForm = formFactory.form(ProyectoForm.class);
 
-        return proyectoRepository.findById(proyectoId).thenApplyAsync(proyecto ->
-                        ok(edit_proyecto.render(proyectoForm.fill(proyecto), proyectoId))
+        return proyectoRepository.findById(proyectoId).thenApplyAsync(proyecto -> {
+                    ProyectoForm proyectoToFill = new ProyectoForm();
+                    BeanUtils.copyProperties(proyecto, proyectoToFill);
+                    proyectoToFill.nombreTipoProyecto = proyecto.getTipoProyecto().getNombre();
+                    proyectoToFill.regionAyuda = proyecto.getRegionAyuda().getNombre();
+                    return ok(edit_proyecto.render(proyectoForm.fill(proyectoToFill), proyectoId));
+                }
+
                 , httpExecutionContext.current()
         );
     }
 
     public CompletionStage<Result> editProyecto(Integer proyectoId) {
-        Proyecto editedProyecto = formFactory.form(Proyecto.class).bindFromRequest("id", "nombre", "tipoProyecto", "regionAyuda").get();
+        ProyectoForm editedProyecto = formFactory.form(ProyectoForm.class).bindFromRequest().get();
 
         return proyectoRepository.findById(proyectoId).thenCompose(dbProyecto -> {
             PropertyUtils.copyNonNullProperties(editedProyecto, dbProyecto);
-
-            return proyectoRepository.update(dbProyecto).thenApplyAsync(u ->
-                    redirect(routes.ProyectoController.listProyectos())
-            );
+            return tipoProyectoRepository.findByNombre(editedProyecto.nombreTipoProyecto).thenCompose(tipoProyecto -> {
+                return regionAyudaRepository.findByNombre(editedProyecto.regionAyuda).thenCompose(region -> {
+                    dbProyecto.setTipoProyecto(tipoProyecto);
+                    dbProyecto.setRegionAyuda(region);
+                    return proyectoRepository.update(dbProyecto).thenApplyAsync(u ->
+                                    redirect(routes.ProyectoController.listProyectos())
+                            , httpExecutionContext.current()
+                    );
+                });
+            });
         });
     }
 }

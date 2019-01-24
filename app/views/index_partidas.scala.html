@@ -1,0 +1,30 @@
+@import helper._
+@import models.entities.Partida
+
+@(partidasList: List[Partida])
+
+<h1>Lista de partidas</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+    </tr>
+    @for(partida <- partidasList) {
+        <tr>
+            <td>@partida.getId</td>
+            <td>@partida.getNombre</td>
+            <td>
+            @form(action = routes.PartidaController.renderEditPartida(partida.getId)) {
+                @helper.CSRF.formField
+                <input type="hidden" name="partidaId" value="@partida.getId" />
+                <button type="submit">Editar partida"</button>
+            }
+            </td>
+        </tr>
+    }
+    @form(action = routes.PartidaController.renderCreatePartida()) {
+        @helper.CSRF.formField
+        <button type="submit">Añadir partida</button>
+    }
+</table>

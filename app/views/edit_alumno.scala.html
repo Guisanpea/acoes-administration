@@ -1,0 +1,47 @@
+@import models.entities.Alumno
+@import helper._
+@import play.data.Form
+@(alumnoForm: Form[Alumno], alumnoId: Int)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Modificar alumno</title>
+    </head>
+    <body>
+        @* Global errors are not tied to any particular form field *@
+        @if(alumnoForm.hasGlobalErrors) {
+            @for( error <- alumnoForm.globalErrors) {
+                <div>
+                @error.toString
+                </div>
+            }
+        }
+        <div align="center">
+            @form(action = routes.AlumnoController.editAlumno(alumnoId)) {
+                @CSRF.formField
+                @inputText(alumnoForm("nombre"))
+                @inputText(alumnoForm("apellidos"))
+                @inputText(alumnoForm("estado"))
+                @inputText(alumnoForm("nif"))
+                @inputText(alumnoForm("direccion"))
+                @inputText(alumnoForm("poblacion"))
+                @inputText(alumnoForm("codigoPostal"))
+                @inputText(alumnoForm("provincia"))
+                @inputText(alumnoForm("telefonoFijo"))
+                @inputText(alumnoForm("telefonoMovil"))
+                @inputText(alumnoForm("email"))
+                @inputText(alumnoForm("relacion"))
+                @inputText(alumnoForm("certificado"))
+                @inputText(alumnoForm("sector"))
+                @inputDate(alumnoForm("fechaAlta"))
+                @inputText(alumnoForm("fechaBaja"))
+                @inputText(alumnoForm("observaciones"))
+                @inputText(alumnoForm("respondable"))
+                @inputText(alumnoForm("contribucionEconomica"))
+                <button type="submit">Editar alumno</button>
+            }
+    </div>
+    </body>
+</html>

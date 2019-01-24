@@ -36,13 +36,32 @@ public class IngresoController extends Controller {
 
     public Result renderCreateEgreso() {
         Form<Egreso> egresoForm = formFactory.form(Egreso.class);
+        List<String> bAlumnos = Arrays.stream(Alumno.Nombre.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+        List<String> bColaboradores = Arrays.stream(Colaborador.Nombre.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+        List<String> bTerceros = Arrays.stream(Tercero.Nombre.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+        List<String> bSocios = Arrays.stream(Socio.Nombre.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+        List<String> bTipos = Arrays.stream(Tipo_beneficiaro.Nombre.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
         List<String> partidas = Arrays.stream(Partida.Nombre.values())
                 .map(Enum::name)
                 .collect(Collectors.toList());
         List<String> proyectos = Arrays.stream(Proyecto.Nombre.values())
                 .map(Enum::name)
                 .collect(Collectors.toList());
-        return ok(create_egreso.render(egresoForm, partidas, proyectos));
+        List<String> responsables = Arrays.stream(Usuario.Nombres.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+        return ok(create_egreso.render(egresoForm, bAlumnos, bColaboradores, bTerceros, bSocios
+                , bTipos, partidas, proyectos, responsables));
     }
 
 

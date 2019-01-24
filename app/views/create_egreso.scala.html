@@ -1,7 +1,9 @@
 @import models.entities.Ingreso
 @import helper._
 @import java.util
-@(ingresoForm: Form[Ingreso], partidas: util.List[String], proyectos: util.List[String])
+@(ingresoForm: Form[Ingreso],   bAlumnos: util.List[String], bColaboradores: util.List[String],
+                                bTerceros: util.List[String],bSocios: util.List[String], bTipos: util.List[String],
+                                partidas: util.List[String], proyectos: util.List[String], responsables: util.List[String])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,13 +18,15 @@
                 @inputDate(ingresoForm("fecha"))
                 @inputText(ingresoForm("concepto"))
                 @inputText(ingresoForm("importe"))
-                @inputText(ingresoForm("emisor"))
-
+                @select(ingresoForm("bAlumnos"), options = options(bAlumnos))
+                @select(ingresoForm("bColaboradores"), options = options(bColaboradores))
+                @select(ingresoForm("bTerceros"), options = options(bTerceros))
+                @select(ingresoForm("tipo_beneficiario"), options = options(bSocios))
                 @inputText(ingresoForm("observaciones"))
                 @select(ingresoForm("partida"), options = options(partidas))
                 @select(ingresoForm("proyecto"), options = options(proyectos))
                 @inputText(ingresoForm("creador"))
-                @inputText(ingresoForm("responsable"))
+                @select(ingresoForm("roles"), options = options(roles))
                 @inputText(ingresoForm("validado"))
                 <button type="submit">Crear ingreso</button>
             }

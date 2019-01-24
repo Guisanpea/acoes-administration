@@ -27,7 +27,6 @@ import java.util.Date;
     , @NamedQuery(name = "Egreso.findByValidado", query = "SELECT e FROM Egreso e WHERE e.validado = :validado")})
 @Getter
 @Setter
-@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

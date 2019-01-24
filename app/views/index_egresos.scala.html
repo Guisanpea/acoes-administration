@@ -20,7 +20,7 @@
         <th>Partida</th>
         <th>Proyecto</th>
         <th>Creador</th>
-        <th>Válido</th>
+        <th>Validado</th>
         <th>Responsable</th>
     </tr>
     @for(egreso <- egresoList) {
@@ -29,17 +29,17 @@
             <td>@egreso.getFecha</td>
             <td>@egreso.getConcepto</td>
             <td>@egreso.getImporte</td>
-            <td>@egreso.getBeneficiarioAlumno</td>
-            <td>@egreso.getBeneficiarioColaborador</td>
-            <td>@egreso.getBeneficiarioTercero</td>
-            <td>@egreso.getBeneficiarioSocio</td>
+            <td>@egreso.getBeneficiarioAlumno.getNombre @egreso.getBeneficiarioAlumno.getApellidos</td>
+            <td>@egreso.getBeneficiarioColaborador.getNombre</td>
+            <td>@egreso.getBeneficiarioTercero.getNombre</td>
+            <td>@egreso.getBeneficiarioSocio.getNombre @egreso.getBeneficiarioSocio.getApellidos</td>
             <td>@egreso.getTipoBeneficiario</td>
             <td>@egreso.getObservaciones</td>
             <td>@egreso.getPartida</td>
-            <td>@egreso.getProyecto</td>
-            <td>@egreso.getCreador</td>
+            <td>@egreso.getProyecto.getNombre</td>
+            <td>@egreso.getCreador.getNombre</td>
             <td>@egreso.isValidado</td>
-            <td>@egreso.getResponsable</td>
+            <td>@egreso.getResponsable.getNombre</td>
         </tr>
     }
     @form(action = routes.EgresoController.renderCreateEgreso()) {

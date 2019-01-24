@@ -68,8 +68,8 @@ public class IngresoController extends Controller {
     public CompletionStage<Result> createEgreso() {
         Egreso newEgreso = formFactory.form(Egreso.class).bindFromRequest(
               "fecha", "concepto", "importe",
-              "alumno", "colaborador", "tercero",
-              "socio", "tipoBeneficiario", "observaciones", "partida",
+              "beneficiarioAlumno", "beneficiarioColaborador", "beneficiarioTercero",
+              "beneficiarioSocio", "tipoBeneficiario", "observaciones", "partida",
               "proyecto", "creador", "responsable", "valido").get();
 
         return egresoRepository.add(newEgreso).thenApplyAsync(egreso ->

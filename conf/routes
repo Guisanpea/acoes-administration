@@ -95,3 +95,5 @@ POST        /partidas/:partidaId          controllers.PartidaController.editPart
 GET         /apadrinamientos              controllers.ApadrinamientoController.listApadrinamientos()
 
 GET         /apadrinamientos/new          controllers.ApadrinamientoController.renderCreateApadrinamiento()
+
+POST        /apadrinamientos              controllers.ApadrinamientoController.createApadrinamiento()

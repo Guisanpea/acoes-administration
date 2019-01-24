@@ -10,6 +10,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index_apadrinamientos;
 
+import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
 
 //TODO @Security.Authenticated(UserAuthenticator.class)
@@ -20,6 +21,7 @@ public class ApadrinamientoController extends Controller {
     private final FormFactory formFactory;
     private final HttpExecutionContext ec;
 
+    @Inject
     public ApadrinamientoController(SocioRepository socioRepository, AlumnoRepository alumnoRepository, ApadrinamientoRepository apadrinamientoRepository, FormFactory formFactory, HttpExecutionContext ec) {
         this.socioRepository = socioRepository;
         this.alumnoRepository = alumnoRepository;
@@ -30,12 +32,13 @@ public class ApadrinamientoController extends Controller {
 
     public CompletionStage<Result> listApadrinamientos() {
         return apadrinamientoRepository.list().thenApplyAsync(apadrinamientoList ->
-                        ok(index_apadrinamientos.render(apadrinamientoList))
-                , ec.current()
+                    ok(index_apadrinamientos.render(apadrinamientoList))
+              , ec.current()
         );
     }
 
-    public CompletionStage<Result> renderCreateApadrinamiento() {
+    public Result renderCreateApadrinamiento() {
+        /*
         Form<Apadrinamiento> apadrinamientoForm = formFactory.form(Apadrinamiento.class);
         return socioRepository.list().thenComposeAsync(socios ->
                         alumnoRepository.list().thenApplyAsync(alumnos -> {
@@ -50,9 +53,11 @@ public class ApadrinamientoController extends Controller {
                                 , ec.current())
                 , ec.current()
         );
+        */
+        return TODO;
     }
 
-    public CompletionStage<Result> createApadrinamiento() {
+    public Result createApadrinamiento() {
         Apadrinamiento apadrinamientoForm = formFactory.form(Apadrinamiento.class).bindFromRequest().get();
 /*
         String usuarioEmail = session("email");
@@ -67,6 +72,7 @@ public class ApadrinamientoController extends Controller {
         ingresoRepository.add(ingreso).toCompletableFuture().get();
         return redirect(routes.SocioController.listSocios());
 */
+/*
         Ingreso ingreso = new Ingreso();
         BeanUtils.copyProperties(ingresoForm, ingreso);
         String usuarioEmail = session("email");
@@ -87,6 +93,8 @@ public class ApadrinamientoController extends Controller {
                         })
                 )
         );
+        */
+        return TODO;
     }
 
     /*

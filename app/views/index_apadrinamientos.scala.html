@@ -4,7 +4,7 @@
 @(apadrinamientoList: List[Apadrinamiento])
 
 <h1>Panel de apadrinamientos</h1>
-
+@*
 <table border="1">
     <tr>
         <th>ID</th>
@@ -16,9 +16,6 @@
     </tr>
     @for(apadrinamiento <- apadrinamientoList) {
         <tr>
-            <td>@apadrinamiento.getId</td>
-            <td>@apadrinamiento.getApadrinado.getNombre</td>
-            <td>@apadrinamiento.getPadrino.getNombre</td>
             <td>@apadrinamiento.getAportacion</td>
             <td>@apadrinamiento.getFechaInicio</td>
             <td>@apadrinamiento.getFechaFin</td>
@@ -36,4 +33,5 @@
         @helper.CSRF.formField
         <button type="submit">Añadir apadrinamiento</button>
     }
-</table>
+
+</table>*@

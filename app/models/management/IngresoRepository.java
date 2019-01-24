@@ -2,7 +2,7 @@ package models.management;
 
 import models.entities.Ingreso;
 import play.db.jpa.JPAApi;
-
+import models.ResultHelpers.JpaResultHelper;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;

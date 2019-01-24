@@ -1,34 +1,32 @@
-@import models.entities.Ingreso
+@import models.entities.Egreso
 @import helper._
 @import java.util
-@(ingresoForm: Form[Ingreso],   bAlumnos: util.List[String], bColaboradores: util.List[String],
-                                bTerceros: util.List[String],bSocios: util.List[String], bTipos: util.List[String],
-                                partidas: util.List[String], proyectos: util.List[String], responsables: util.List[String])
+@(egresoForm: Form[Egreso])
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Introducir Ingreso</title>
+        <title>Introducir Egreso</title>
     </head>
     <body>
         <div align="center">
-            @form(action = routes.IngresoController.createIngreso() ){
+            @form(action = routes.EgresoController.renderCreateEgreso() ){
                 @CSRF.formField
-                @inputDate(ingresoForm("fecha"))
-                @inputText(ingresoForm("concepto"))
-                @inputText(ingresoForm("importe"))
-                @select(ingresoForm("beneficiarioAlumnos"), options = options(bAlumnos))
-                @select(ingresoForm("beneficiarioColaboradores"), options = options(bColaboradores))
-                @select(ingresoForm("beneficiarioTerceros"), options = options(bTerceros))
-                @select(field = myForm("tipoBeneficiario"), options = Seq("Alumno" -> "Alumno", "Colaborador" -> "Colaborador", "Tercero" -> "Tercero", "Socio" -> "Socio"))
-                @inputText(ingresoForm("observaciones"))
-                @select(ingresoForm("partida"), options = options(partidas))
-                @select(ingresoForm("proyecto"), options = options(proyectos))
-                @inputText(ingresoForm("creador"))
-                @select(ingresoForm("responsable"), options = options(responsables))
-                @inputText(ingresoForm("validado"))
-                <button type="submit">Crear ingreso</button>
+                @inputDate(egresoForm("fecha"))
+                @inputText(egresoForm("concepto"))
+                @inputText(egresoForm("importe"))
+                @select(egresoForm("beneficiarioAlumnos"), options = options(bAlumnos))
+                @select(egresoForm("beneficiarioColaboradores"), options = options(bColaboradores))
+                @select(egresoForm("beneficiarioTerceros"), options = options(bTerceros))
+                @select(field = egresoForm("tipoBeneficiario"), options = Seq("Alumno" -> "Alumno", "Colaborador" -> "Colaborador", "Tercero" -> "Tercero", "Socio" -> "Socio"))
+                @inputText(egresoForm("observaciones"))
+                @select(egresoForm("partida"), options = options(partidas))
+                @select(egresoForm("proyecto"), options = options(proyectos))
+                @inputText(egresoForm("creador"))
+                @select(egresoForm("responsable"), options = options(responsables))
+                @inputText(egresoForm("validado"))
+                <button type="submit">Crear egreso</button>
             }
         </div>
     </body>

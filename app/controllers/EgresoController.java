@@ -8,12 +8,14 @@ import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import views.html.index_egresos;
+import views.html.create_egreso;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
 
 //TODO @Security.Authenticated(UserAuthenticator.class)
-public class IngresoController extends Controller {
+public class EgresoController extends Controller {
 
     private final EgresoRepository egresoRepository;
     private final FormFactory formFactory;
@@ -28,40 +30,16 @@ public class IngresoController extends Controller {
 
 
     public CompletionStage<Result> listEgresos() {
-        return egresoRepository.list().thenApplyAsync(registroList ->
-                        ok(index_egreso.render(egresoList))
+        return egresoRepository.list().thenApplyAsync(egresoList ->
+                        ok(index_egresos.render(egresoList))
                 , httpExecutionContext.current()
         );
     }
 
     public Result renderCreateEgreso() {
         Form<Egreso> egresoForm = formFactory.form(Egreso.class);
-        List<String> bAlumnos = Arrays.stream(Alumno.Nombre.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-        List<String> bColaboradores = Arrays.stream(Colaborador.Nombre.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-        List<String> bTerceros = Arrays.stream(Tercero.Nombre.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-        List<String> bSocios = Arrays.stream(Socio.Nombre.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-        List<String> bTipos = Arrays.stream(Tipo_beneficiaro.Nombre.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-        List<String> partidas = Arrays.stream(Partida.Nombre.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-        List<String> proyectos = Arrays.stream(Proyecto.Nombre.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-        List<String> responsables = Arrays.stream(Usuario.Nombres.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-        return ok(create_egreso.render(egresoForm, bAlumnos, bColaboradores, bTerceros, bSocios
-                , bTipos, partidas, proyectos, responsables));
+com
+        return ok(create_egreso.render(egresoForm));
     }
 
 

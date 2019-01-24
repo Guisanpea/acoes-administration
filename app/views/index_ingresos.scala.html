@@ -27,11 +27,11 @@
             <td>@ingreso.getImporte</td>
             <td>@ingreso.getEmisor</td>
             <td>@ingreso.getObservaciones</td>
-            <td>@ingreso.getPartida</td>
-            <td>@ingreso.getProyecto</td>
-            <td>@ingreso.getCreador</td>
+            <td>@ingreso.getPartida.getNombre</td>
+            <td>@ingreso.getProyecto.getNombre</td>
+            <td>@ingreso.getCreador.getNombre</td>
             <td>@ingreso.isValidado</td>
-            <td>@ingreso.getResponsable</td>
+            <td>@ingreso.getResponsable.getNombre</td>
         </tr>
     }
     @form(action = routes.IngresoController.renderCreateIngreso()) {

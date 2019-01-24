@@ -4,10 +4,11 @@ Dentro de cada input estan los placeholders de los datos vigentes de ese socio.
 El boton guardar modifica los datos del usuario y devuelve la vista de lista de usuarios. El boton cancelar vuelve a la vista de lista de usuarios.
 *@
 @import helper._
+@import models.forms.ProyectoForm
 @import models.entities.Proyecto
 @import play.data.Form
 
-@(proyectoForm: Form[Proyecto], proyectoId: Int)
+@(proyectoForm: Form[ProyectoForm], proyectoId: Int)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,9 +29,8 @@ El boton guardar modifica los datos del usuario y devuelve la vista de lista de 
             @form(action = routes.ProyectoController.editProyecto(proyectoId)) {
                 @CSRF.formField
                 @inputText(proyectoForm("nombre"))
-                @inputText(proyectoForm("descripcion"))
-                @inputText(proyectoForm("tipo_proyecto"))
-                @inputText(proyectoForm("region_ayuda"))
+                @inputText(proyectoForm("nombreTipoProyecto"))
+                @inputText(proyectoForm("regionAyuda"))
                 <button type="submit">Editar proyecto</button>
             }
     </div>

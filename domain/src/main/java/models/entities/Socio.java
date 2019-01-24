@@ -40,7 +40,6 @@ import java.util.Date;
     , @NamedQuery(name = "Socio.findByContribucionEconomica", query = "SELECT s FROM Socio s WHERE s.contribucionEconomica = :contribucionEconomica")})
 @Getter
 @Setter
-@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

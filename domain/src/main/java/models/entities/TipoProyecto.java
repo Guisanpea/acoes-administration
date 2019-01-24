@@ -23,7 +23,6 @@ import java.util.Collection;
     , @NamedQuery(name = "TipoProyecto.findByDescripcion", query = "SELECT t FROM TipoProyecto t WHERE t.descripcion = :descripcion")})
 @Getter
 @Setter
-@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

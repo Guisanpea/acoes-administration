@@ -41,4 +41,18 @@ public class TipoProyectoRepository extends AbstractRepository<TipoProyecto> {
                     .setParameter("id", id)
         );
     }
+
+    public CompletionStage<TipoProyecto> findByNombre(String nombre) {
+        return supplyAsync(
+                () -> jpaWrapper( (em) -> findByNombre(nombre, em) ),
+                executionContext
+        );
+    }
+
+    private TipoProyecto findByNombre(String nombre, EntityManager em) {
+        return (TipoProyecto) JpaResultHelper.getSingleResultOrNull(
+                em.createNamedQuery("TipoProyecto.findByNombre", TipoProyecto.class)
+                        .setParameter("nombre", nombre)
+        );
+    }
 }

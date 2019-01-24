@@ -9,6 +9,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.create_egreso;
 import views.html.index_egresos;
+import java.util.List;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
@@ -37,8 +40,10 @@ public class EgresoController extends Controller {
 
     public Result renderCreateEgreso() {
         Form<Egreso> egresoForm = formFactory.form(Egreso.class);
-        // TODO;
-        return ok(create_egreso.render(egresoForm));
+        List<String> tipos = Arrays.stream(Egreso.TipoBeneficiario.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+        return ok(create_egreso.render(egresoForm, tipos));
     }
 
 
@@ -47,7 +52,7 @@ public class EgresoController extends Controller {
               "fecha", "concepto", "importe",
               "beneficiarioAlumno", "beneficiarioColaborador", "beneficiarioTercero",
               "beneficiarioSocio", "tipoBeneficiario", "observaciones", "partida",
-              "proyecto", "creador", "responsable", "valido").get();
+              "proyecto", "creador", "responsable").get();
 
         return egresoRepository.add(newEgreso).thenApplyAsync(egreso ->
               redirect(routes.EgresoController.listEgresos())

@@ -45,12 +45,12 @@ public class ProyectoRepository extends AbstractRepository<Proyecto> {
 
     public CompletionStage<Proyecto> findByNombre(String nombre) {
         return supplyAsync(
-              () -> jpaWrapper( (em) -> findByName(nombre, em) ),
+              () -> jpaWrapper( (em) -> findByNombre(nombre, em) ),
               executionContext
         );
     }
 
-    private Proyecto findByName(String nombre, EntityManager em) {
+    private Proyecto findByNombre(String nombre, EntityManager em) {
         return (Proyecto) JpaResultHelper.getSingleResultOrNull(
               em.createNamedQuery("Proyecto.findByNombre", Proyecto.class)
                     .setParameter("nombre", nombre)

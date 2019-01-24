@@ -50,7 +50,7 @@ public class SocioController extends Controller {
     }
 
     public CompletionStage<Result> createSocio() {
-        SocioForm newSocio = formFactory.form(SocioForm.class).bindFromRequest(
+        SocioForm socioForm = formFactory.form(SocioForm.class).bindFromRequest(
                 "nombre", "apellidos", "estado", "nif",
                 "direccion", "poblacion",
                 "codigoPostal", "provincia", "telefonoFijo", "telefonoMovil",

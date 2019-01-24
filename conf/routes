@@ -82,12 +82,16 @@ GET         /egresos/new                  controllers.EgresoController.renderCre
 
 POST        /egresos                      controllers.EgresoController.createEgreso()
 
-GET         /partidas                       controllers.PartidaController.listPartidas()
+GET         /partidas                     controllers.PartidaController.listPartidas()
 
-GET         /partidas/new                   controllers.PartidaController.renderCreatePartida()
+GET         /partidas/new                 controllers.PartidaController.renderCreatePartida()
 
-POST        /partidas                       controllers.PartidaController.createPartida()
+POST        /partidas                     controllers.PartidaController.createPartida()
 
-GET         /partidas/:partidaId              controllers.PartidaController.renderEditPartida(partidaId: Int)
+GET         /partidas/:partidaId          controllers.PartidaController.renderEditPartida(partidaId: Int)
 
-POST        /partidas/:partidaId              controllers.PartidaController.editPartida(partidaId: Int)
+POST        /partidas/:partidaId          controllers.PartidaController.editPartida(partidaId: Int)
+
+GET         /apadrinamientos              controllers.ApadrinamientoController.listApadrinamientos()
+
+GET         /apadrinamientos/new          controllers.ApadrinamientoController.renderCreateApadrinamiento()

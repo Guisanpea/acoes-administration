@@ -21,7 +21,8 @@ public class SocioRepository extends AbstractRepository<Socio> {
     public CompletionStage<List<Socio>> list() {
         return supplyAsync(
               () -> jpaWrapper(this::list),
-              executionContext);
+              executionContext
+        );
     }
 
     private List<Socio> list(EntityManager em) {
@@ -30,7 +31,8 @@ public class SocioRepository extends AbstractRepository<Socio> {
     public CompletionStage<Socio> findById(int id) {
         return supplyAsync(
               () -> jpaWrapper( (em) -> findById(id, em) ),
-              executionContext);
+              executionContext
+        );
     }
 
     private Socio findById(int id, EntityManager em) {

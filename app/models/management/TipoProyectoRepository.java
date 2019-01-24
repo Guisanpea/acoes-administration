@@ -21,7 +21,8 @@ public class TipoProyectoRepository extends AbstractRepository<TipoProyecto> {
     public CompletionStage<List<TipoProyecto>> list() {
         return supplyAsync(
               () -> jpaWrapper(this::list),
-              executionContext);
+              executionContext
+        );
     }
 
     private List<TipoProyecto> list(EntityManager em) {
@@ -30,7 +31,8 @@ public class TipoProyectoRepository extends AbstractRepository<TipoProyecto> {
     public CompletionStage<TipoProyecto> findById(int id) {
         return supplyAsync(
               () -> jpaWrapper( (em) -> findById(id, em) ),
-              executionContext);
+              executionContext
+        );
     }
 
     private TipoProyecto findById(int id, EntityManager em) {

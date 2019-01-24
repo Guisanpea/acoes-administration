@@ -20,7 +20,8 @@ public class SedeRepository extends AbstractRepository<Sede> {
     public CompletionStage<List<Sede>> list() {
         return supplyAsync(
               () -> jpaWrapper(this::list),
-              executionContext);
+              executionContext
+        );
     }
 
     private List<Sede> list(EntityManager em) {

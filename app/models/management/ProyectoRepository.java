@@ -21,7 +21,8 @@ public class ProyectoRepository extends AbstractRepository<Proyecto> {
     public CompletionStage<List<Proyecto>> list() {
         return supplyAsync(
               () -> jpaWrapper(this::list),
-              executionContext);
+              executionContext
+        );
     }
 
     private List<Proyecto> list(EntityManager em) {
@@ -31,7 +32,8 @@ public class ProyectoRepository extends AbstractRepository<Proyecto> {
     public CompletionStage<Proyecto> findById(int id) {
         return supplyAsync(
                 () -> jpaWrapper( (em) -> findById(id, em) ),
-                executionContext);
+                executionContext
+        );
     }
 
     private Proyecto findById(int id, EntityManager em) {
@@ -44,7 +46,8 @@ public class ProyectoRepository extends AbstractRepository<Proyecto> {
     public CompletionStage<Proyecto> findByNombre(String nombre) {
         return supplyAsync(
               () -> jpaWrapper( (em) -> findByName(nombre, em) ),
-              executionContext);
+              executionContext
+        );
     }
 
     private Proyecto findByName(String nombre, EntityManager em) {

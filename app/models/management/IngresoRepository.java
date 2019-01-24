@@ -31,7 +31,8 @@ public class IngresoRepository extends AbstractRepository<Ingreso> {
     public CompletionStage<Ingreso> findById(int id) {
         return supplyAsync(
                 () -> jpaWrapper( (em) -> findById(id, em) ),
-                executionContext);
+              executionContext
+        );
     }
 
     private Ingreso findById(int id, EntityManager em) {

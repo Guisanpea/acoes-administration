@@ -26,7 +26,7 @@ import java.util.Date;
     , @NamedQuery(name = "Ingreso.findByValidado", query = "SELECT i FROM Ingreso i WHERE i.validado = :validado")})
 @Getter
 @Setter
-@ToString
+@ToString(onlyExplicitlyIncluded = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,6 +40,7 @@ public class Ingreso implements Serializable {
     @Column(name = "id")
     @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Include
+    @ToString.Include
     private Integer id;
     @Basic(optional = false)
     @NotNull

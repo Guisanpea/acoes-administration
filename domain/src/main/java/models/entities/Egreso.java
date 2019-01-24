@@ -32,12 +32,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Egreso implements Serializable{
-    public enum Tipos {
+public class Egreso implements Serializable {
+    public enum TipoBeneficiario {
         Alumno,
-        Socio,
         Colaborador,
-        Tercero
+        Tercero,
+        Socio
     }
 
     private static final long serialVersionUID = 1L;
@@ -62,11 +62,10 @@ public class Egreso implements Serializable{
     @NotNull
     @Column(name = "importe")
     private double importe;
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 11)
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_beneficiario")
-    private String tipoBeneficiario;
+    private TipoBeneficiario tipoBeneficiario;
     @Size(max = 100)
     @Column(name = "observaciones")
     private String observaciones;
@@ -89,7 +88,7 @@ public class Egreso implements Serializable{
     private Usuario creador;
     @JoinColumn(name = "proyecto", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private TipoProyecto proyecto;
+    private Proyecto proyecto;
     @JoinColumn(name = "responsable", referencedColumnName = "id")
     @ManyToOne
     private Usuario responsable;

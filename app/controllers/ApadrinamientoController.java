@@ -5,6 +5,7 @@ import models.management.AlumnoRepository;
 import models.management.ApadrinamientoRepository;
 import models.management.SocioRepository;
 import play.data.FormFactory;
+import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -16,12 +17,14 @@ public class ApadrinamientoController extends Controller {
     private final AlumnoRepository alumnoRepository;
     private final ApadrinamientoRepository apadrinamientoRepository;
     private final FormFactory formFactory;
+    private final HttpExecutionContext ec;
 
-    public ApadrinamientoController(SocioRepository socioRepository, AlumnoRepository alumnoRepository, ApadrinamientoRepository apadrinamientoRepository, FormFactory formFactory) {
+    public ApadrinamientoController(SocioRepository socioRepository, AlumnoRepository alumnoRepository, ApadrinamientoRepository apadrinamientoRepository, FormFactory formFactory, HttpExecutionContext ec) {
         this.socioRepository = socioRepository;
         this.alumnoRepository = alumnoRepository;
         this.apadrinamientoRepository = apadrinamientoRepository;
         this.formFactory = formFactory;
+        this.ec = ec;
     }
 
     public CompletionStage<Result> createApadrinamiento(Integer socioId, Integer alumnoId) {
@@ -33,6 +36,7 @@ public class ApadrinamientoController extends Controller {
                             apadrinamiento.setSocio(socio);
                             return apadrinamientoRepository.add(apadrinamiento).thenApplyAsync(a ->
                                     redirect(routes.SocioController.listSocios())
+                                  , ec.current()
                             );
                         }
                 )

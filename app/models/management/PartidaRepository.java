@@ -30,14 +30,27 @@ public class PartidaRepository extends AbstractRepository<Partida> {
 
     public CompletionStage<Partida> findById(int id) {
         return supplyAsync(
-                () -> jpaWrapper( (em) -> findById(id, em) ),
-                executionContext);
+              () -> jpaWrapper((em) -> findById(id, em)),
+              executionContext);
     }
 
     private Partida findById(int id, EntityManager em) {
         return (Partida) JpaResultHelper.getSingleResultOrNull(
-                em.createNamedQuery("Partida.findById", Partida.class)
-                        .setParameter("id", id)
+              em.createNamedQuery("Partida.findById", Partida.class)
+                    .setParameter("id", id)
+        );
+    }
+
+    public CompletionStage<Partida> findByNombre(String nombre) {
+        return supplyAsync(
+              () -> jpaWrapper((em) -> findByName(nombre, em)),
+              executionContext);
+    }
+
+    private Partida findByName(String nombre, EntityManager em) {
+        return (Partida) JpaResultHelper.getSingleResultOrNull(
+              em.createNamedQuery("Partida.findByNombre", Partida.class)
+                    .setParameter("nombre", nombre)
         );
     }
 

@@ -9,6 +9,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.create_egreso;
 import views.html.index_egresos;
+import java.util.List;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;

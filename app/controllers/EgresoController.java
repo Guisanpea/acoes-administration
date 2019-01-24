@@ -41,8 +41,10 @@ public class EgresoController extends Controller {
 
     public Result renderCreateEgreso() {
         Form<Egreso> egresoForm = formFactory.form(Egreso.class);
-        // TODO;
-        return ok(create_egreso.render(egresoForm));
+        List<String> tipos = Arrays.stream(Egreso.Tipos.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+        return ok(create_egreso.render(egresoForm, tipos));
     }
 
 
@@ -51,7 +53,7 @@ public class EgresoController extends Controller {
               "fecha", "concepto", "importe",
               "beneficiarioAlumno", "beneficiarioColaborador", "beneficiarioTercero",
               "beneficiarioSocio", "tipoBeneficiario", "observaciones", "partida",
-              "proyecto", "creador", "responsable", "valido").get();
+              "proyecto", "creador", "responsable").get();
 
         return egresoRepository.add(newEgreso).thenApplyAsync(egreso ->
               redirect(routes.EgresoController.listEgresos())

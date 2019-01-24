@@ -1,7 +1,7 @@
 @import models.entities.Egreso
 @import helper._
 @import java.util
-@(egresoForm: Form[Egreso])
+@(egresoForm: Form[Egreso], tipos: List[String])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@
     </head>
     <body>
         <div align="center">
-            @form(action = routes.IngresoController.createIngreso() ){
+            @form(action = routes.EgresoController.createEgreso() ){
                 @CSRF.formField
                 @inputDate(egresoForm("fecha"))
                 @inputText(egresoForm("concepto"))
@@ -19,13 +19,13 @@
                 @inputText(egresoForm("beneficiarioAlumnos"))
                 @inputText(egresoForm("beneficiarioColaboradores"))
                 @inputText(egresoForm("beneficiarioTerceros"))
-                @inputText(egresoForm("tipoBeneficiario"))
+                @inputText(egresoForm("beneficiarioSocios"))
+                @select(egresoForm("tipoBeneficiario"), options = options(tipos))
                 @inputText(egresoForm("observaciones"))
                 @inputText(egresoForm("partida"))
                 @inputText(egresoForm("proyecto"))
                 @inputText(egresoForm("creador"))
                 @inputText(egresoForm("responsable"))
-                @inputText(egresoForm("validado"))
                 <button type="submit">Crear egreso</button>
             }
         </div>

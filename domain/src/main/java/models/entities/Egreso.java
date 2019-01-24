@@ -32,7 +32,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Egreso implements Serializable {
+public class Egreso implements Serializable{
+    public enum Tipos {
+        Alumno,
+        Socio,
+        Colaborador,
+        Tercero
+    }
 
     private static final long serialVersionUID = 1L;
     @Id

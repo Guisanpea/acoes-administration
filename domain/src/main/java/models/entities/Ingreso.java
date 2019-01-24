@@ -75,7 +75,7 @@ public class Ingreso implements Serializable {
     private Partida partida;
     @JoinColumn(name = "proyecto", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private TipoProyecto proyecto;
+    private Proyecto proyecto;
     @JoinColumn(name = "responsable", referencedColumnName = "id")
     @ManyToOne
     private Usuario responsable;

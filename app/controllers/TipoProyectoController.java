@@ -43,7 +43,7 @@ public class TipoProyectoController extends Controller {
         return ok(create_tipoProyecto.render(tipoForm));
     }
 
-    @Security.Authenticated
+    //@Security.Authenticated
     public CompletionStage<Result> createTipoProyecto() {
         TipoProyecto newTipoProyecto = formFactory.form(TipoProyecto.class).bindFromRequest("nombre", "descripcion").get();
 

@@ -12,7 +12,7 @@
         <th>Apellidos</th>
         <th>Estado</th>
         <th>Sexo</th>
-        <th>Fecha Nacimiento</th> @* Codigo Beneficiario *@
+        <th>Fecha Nacimiento</th>
         <th>Fecha Entrada ACOES</th>
         <th>Fecha Alta</th>
         <th>Fecha Salida ACOES</th>
@@ -20,6 +20,7 @@
         <th>Colonia de procedencia</th>
         <th>Colonia actual</th>
         <th>Observaciones</th>
+        <th>Editar</th>
     </tr>
     @for(alumno <- alumnoList) {
         <tr>
@@ -36,6 +37,15 @@
             <td>@alumno.getColoniaProcedencia</td>
             <td>@alumno.getColoniaActual</td>
             <td>@alumno.getObservaciones</td>
+            <td>@alumno.isApadrinable</td>
+            <td>Editar</td>
+            <td>
+            @form(action = routes.AlumnoController.renderEditAlumno(alumno.getCodigo)) {
+                @helper.CSRF.formField
+                <input type="hidden" name="alumnoId" value="@alumno.getCodigo" />
+                <button type="submit">Editar alumno"</button>
+            }
+            </td>
         </tr>
     }
     @form(action = routes.AlumnoController.renderCreateAlumno()) {

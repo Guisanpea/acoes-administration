@@ -3,6 +3,7 @@ package controllers;
 import beanUtils.PropertyUtils;
 import models.entities.Usuario;
 import models.management.UsuarioRepository;
+import org.springframework.beans.BeanUtils;
 import play.data.Form;
 import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
@@ -63,7 +64,6 @@ public class UserController extends Controller {
         List<String> roles = Arrays.stream(Usuario.Rol.values())
               .map(Enum::name)
               .collect(Collectors.toList());
-
         return usuarioRepository.findById(userId).thenApplyAsync(user ->
                     ok(edit_usuario.render(userForm.fill(user), userId, roles))
               , httpExecutionContext.current()

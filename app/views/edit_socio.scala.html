@@ -1,7 +1,8 @@
 @import models.entities.Socio
 @import helper._
 @import play.data.Form
-@(socioForm: Form[Socio], socioId: Int)
+@import models.forms.SocioForm
+@(socioForm: Form[SocioForm], socioId: Int)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +34,9 @@
                 @inputText(socioForm("telefonoMovil"))
                 @inputText(socioForm("email"))
                 @inputText(socioForm("relacion"))
-                @inputText(socioForm("certificado"))
+                Certificado <input type="checkbox"
+                name="@socioForm("certificado").name"
+                value="@socioForm("certificado").value"><br>
                 @inputText(socioForm("sector"))
                 @inputDate(socioForm("fechaAlta"))
                 @inputText(socioForm("fechaBaja"))

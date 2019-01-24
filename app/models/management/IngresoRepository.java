@@ -1,5 +1,6 @@
 package models.management;
 
+import models.ResultHelpers.JpaResultHelper;
 import models.entities.Ingreso;
 import play.db.jpa.JPAApi;
 

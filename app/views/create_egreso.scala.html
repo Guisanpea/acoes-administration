@@ -1,9 +1,7 @@
 @import models.entities.Egreso
 @import helper._
 @import java.util
-@(egresoForm: Form[Egreso],   bAlumnos: util.List[String], bColaboradores: util.List[String],
-                                bTerceros: util.List[String],bSocios: util.List[String], bTipos: util.List[String],
-                                partidas: util.List[String], proyectos: util.List[String], responsables: util.List[String])
+@(egresoForm: Form[Egreso])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,15 +16,15 @@
                 @inputDate(egresoForm("fecha"))
                 @inputText(egresoForm("concepto"))
                 @inputText(egresoForm("importe"))
-                @select(egresoForm("beneficiarioAlumnos"), options = options(bAlumnos))
-                @select(egresoForm("beneficiarioColaboradores"), options = options(bColaboradores))
-                @select(egresoForm("beneficiarioTerceros"), options = options(bTerceros))
-                @select(field = egresoForm("tipoBeneficiario"), options = Seq("Alumno" -> "Alumno", "Colaborador" -> "Colaborador", "Tercero" -> "Tercero", "Socio" -> "Socio"))
+                @inputText(egresoForm("beneficiarioAlumnos"))
+                @inputText(egresoForm("beneficiarioColaboradores"))
+                @inputText(egresoForm("beneficiarioTerceros"))
+                @inputText(egresoForm("tipoBeneficiario"))
                 @inputText(egresoForm("observaciones"))
-                @select(egresoForm("partida"), options = options(partidas))
-                @select(egresoForm("proyecto"), options = options(proyectos))
+                @inputText(egresoForm("partida"))
+                @inputText(egresoForm("proyecto"))
                 @inputText(egresoForm("creador"))
-                @select(egresoForm("responsable"), options = options(responsables))
+                @inputText(egresoForm("responsable"))
                 @inputText(egresoForm("validado"))
                 <button type="submit">Crear egreso</button>
             }

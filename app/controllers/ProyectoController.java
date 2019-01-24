@@ -44,7 +44,7 @@ public class ProyectoController extends Controller {
     }
 
     // TODO Asignar rol,dado que ahora no se puede crear un proyecto sin estar logueado
-    @Security.Authenticated
+    //@Security.Authenticated
     public CompletionStage<Result> createProyecto() {
         Proyecto newProyecto = formFactory.form(Proyecto.class).bindFromRequest("nombre", "tipo_proyecto", "region_ayuda").get();
 

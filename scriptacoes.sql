@@ -237,7 +237,7 @@ create table acoes.egreso
   constraint fk_egreso_socio
     foreign key (beneficiario_socio) references socio (numero_de_socio),
   constraint fk_egreso_proyecto
-    foreign key (proyecto) references tipo_proyecto (id),
+    foreign key (proyecto) references proyecto (id),
   constraint fk_egreso_creador
     foreign key (creador) references usuario (id),
   constraint fk_egreso_responsable
@@ -261,7 +261,7 @@ create table acoes.ingreso
   constraint fk_ingreso_partida
     foreign key (partida) references partida (id),
   constraint fk_ingreso_proyecto
-    foreign key (proyecto) references tipo_proyecto (id),
+    foreign key (proyecto) references proyecto (id),
   constraint fk_ingreso_creador
     foreign key (creador) references usuario (id),
   constraint fk_ingreso_responsable

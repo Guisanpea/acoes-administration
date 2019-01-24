@@ -1,5 +1,6 @@
 package controllers;
 
+import beanUtils.PropertyUtils;
 import lombok.SneakyThrows;
 import models.entities.Alumno;
 import models.management.AlumnoRepository;
@@ -10,6 +11,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import views.html.create_alumno;
+import views.html.edit_alumno;
 import views.html.index_alumnos;
 
 import javax.inject.Inject;
@@ -54,5 +56,30 @@ public class AlumnoController extends Controller {
               redirect(routes.AlumnoController.listAlumnos())
               , httpExecutionContext.current()
         );
+    }
+
+    public CompletionStage<Result> renderEditAlumno(Integer alumnoId) {
+        final Form<Alumno> alumnoForm = formFactory.form(Alumno.class);
+
+        return alumnoRepository.findById(alumnoId).thenApplyAsync(alumno ->
+                        ok(edit_alumno.render(alumnoForm.fill(alumno), alumnoId))
+                , httpExecutionContext.current()
+        );
+    }
+
+    public CompletionStage<Result> editAlumno(Integer alumnoId) {
+        Alumno editedAlumno = formFactory.form(Alumno.class).bindFromRequest(
+                "nombre", "apellidos", "estado", "sexo",
+                "fechaNacimiento", "fechaEntradaAcoes",
+                "fechaAlta", "fechaSalidaAcoes", "gradoCurso", "coloniaProcedencia",
+                "coloniaActual", "observaciones", "apadrinable").get();
+
+        return alumnoRepository.findById(alumnoId).thenCompose(dbUser -> {
+            PropertyUtils.copyNonNullProperties(editedAlumno, dbUser);
+
+            return alumnoRepository.update(dbUser).thenApplyAsync(u ->
+                    redirect(routes.AlumnoController.listAlumnos())
+            );
+        });
     }
 }

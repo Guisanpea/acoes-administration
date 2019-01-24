@@ -50,21 +50,16 @@ public class SocioController extends Controller {
     }
 
     public CompletionStage<Result> createSocio() {
-        SocioForm socioForm = formFactory.form(SocioForm.class).bindFromRequest(
-                "nombre", "apellidos", "estado", "nif",
-                "direccion", "poblacion",
-                "codigoPostal", "provincia", "telefonoFijo", "telefonoMovil",
-                "email", "relacion", "certificado", "sector",
-                "fechaAlta", "fechaBaja", "observaciones", "contribucionEconomica").get();
-        Socio newS = new Socio();
-        BeanUtils.copyProperties(socioForm, newS);
+        SocioForm socioForm = formFactory.form(SocioForm.class).bindFromRequest().get();
+        Socio newSocio = new Socio();
+        BeanUtils.copyProperties(socioForm, newSocio);
         String emailSession = session("email");
         return usuarioRepository.findByEmail(emailSession).thenCompose(user -> {
-            newS.setResponsable(user);
-            return socioRepository.add(newS).thenApplyAsync(socio -> {
-                        return redirect(routes.SocioController.listSocios());
-                    }
-                    , httpExecutionContext.current());
+            newSocio.setResponsable(user);
+            return socioRepository.add(newSocio).thenApplyAsync(socio ->
+                        redirect(routes.SocioController.listSocios())
+                    , httpExecutionContext.current()
+            );
         });
     }
 

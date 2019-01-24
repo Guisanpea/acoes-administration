@@ -31,7 +31,9 @@
             <td>@ingreso.getProyecto.getNombre</td>
             <td>@ingreso.getCreador.getNombre</td>
             <td>@ingreso.isValidado</td>
-            <td>@ingreso.getResponsable.getNombre</td>
+            @if(ingreso.getResponsable() != null) {
+                <td>@ingreso.getResponsable.getNombre</td>
+            }
         </tr>
     }
     @form(action = routes.IngresoController.renderCreateIngreso()) {

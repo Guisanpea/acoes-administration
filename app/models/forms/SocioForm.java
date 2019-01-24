@@ -16,10 +16,8 @@ public class SocioForm {
     public int telefonoMovil;
     public String email;
     public String relacion;
-    public boolean certificado;
     public String sector;
     public Date fechaAlta;
-    public Date fechaBaja;
     public String observaciones;
     public double contribucionEconomica;
     public String nombreResponsable;

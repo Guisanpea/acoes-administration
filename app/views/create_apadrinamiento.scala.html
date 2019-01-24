@@ -1,0 +1,19 @@
+@import helper._
+@import models.entities.Apadrinamiento
+
+@(apadrinamientoForm: Form[Apadrinamiento], apadrinados: List[String], padrinos: List[String])
+    <head>
+        <meta charset="UTF-8">
+        <title>Introducir Apadrinamiento</title>
+    </head>
+    <body>
+        @form(action = routes.ApadrinamientoController.createApadrinamiento() ){
+            @CSRF.formField
+            @select(apadrinamientoForm("apadrinado"), options = options(apadrinados))
+            @select(apadrinamientoForm("padrino"), options = options(padrinos))
+            @inputText(apadrinamientoForm("aportacion"))
+            @inputDate(apadrinamientoForm("fechaInicio"))
+            @inputDate(apadrinamientoForm("fechaFin"))
+            <button type="submit">Añadir alumno</button>
+        }
+    </body>

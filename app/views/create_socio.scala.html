@@ -25,8 +25,8 @@
             @inputText(socioForm("email"))
             @inputText(socioForm("relacion"))
             Certificado <input type="checkbox"
-            name="certificado"
-            value="@socioForm("certificado")"><br>
+            name="@socioForm("certificado").name"
+            value="@socioForm("certificado").value"><br>
             @inputText(socioForm("sector"))
             @inputDate(socioForm("fechaAlta"))
             @inputDate(socioForm("fechaBaja"))

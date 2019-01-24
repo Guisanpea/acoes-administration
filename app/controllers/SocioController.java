@@ -48,19 +48,20 @@ public class SocioController extends Controller {
     }
 
     public CompletionStage<Result> createSocio() {
+        Socio newSocio = formFactory.form(Socio.class).bindFromRequest(
+                "nombre", "apellidos", "estado", "nif",
+                "direccion", "poblacion",
+                "codigoPostal", "provincia", "telefonoFijo", "telefonoMovil",
+                "email", "relacion", "certificado", "sector",
+                "fechaAlta", "fechaBaja", "observaciones", "contribucionEconomica").get();
+
         String emailSession = session("email");
-        return usuarioRepository.findByEmail(emailSession).thenComposeAsync(user -> {
-            Socio newSocio = formFactory.form(Socio.class).bindFromRequest(
-                    "nombre", "apellidos", "estado", "nif",
-                    "direccion", "poblacion",
-                    "codigoPostal", "provincia", "telefonoFijo", "telefonoMovil",
-                    "email", "relacion", "certificado", "sector",
-                    "fechaAlta", "fechaBaja", "observaciones", "contribucionEconomica").get();
+        return usuarioRepository.findByEmail(emailSession).thenCompose(user -> {
             newSocio.setResponsable(user);
-            return socioRepository.add(newSocio).thenApplyAsync(socio ->
-                            redirect(routes.SocioController.listSocios())
-                    , httpExecutionContext.current()
-            );
+            return socioRepository.add(newSocio).thenApplyAsync(socio -> {
+                        return redirect(routes.SocioController.listSocios());
+                    }
+                    , httpExecutionContext.current());
         });
     }
 

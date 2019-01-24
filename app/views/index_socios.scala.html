@@ -11,8 +11,15 @@
         <meta charset="UTF-8">
         <title>Title</title>
     </head>
+
     <body>
-        <div align="center">
+        <h1>Panel de administración de usuarios</h1>
+
+        <div>
+            @form(action = routes.SocioController.renderCreateSocio()) {
+                @helper.CSRF.formField
+                <button type="submit">Añadir socio</button>
+            }
             <table border="1">
                 <tr>
                     <th>Nombre</th>
@@ -48,9 +55,18 @@
                         <td>@socio.getObservaciones</td>
                         <td>@socio.getResponsable</td>
                         <td>@socio.getContribucionEconomica</td>
+                        <td>
+                            @form(action = routes.SocioController.renderEditSocio(socio.getNumeroDeSocio)) {
+                              @helper.CSRF.formField
+                              <input type="hidden" name="socioId" value="@socio.getNumeroDeSocio" />
+                               <button type="submit">Editar socio"</button>
+                            }
+                        </td>
                     </tr>
+
                 }
             </table>
+
         </div>
     </body>
 </html>

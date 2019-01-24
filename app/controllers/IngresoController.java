@@ -1,29 +1,35 @@
 package controllers;
 
 import models.entities.Ingreso;
-import models.entities.Partida;
 import models.entities.Proyecto;
 import models.management.IngresoRepository;
+import models.management.ProyectoRepository;
 import play.data.Form;
 import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.Security;
+import views.html.create_ingreso;
+import views.html.index_ingresos;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
 
 //TODO @Security.Authenticated(UserAuthenticator.class)
 public class IngresoController extends Controller {
 
     private final IngresoRepository ingresoRepository;
+    private final ProyectoRepository proyectoRepository;
     private final FormFactory formFactory;
     private final HttpExecutionContext httpExecutionContext;
 
     @Inject
-    public IngresoController(IngresoRepository ingresoRepository, FormFactory formFactory, HttpExecutionContext ec) {
+    public IngresoController(IngresoRepository ingresoRepository, ProyectoRepository proyectoRepository, FormFactory formFactory, HttpExecutionContext ec) {
         this.ingresoRepository = ingresoRepository;
+        this.proyectoRepository = proyectoRepository;
         this.formFactory = formFactory;
         this.httpExecutionContext = ec;
     }
@@ -36,15 +42,15 @@ public class IngresoController extends Controller {
         );
     }
 
-    public Result renderCreateIngreso() {
+    public CompletionStage<Result> renderCreateIngreso() {
         Form<Ingreso> ingresoForm = formFactory.form(Ingreso.class);
-        List<String> partidas = Arrays.stream(Partida.Nombre.values())
-              .map(Enum::name)
-              .collect(Collectors.toList());
-        List<String> proyectos = Arrays.stream(Proyecto.Nombre.values())
-              .map(Enum::name)
-              .collect(Collectors.toList());
-        return ok(create_ingreso.render(ingresoForm, partidas, proyectos));
+        return proyectoRepository.list().thenApply(proyectos -> {
+            List<String> proyectosNames = proyectos.stream()
+                  .map(Proyecto::getNombre)
+                  .collect(Collectors.toCollection(ArrayList::new));
+            return TODO;
+            return ok(create_ingreso.render(ingresoForm, proyectos));
+        });
     }
 
     public CompletionStage<Result> createIngreso() {

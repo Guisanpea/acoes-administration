@@ -41,5 +41,11 @@ public class ProyectoRepository extends AbstractRepository<Proyecto> {
         );
     }
 
+    private Proyecto findByName(String nombre, EntityManager em) {
+        return (Proyecto) JpaResultHelper.getSingleResultOrNull(
+              em.createNamedQuery("Proyecto.findByNombre", Proyecto.class)
+                    .setParameter("nombre", nombre)
+        );
+    }
 
 }

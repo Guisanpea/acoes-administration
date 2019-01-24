@@ -21,7 +21,8 @@ public class AlumnoRepository extends AbstractRepository<Alumno> {
     public CompletionStage<List<Alumno>> list() {
         return supplyAsync(
                 () -> jpaWrapper(this::list),
-                executionContext);
+                executionContext
+        );
     }
 
     private List<Alumno> list(EntityManager em) {
@@ -31,7 +32,8 @@ public class AlumnoRepository extends AbstractRepository<Alumno> {
     public CompletionStage<Alumno> findById(int id) {
         return supplyAsync(
               () -> jpaWrapper( (em) -> findById(id, em) ),
-              executionContext);
+              executionContext
+        );
     }
 
     private Alumno findById(int id, EntityManager em) {

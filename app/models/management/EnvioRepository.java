@@ -20,7 +20,8 @@ public class EnvioRepository extends AbstractRepository<Envio> {
     public CompletionStage<List<Envio>> list() {
         return supplyAsync(
               () -> jpaWrapper(this::list),
-              executionContext);
+              executionContext
+        );
     }
 
     private List<Envio> list(EntityManager em) {

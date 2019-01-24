@@ -20,7 +20,8 @@ public class ApadrinamientoRepository extends AbstractRepository<Apadrinamiento>
     public CompletionStage<List<Apadrinamiento>> list() {
         return supplyAsync(
               () -> jpaWrapper(this::list),
-              executionContext);
+              executionContext
+        );
     }
 
     private List<Apadrinamiento> list(EntityManager em) {

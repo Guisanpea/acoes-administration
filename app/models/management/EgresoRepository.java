@@ -21,7 +21,8 @@ public class EgresoRepository extends AbstractRepository<Egreso> {
     public CompletionStage<List<Egreso>> list() {
         return supplyAsync(
               () -> jpaWrapper(this::list),
-              executionContext);
+              executionContext
+        );
     }
 
     private List<Egreso> list(EntityManager em) {
@@ -31,7 +32,8 @@ public class EgresoRepository extends AbstractRepository<Egreso> {
     public CompletionStage<Egreso> findById(int id) {
         return supplyAsync(
                 () -> jpaWrapper( (em) -> findById(id, em) ),
-                executionContext);
+                executionContext
+        );
     }
 
     private Egreso findById(int id, EntityManager em) {

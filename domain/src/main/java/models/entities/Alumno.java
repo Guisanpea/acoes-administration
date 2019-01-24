@@ -35,7 +35,6 @@ import java.util.Date;
     , @NamedQuery(name = "Alumno.findByApadrinable", query = "SELECT a FROM Alumno a WHERE a.apadrinable = :apadrinable")})
 @Getter
 @Setter
-@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

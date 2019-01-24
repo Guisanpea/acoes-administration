@@ -16,8 +16,8 @@
         <tr>
             <td>@proyecto.getId</td>
             <td>@proyecto.getNombre</td>
-            <td>@proyecto.getTipoProyecto</td>
-            <td>@proyecto.getRegionAyuda</td>
+            <td>@proyecto.getTipoProyecto.getNombre</td>
+            <td>@proyecto.getRegionAyuda.getNombre</td>
             <td>
             @form(action = routes.ProyectoController.renderEditProyecto(proyecto.getId)) {
                 @helper.CSRF.formField

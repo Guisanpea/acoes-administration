@@ -1,6 +1,6 @@
-@import models.entities.Proyecto
+@import models.forms.ProyectoForm
 @import helper._
-@(proyectoForm : Form[Proyecto])
+@(proyectoForm : Form[ProyectoForm])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +14,8 @@
                 @CSRF.formField
                 @inputText(proyectoForm("nombre"))
                 @inputText(proyectoForm("descripcion"))
-                @inputText(proyectoForm("tipo_proyecto"))
-                @inputText(proyectoForm("region_ayuda"))
+                @inputText(proyectoForm("tipoProyecto"))
+                @inputText(proyectoForm("regionAyuda"))
                 <button type="submit">Crear proyecto</button>
             }
         </div>

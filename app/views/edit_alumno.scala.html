@@ -25,15 +25,17 @@
                 @inputText(alumnoForm("apellidos"))
                 @inputText(alumnoForm("estado"))
                 @inputText(alumnoForm("sexo"))
-                @inputText(alumnoForm("fechaNacimiento"))
-                @inputText(alumnoForm("fechaEntradaAcoes"))
-                @inputText(alumnoForm("fechaAlta"))
-                @inputText(alumnoForm("fechaSalidaAcoes"))
+                @inputDate(alumnoForm("fechaNacimiento"))
+                @inputDate(alumnoForm("fechaEntradaAcoes"))
+                @inputDate(alumnoForm("fechaAlta"))
+                @inputDate(alumnoForm("fechaSalidaAcoes"))
                 @inputText(alumnoForm("gradoCurso"))
                 @inputText(alumnoForm("coloniaProcedencia"))
                 @inputText(alumnoForm("coloniaActual"))
                 @inputText(alumnoForm("observaciones"))
-                @inputText(alumnoForm("apadrinable"))
+                Apadrinable <input type="checkbox"
+                name="apadrinable"
+                value="@alumnoForm("apadrinable")"><br>
                 <button type="submit">Editar alumno</button>
             }
     </div>

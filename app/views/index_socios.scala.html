@@ -11,19 +11,13 @@
         <meta charset="UTF-8">
         <title>Title</title>
     </head>
-
     <body>
-        <h1>Panel de administración de socios</h1>
-
-        <div>
-            @form(action = routes.SocioController.renderCreateSocio()) {
-                @helper.CSRF.formField
-                <button type="submit">Añadir socio</button>
-            }
+        <div align="center">
             <table border="1">
                 <tr>
                     <th>Nombre</th>
                     <th>Apellidos</th>
+                    <th>Estado</th>
                     <th>NIF</th>
                     <th>Dirección</th>
                     <th>Población</th>
@@ -32,17 +26,20 @@
                     <th>Telefono Fijo</th>
                     <th>Telefono Móvil</th>
                     <th>Email</th>
+                    <th>Certificado</th>
                     <th>Sector</th>
                     <th>Fecha de alta</th>
                     <th>Fecha de baja</th>
                     <th>Observaciones</th>
                     <th>Responsable</th>
-                    <th>Contribucion economica</th>
+                    <th>Contribucioón económica</th>
+                    <th>Editar</th>
                 </tr>
                 @for(socio <- listaSocios) {
                     <tr>
                         <td>@socio.getNombre</td>
                         <td>@socio.getApellidos</td>
+                        <td>@socio.getEstado</td>
                         <td>@socio.getNif</td>
                         <td>@socio.getDireccion</td>
                         <td>@socio.getPoblacion</td>
@@ -51,6 +48,7 @@
                         <td>@socio.getTelefonoFijo</td>
                         <td>@socio.getTelefonoMovil</td>
                         <td>@socio.getEmail</td>
+                        <td>@socio.isCertificado</td>
                         <td>@socio.getSector</td>
                         <td>@socio.getFechaAlta</td>
                         <td>@socio.getFechaBaja</td>
@@ -58,17 +56,19 @@
                         <td>@socio.getResponsable.getNombre</td>
                         <td>@socio.getContribucionEconomica</td>
                         <td>
-                            @form(action = routes.SocioController.renderEditSocio(socio.getNumeroDeSocio)) {
-                              @helper.CSRF.formField
-                              <input type="hidden" name="socioId" value="@socio.getNumeroDeSocio" />
-                               <button type="submit">Editar socio"</button>
-                            }
+                        @form(action = routes.SocioController.renderEditSocio(socio.getNumeroDeSocio)) {
+                            @helper.CSRF.formField
+                            <input type="hidden" name="socioId" value="@socio.getNumeroDeSocio" />
+                            <button type="submit">Editar socio"</button>
+                        }
                         </td>
                     </tr>
-
                 }
             </table>
-
+            @form(action = routes.SocioController.renderCreateSocio()) {
+                @helper.CSRF.formField
+                <button type="submit">Añadir socio</button>
+            }
         </div>
     </body>
 </html>

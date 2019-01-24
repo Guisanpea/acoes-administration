@@ -1,6 +1,6 @@
 package controllers;
 
-import models.entities.Egreso;
+import models.entities.*;
 import models.management.EgresoRepository;
 import play.data.Form;
 import play.data.FormFactory;
@@ -8,12 +8,17 @@ import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import views.html.create_egreso;
+import views.html.index_egresos;
 
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
 
 //TODO @Security.Authenticated(UserAuthenticator.class)
-public class IngresoController extends Controller {
+public class EgresoController extends Controller {
 
     private final EgresoRepository egresoRepository;
     private final FormFactory formFactory;
@@ -28,8 +33,8 @@ public class IngresoController extends Controller {
 
 
     public CompletionStage<Result> listEgresos() {
-        return egresoRepository.list().thenApplyAsync(registroList ->
-                        ok(index_egreso.render(egresoList))
+        return egresoRepository.list().thenApplyAsync(egresoList ->
+                        ok(index_egresos.render(egresoList))
                 , httpExecutionContext.current()
         );
     }

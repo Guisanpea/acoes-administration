@@ -72,7 +72,7 @@ GET         /ingresos/new                 controllers.IngresoController.renderCr
 
 POST        /ingreso                      controllers.IngresoController.createIngreso()
 
-GET         /egresos                      controllers.EgresoController.listaEgresos()
+GET         /egresos                      controllers.EgresoController.listEgresos()
 
 GET         /egresos/new                  controllers.EgresoController.renderCreateEgreso()
 

@@ -3,7 +3,7 @@
 
 @(egresoList: List[Egreso])
 
-<h1>egresos</h1>
+<h1>Egresos</h1>
 
 <table border="1">
     <tr>
@@ -38,11 +38,11 @@
             <td>@egreso.getPartida</td>
             <td>@egreso.getProyecto</td>
             <td>@egreso.getCreador</td>
-            <td>@egreso.getValido</td>
+            <td>@egreso.isValidado</td>
             <td>@egreso.getResponsable</td>
         </tr>
     }
-    @form(action = routes.egresoController.renderCreateEgreso()) {
+    @form(action = routes.EgresoController.renderCreateEgreso()) {
         @helper.CSRF.formField
         <button type="submit">Añadir egreso</button>
     }

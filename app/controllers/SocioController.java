@@ -3,8 +3,10 @@ package controllers;
 import beanUtils.PropertyUtils;
 import models.entities.Socio;
 import models.entities.Usuario;
+import models.forms.SocioForm;
 import models.management.SocioRepository;
 import models.management.UsuarioRepository;
+import org.springframework.beans.BeanUtils;
 import play.data.Form;
 import play.data.FormFactory;
 import play.libs.concurrent.HttpExecutionContext;
@@ -42,23 +44,24 @@ public class SocioController extends Controller {
     }
 
     public Result renderCreateSocio() {
-        Form<Socio> socioForm = formFactory.form(Socio.class);
+        Form<SocioForm> socioForm = formFactory.form(SocioForm.class);
 
         return ok(create_socio.render(socioForm));
     }
 
     public CompletionStage<Result> createSocio() {
-        Socio newSocio = formFactory.form(Socio.class).bindFromRequest(
+        SocioForm newSocio = formFactory.form(SocioForm.class).bindFromRequest(
                 "nombre", "apellidos", "estado", "nif",
                 "direccion", "poblacion",
                 "codigoPostal", "provincia", "telefonoFijo", "telefonoMovil",
                 "email", "relacion", "certificado", "sector",
                 "fechaAlta", "fechaBaja", "observaciones", "contribucionEconomica").get();
-
+        Socio newS = new Socio();
+        BeanUtils.copyProperties(socioForm, newS);
         String emailSession = session("email");
         return usuarioRepository.findByEmail(emailSession).thenCompose(user -> {
-            newSocio.setResponsable(user);
-            return socioRepository.add(newSocio).thenApplyAsync(socio -> {
+            newS.setResponsable(user);
+            return socioRepository.add(newS).thenApplyAsync(socio -> {
                         return redirect(routes.SocioController.listSocios());
                     }
                     , httpExecutionContext.current());
@@ -66,10 +69,9 @@ public class SocioController extends Controller {
     }
 
     public CompletionStage<Result> renderEditSocio(Integer socioId) {
-        final Form<Socio> socioForm = formFactory.form(Socio.class);
-
+        Form<SocioForm> socioForm = formFactory.form(SocioForm.class);
         return socioRepository.findById(socioId).thenApplyAsync(socio ->
-                        ok(edit_socio.render(socioForm.fill(socio), socioId))
+                        ok(edit_socio.render(socioForm, socioId))
                 , httpExecutionContext.current()
         );
     }

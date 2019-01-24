@@ -1,7 +1,8 @@
 @import models.entities.Socio
 @import helper._
 @import play.data.Form
-@(socioForm: Form[Socio], socioId: Int)
+@import models.forms.SocioForm
+@(socioForm: Form[socioForm], socioId: Int)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +41,7 @@
                 @inputDate(socioForm("fechaAlta"))
                 @inputText(socioForm("fechaBaja"))
                 @inputText(socioForm("observaciones"))
-                @inputText(socioForm("respondable"))
+                @inputText(socioForm("nombreRespondable"))
                 @inputText(socioForm("contribucionEconomica"))
                 <button type="submit">Editar socio</button>
             }

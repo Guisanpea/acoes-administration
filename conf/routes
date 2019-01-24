@@ -36,9 +36,9 @@ GET         /alumnos/new                  controllers.AlumnoController.renderCre
 
 POST        /alumnos                      controllers.AlumnoController.createAlumno()
 
-GET         /alumnos/:alumnoId             controllers.AlumnoController.renderEditAlumno(alumnoId: Int)
+GET         /alumnos/:alumnoId            controllers.AlumnoController.renderEditAlumno(alumnoId: Int)
 
-POST        /alumnos/:alumnoId             controllers.AlumnoController.editAlumno(alumnoId: Int)
+POST        /alumnos/:alumnoId            controllers.AlumnoController.editAlumno(alumnoId: Int)
 
 GET         /socios                       controllers.SocioController.listSocios()
 

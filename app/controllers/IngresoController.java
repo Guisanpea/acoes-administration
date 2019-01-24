@@ -11,6 +11,11 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
+import views.html.create_ingreso;
+import views.html.index_ingresos;
+
+
+
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
 
@@ -38,13 +43,8 @@ public class IngresoController extends Controller {
 
     public Result renderCreateIngreso() {
         Form<Ingreso> ingresoForm = formFactory.form(Ingreso.class);
-        List<String> partidas = Arrays.stream(Partida.Nombre.values())
-              .map(Enum::name)
-              .collect(Collectors.toList());
-        List<String> proyectos = Arrays.stream(Proyecto.Nombre.values())
-              .map(Enum::name)
-              .collect(Collectors.toList());
-        return ok(create_ingreso.render(ingresoForm, partidas, proyectos));
+        // TODO
+        return ok(create_ingreso.render(ingresoForm));
     }
 
     public CompletionStage<Result> createIngreso() {

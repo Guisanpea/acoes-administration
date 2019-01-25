@@ -104,7 +104,7 @@ public class IngresoController extends Controller {
                         System.out.println(ingreso.getProyecto());
                         System.out.println(ingreso.getCreador());
                         return ingresoRepository.add(ingreso).thenApplyAsync(i -> {
-                                  return redirect(routes.SocioController.listSocios());
+                                  return redirect(routes.IngresoController.listIngresos());
                               }
                               , ec.current());
                     })

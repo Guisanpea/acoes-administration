@@ -21,7 +21,6 @@ import java.util.Collection;
     , @NamedQuery(name = "Partida.findByNombre", query = "SELECT p FROM Partida p WHERE p.nombre = :nombre")})
 @Getter
 @Setter
-@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,4 +41,8 @@ public class Partida implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "partida")
     private Collection<Ingreso> ingresoCollection;
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

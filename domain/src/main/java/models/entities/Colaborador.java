@@ -20,7 +20,6 @@ import java.util.Collection;
       , @NamedQuery(name = "Colaborador.findByNombre", query = "SELECT c FROM Colaborador c WHERE c.nombre = :nombre")})
 @Getter
 @Setter
-@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -43,4 +42,8 @@ public class Colaborador implements Serializable {
     @OneToMany(mappedBy = "beneficiarioColaborador")
     private Collection<Egreso> egresoCollection;
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

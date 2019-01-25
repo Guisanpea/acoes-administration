@@ -97,4 +97,8 @@ public class Egreso implements Serializable {
     @ManyToOne
     private Tercero beneficiarioTercero;
 
+    @Override
+    public String toString() {
+        return concepto;
+    }
 }

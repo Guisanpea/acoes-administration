@@ -83,4 +83,8 @@ public class Usuario implements Serializable {
     @ManyToOne
     private Sede sedeUsuarioLocal;
 
+    @Override
+    public String toString() {
+        return email;
+    }
 }

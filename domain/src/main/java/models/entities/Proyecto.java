@@ -22,7 +22,6 @@ import java.util.Collection;
     , @NamedQuery(name = "Proyecto.findByNombre", query = "SELECT p FROM Proyecto p WHERE p.nombre = :nombre")})
 @Getter
 @Setter
-@ToString(onlyExplicitlyIncluded = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -53,4 +52,9 @@ public class Proyecto implements Serializable {
     @JoinColumn(name = "region_ayuda", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private RegionAyuda regionAyuda;
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

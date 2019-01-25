@@ -55,10 +55,8 @@
                     @b4.text(socioForm("email"), '_label -> "Email")
                     @b4.text(socioForm("sector"), '_label -> "Sector")
                     @b4.text(socioForm("contribucionEconomico"), '_label -> "Contribución económica")
-                }
                 </div>
                 <div class="col-md-6">
-                @b4.vertical.form(action = routes.SocioController.createSocio()) { implicit vfc =>
                     @helper.CSRF.formField
                     @b4.text(socioForm("apellidos"), '_label -> "Apellidos")
                     @b4.text(socioForm("nif"), '_label -> "DNI/NIF")
@@ -68,10 +66,8 @@
                     @b4.date(socioForm("fechaAlta"), '_label -> "Fecha de alta")
                     @b4.date(socioForm("fechaBaja"), '_label -> "Fecha de baja")
                     @b4.text(socioForm("observaciones"), '_label -> "Observaciones")
-                }
                 </div>
             </div>
-            @b4.vertical.form(action = routes.SocioController.createSocio()) { implicit vfc =>
                 @helper.CSRF.formField
                 <div align="center"> @b4.submit('class -> "btn btn-primary") { Añadir socio } </div>
             }

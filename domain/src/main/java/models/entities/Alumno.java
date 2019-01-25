@@ -35,7 +35,6 @@ import java.util.Date;
     , @NamedQuery(name = "Alumno.findByApadrinable", query = "SELECT a FROM Alumno a WHERE a.apadrinable = :apadrinable")})
 @Getter
 @Setter
-@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -115,4 +114,8 @@ public class Alumno implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "alumno1")
     private Collection<EstaEn> estaEnCollection;
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

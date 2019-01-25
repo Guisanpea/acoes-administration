@@ -1,0 +1,28 @@
+@import helper._
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Panel Gerente de Sede</title>
+    </head>
+    <body>
+        <div class="botones" align="center">
+            @form(action = routes.IngresoController.listIngresos()) {
+                @helper.CSRF.formField
+                <button type="submit">Ver Ingresos</button>
+            }
+            @form(action = routes.EgresoController.listEgresos()) {
+                @helper.CSRF.formField
+                <button type="submit">Ver Egresos</button>
+            }
+            @form(action = routes.SocioController.listSocios()) {
+                @helper.CSRF.formField
+                <button type="submit">Ver Socios</button>
+            }
+            @form(action = routes.ApadrinamientoController.listApadrinamientos()) {
+                @helper.CSRF.formField
+                <button type="submit">Ver Apadrinamientos</button>
+            }
+        </div>
+    </body>
+</html>

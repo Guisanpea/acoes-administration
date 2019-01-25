@@ -1,5 +1,6 @@
-@import models.forms.ProyectoForm
+@import models.entities.Proyecto
 @import helper._
+@import models.forms.ProyectoForm
 @(proyectoForm : Form[ProyectoForm])
 
 <!DOCTYPE html>
@@ -7,16 +8,46 @@
     <head>
         <meta charset="UTF-8">
         <title>Introducir proyecto</title>
+
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
     </head>
     <body>
-        <div align="center">
-            @form(action = routes.ProyectoController.createProyecto() ){
-                @CSRF.formField
-                @inputText(proyectoForm("nombre"))
-                @inputText(proyectoForm("descripcion"))
-                @inputText(proyectoForm("nombreTipoProyecto"))
-                @inputText(proyectoForm("regionAyuda"))
-                <button type="submit">Crear proyecto</button>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.SessionController.login()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Volver atrás } </p>
+                }
+                </div>
+                <div class="col-md-6" align="right">
+                @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.ProyectoController.createProyecto()) { implicit vfc =>
+                    @helper.CSRF.formField
+                    @b4.text(proyectoForm("nombre"), '_label -> "Nombre")
+                    @b4.text(proyectoForm("tipo_proyecto"), '_label -> "Tipo de proyecto")
+                    @b4.text(proyectoForm("region_ayuda"), '_label -> "Región de ayuda")
+                }
+                </div>
+            </div>
+            @b4.vertical.form(action = routes.ProyectoController.createProyecto()) { implicit vfc =>
+                @helper.CSRF.formField
+            <div align="center"> @b4.submit('class -> "btn btn-primary") { Añadir proyecto } </div>
             }
         </div>
     </body>

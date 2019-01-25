@@ -3,28 +3,57 @@
 
 @(partidasList: List[Partida])
 
-<h1>Lista de partidas</h1>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Partidas</title>
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-    </tr>
-    @for(partida <- partidasList) {
-        <tr>
-            <td>@partida.getId</td>
-            <td>@partida.getNombre</td>
-            <td>
-            @form(action = routes.PartidaController.renderEditPartida(partida.getId)) {
-                @helper.CSRF.formField
-                <input type="hidden" name="partidaId" value="@partida.getId" />
-                <button type="submit">Editar partida"</button>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+    </head>
+    <body>
+        <header class="p-1 mb-6">
+            <div class="row">
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.PartidaController.renderCreatePartida()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Añadir partida } </p>
+                }
+                </div>
+                <div class="col-md-6" align="right">
+                @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                }
+                </div>
+            </div>
+
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+            </tr>
+            @for(partida <- partidasList) {
+                <tr>
+                    <td>@partida.getId</td>
+                    <td>@partida.getNombre</td>
+                    <td>
+                    @form(action = routes.PartidaController.renderEditPartida(partida.getId)) {
+                        @helper.CSRF.formField
+                        <input type="hidden" name="partidaId" value="@partida.getId" />
+                        <button type="submit" class="btn-secondary">Editar partida</button>
+                    }
+                    </td>
+                </tr>
             }
-            </td>
-        </tr>
-    }
-    @form(action = routes.PartidaController.renderCreatePartida()) {
-        @helper.CSRF.formField
-        <button type="submit">Añadir partida</button>
-    }
-</table>
+        </table>
+    </body>
+</html>

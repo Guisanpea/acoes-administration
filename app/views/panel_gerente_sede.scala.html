@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Panel gerente regional</title>
+        <title>Panel gerente sede</title>
 
             <!-- Esto es lo necesario para "ejecutar" boostrap" -->
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
@@ -18,7 +18,7 @@
     </head>
     <body>
         <div class="jumbotron">
-            <h1 align="center">Panel gerende regional</h1>
+            <h1 align="center">Panel gerende de sede</h1>
             <div align="center">
             @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
                 @helper.CSRF.formField
@@ -46,26 +46,6 @@
                     @b4.submit('class -> "btn btn-primary") { Partidas }
                 }
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6" align="center">
-                @b4.vertical.form(action = routes.AlumnoController.listAlumnos()) { implicit vfc =>
-                    @helper.CSRF.formField
-                    @b4.submit('class -> "btn btn-primary") { Alumnos }
-                }
-                </div>
-                <div class="col-md-6" align="center">
-                @b4.vertical.form(action = routes.SocioController.listSocios()) { implicit vfc =>
-                    @helper.CSRF.formField
-                    @b4.submit('class -> "btn btn-primary") { Socios }
-                }
-                </div>
-                @*<div class="col-md-6" align="center">
-                @b4.vertical.form(action = routes.SedeController.listSedes()) { implicit vfc =>
-                    @helper.CSRF.formField
-                    @b4.submit('class -> "btn btn-primary") { Sedes }
-                }
-                </div>*@
             </div>
         </div>
     </body>

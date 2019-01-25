@@ -9,37 +9,61 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>Socios</title>
+
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
     </head>
     <body>
-        <div align="center">
-            <table border="1">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Estado</th>
-                    <th>NIF</th>
-                    <th>Dirección</th>
-                    <th>Población</th>
-                    <th>Codigo Postal</th>
-                    <th>Provincia</th>
-                    <th>Telefono Fijo</th>
-                    <th>Telefono Móvil</th>
-                    <th>Email</th>
-                    <th>Certificado</th>
-                    <th>Sector</th>
-                    <th>Fecha de alta</th>
-                    <th>Fecha de baja</th>
-                    <th>Observaciones</th>
-                    <th>Responsable</th>
-                    <th>Contribucioón económica</th>
-                    <th>Editar</th>
-                </tr>
+        <header class="p-1 mb-6">
+            <div class="row">
+                <div class="col-md-6">
+                    @b4.vertical.form(action = routes.SocioController.createSocio()) { implicit vfc =>
+                        @helper.CSRF.formField
+                        <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Añadir socio } </p>
+                    }
+                </div>
+                <div class="col-md-6" align="right">
+                    @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                        @helper.CSRF.formField
+                        <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                    }
+                </div>
+            </div>
+        </header>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>NIF</th>
+                        <th>Dirección</th>
+                        <th>Población</th>
+                        <th>Codigo Postal</th>
+                        <th>Provincia</th>
+                        <th>Telefono Fijo</th>
+                        <th>Telefono Móvil</th>
+                        <th>Email</th>
+                        <th>Sector</th>
+                        <th>Fecha de alta</th>
+                        <th>Fecha de baja</th>
+                        <th>Observaciones</th>
+                        <th>Responsable</th>
+                        <th>Contribución económica</th>
+                    </tr>
+                </thead>
                 @for(socio <- listaSocios) {
                     <tr>
                         <td>@socio.getNombre</td>
                         <td>@socio.getApellidos</td>
-                        <td>@socio.getEstado</td>
                         <td>@socio.getNif</td>
                         <td>@socio.getDireccion</td>
                         <td>@socio.getPoblacion</td>
@@ -48,27 +72,16 @@
                         <td>@socio.getTelefonoFijo</td>
                         <td>@socio.getTelefonoMovil</td>
                         <td>@socio.getEmail</td>
-                        <td>@socio.isCertificado</td>
                         <td>@socio.getSector</td>
                         <td>@socio.getFechaAlta</td>
                         <td>@socio.getFechaBaja</td>
                         <td>@socio.getObservaciones</td>
-                        <td>@socio.getResponsable.getNombre</td>
+                        <td>@socio.getResponsable</td>
                         <td>@socio.getContribucionEconomica</td>
-                        <td>
-                        @form(action = routes.SocioController.renderEditSocio(socio.getNumeroDeSocio)) {
-                            @helper.CSRF.formField
-                            <input type="hidden" name="socioId" value="@socio.getNumeroDeSocio" />
-                            <button type="submit">Editar socio"</button>
-                        }
-                        </td>
+                        <td><button class="btn-secondary" type="submit">Editar</button></td>
                     </tr>
                 }
             </table>
-            @form(action = routes.SocioController.renderCreateSocio()) {
-                @helper.CSRF.formField
-                <button type="submit">Añadir socio</button>
-            }
         </div>
     </body>
 </html>

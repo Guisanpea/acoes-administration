@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Panel Agente</title>
+        <title>Panel administrador</title>
 
             <!-- Esto es lo necesario para "ejecutar" boostrap" -->
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
@@ -18,28 +18,20 @@
     </head>
     <body>
         <div class="jumbotron">
-            <h1 align="center">Panel agente</h1>
+            <h1 align="center">Panel ADMIN</h1>
             <div align="center">
-                @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
-                    @helper.CSRF.formField
-                    <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
-                }
+            @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                @helper.CSRF.formField
+            <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+            }
             </div>
 
             @*TODO Añadir rutas*@
-            <div class="row">
-                <div class="col-md-6" align="center">
-                    @b4.vertical.form(action = routes.AlumnoController.listAlumnos()) { implicit vfc =>
-                        @helper.CSRF.formField
-                        @b4.submit('class -> "btn btn-primary") { Alumnos }
-                    }
-                </div>
-                <div class="col-md-6" align="center">
-                    @b4.vertical.form(action = routes.SocioController.listSocios()) { implicit vfc =>
-                        @helper.CSRF.formField
-                        @b4.submit('class -> "btn btn-primary") { Socios }
-                    }
-                </div>
+            <div align="center">
+                @b4.vertical.form(action = routes.UserController.listUsers()) { implicit vfc =>
+                    @helper.CSRF.formField
+                    @b4.submit('class -> "btn btn-primary") { Usuarios }
+                }
             </div>
         </div>
     </body>

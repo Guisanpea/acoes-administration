@@ -1,10 +1,12 @@
+@import models.entities.Colaborador
 @import helper._
+@(colaboradorForm : Form[Colaborador])
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Panel Agente</title>
+        <title>Introducir colaborador</title>
 
             <!-- Esto es lo necesario para "ejecutar" boostrap" -->
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
@@ -18,29 +20,32 @@
     </head>
     <body>
         <div class="jumbotron">
-            <h1 align="center">Panel agente</h1>
-            <div align="center">
+            <div class="row">
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.SessionController.login()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Volver atrás } </p>
+                }
+                </div>
+                <div class="col-md-6" align="right">
                 @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
                     @helper.CSRF.formField
-                    <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
                 }
-            </div>
-
-            @*TODO Añadir rutas*@
-            <div class="row">
-                <div class="col-md-6" align="center">
-                    @b4.vertical.form(action = routes.AlumnoController.listAlumnos()) { implicit vfc =>
-                        @helper.CSRF.formField
-                        @b4.submit('class -> "btn btn-primary") { Alumnos }
-                    }
-                </div>
-                <div class="col-md-6" align="center">
-                    @b4.vertical.form(action = routes.SocioController.listSocios()) { implicit vfc =>
-                        @helper.CSRF.formField
-                        @b4.submit('class -> "btn btn-primary") { Socios }
-                    }
                 </div>
             </div>
-        </div>
+            @*<div class="row">
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.ColaboradorController.createColaborador()) { implicit vfc =>
+                    @helper.CSRF.formField
+                    @b4.text(colaboradorForm("nombre"), '_label -> "Nombre")
+                }
+                </div>
+            </div>
+            @b4.vertical.form(action = routes.ColaboradorController.createColaborador()) { implicit vfc =>
+                @helper.CSRF.formField
+            <div align="center"> @b4.submit('class -> "btn btn-primary") { Añadir colaborador } </div>
+            }
+        </div>*@
     </body>
 </html>

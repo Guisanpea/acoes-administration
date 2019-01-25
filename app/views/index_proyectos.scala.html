@@ -3,32 +3,60 @@
 
 @(proyectosList: List[Proyecto])
 
-<h1>Lista de proyectos</h1>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Proyectos</title>
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Tipo de proyecto</th>
-        <th>Region de ayuda</th>
-    </tr>
-    @for(proyecto <- proyectosList) {
-        <tr>
-            <td>@proyecto.getId</td>
-            <td>@proyecto.getNombre</td>
-            <td>@proyecto.getTipoProyecto.getNombre</td>
-            <td>@proyecto.getRegionAyuda.getNombre</td>
-            <td>
-            @form(action = routes.ProyectoController.renderEditProyecto(proyecto.getId)) {
-                @helper.CSRF.formField
-                <input type="hidden" name="proyectoId" value="@proyecto.getId" />
-                <button type="submit">Editar proyecto"</button>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+    </head>
+    <body>
+        <header class="p-1 mb-6">
+            <div class="row">
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.ProyectoController.renderCreateProyecto()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Añadir proyecto } </p>
+                }
+                </div>
+                <div class="col-md-6" align="right">
+                @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                }
+                </div>
+            </div>
+        </header>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Tipo de Proyecto</th>
+                    <th>Región de Ayuda</th>
+                </tr>
+            </thead>
+            @for(proyecto <- proyectosList) {
+                <tr>
+                    <td>@proyecto.getNombre</td>
+                    <td>@proyecto.getTipoProyecto</td>
+                    <td>@proyecto.getRegionAyuda</td>
+                    <td>@form(action = routes.UserController.renderEditUser(proyecto.getId)) {
+                        @helper.CSRF.formField
+                        <input type="hidden" name="userId" value="proyectoId" />
+                        <button class="btn-secondary" type="submit">Editar</button>
+                    }</td>
+                </tr>
             }
-            </td>
-        </tr>
-    }
-    @form(action = routes.ProyectoController.renderCreateProyecto()) {
-        @helper.CSRF.formField
-        <button type="submit">Añadir proyecto</button>
-    }
-</table>
+        </table>
+    </body>
+</html>

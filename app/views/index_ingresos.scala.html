@@ -3,41 +3,70 @@
 
 @(ingresoList: List[Ingreso])
 
-<h1>ingresos</h1>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ingresos</title>
 
-<table border="1">
-    <tr>
-        <th>Id</th>
-        <th>Fecha</th>
-        <th>Concepto</th>
-        <th>Importe</th>
-        <th>Emisor</th>
-        <th>Observaciones</th>
-        <th>Partida</th>
-        <th>Proyecto</th>
-        <th>Creador</th>
-        <th>Válido</th>
-        <th>Responsable</th>
-    </tr>
-    @for(ingreso <- ingresoList) {
-        <tr>
-            <td>@ingreso.getId</td>
-            <td>@ingreso.getFecha</td>
-            <td>@ingreso.getConcepto</td>
-            <td>@ingreso.getImporte</td>
-            <td>@ingreso.getEmisor</td>
-            <td>@ingreso.getObservaciones</td>
-            <td>@ingreso.getPartida.getNombre</td>
-            <td>@ingreso.getProyecto.getNombre</td>
-            <td>@ingreso.getCreador.getNombre</td>
-            <td>@ingreso.isValidado</td>
-            @if(ingreso.getResponsable() != null) {
-                <td>@ingreso.getResponsable.getNombre</td>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+    </head>
+
+    <body>
+        <header class="p-1 mb-6">
+            <div class="row">
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.IngresoController.renderCreateIngreso()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Añadir ingreso } </p>
+                }
+                </div>
+                <div class="col-md-6" align="right">
+                @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                }
+                </div>
+            </div>
+        </header>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Concepto</th>
+                    <th>Importe</th>
+                    <th>Emisor</th>
+                    <th>Observaciones</th>
+                    <th>Partida</th>
+                    <th>Proyecto</th>
+                    <th>Creador</th>
+                    <th>Validado</th>
+                    <th>Responsable</th>
+                </tr>
+            </thead>
+            @for(ingreso <- ingresoList) {
+                <tr>
+                    <td>@ingreso.getFecha</td>
+                    <td>@ingreso.getConcepto</td>
+                    <td>@ingreso.getImporte</td>
+                    <td>@ingreso.getEmisor</td>
+                    <td>@ingreso.getObservaciones</td>
+                    <td>@ingreso.getPartida</td>
+                    <td>@ingreso.getProyecto</td>
+                    <td>@ingreso.getCreador</td>
+                    <td>@ingreso.isValidado</td>
+                    <td>@ingreso.getResponsable</td>
+                </tr>
             }
-        </tr>
-    }
-    @form(action = routes.IngresoController.renderCreateIngreso()) {
-        @helper.CSRF.formField
-        <button type="submit">Añadir ingreso</button>
-    }
-</table>
+        </table>
+    </body>
+</html>

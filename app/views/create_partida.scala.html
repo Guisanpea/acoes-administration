@@ -7,13 +7,41 @@
     <head>
         <meta charset="UTF-8">
         <title>Introducir partida</title>
+
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
     </head>
     <body>
-        <div align="center">
-            @form(action = routes.PartidaController.createPartida() ){
-                @CSRF.formField
-                @inputText(partidaForm("nombre"))
-                <button type="submit">Crear partida</button>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.SessionController.login()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Volver atrás } </p>
+                }
+                </div>
+                <div class="col-md-6" align="right">
+                @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                }
+                </div>
+            </div>
+            <div align="center">
+                @b4.vertical.form(action = routes.PartidaController.createPartida()) { implicit vfc =>
+                    @helper.CSRF.formField @b4.text(partidaForm("nombre"), '_label -> "Nombre")
+                }
+            </div>
+            @b4.vertical.form(action = routes.PartidaController.createPartida()) { implicit vfc =>
+                @helper.CSRF.formField
+            <div align="center"> @b4.submit('class -> "btn btn-primary") { Añadir partida } </div>
             }
         </div>
     </body>

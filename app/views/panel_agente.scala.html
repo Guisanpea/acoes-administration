@@ -1,24 +1,46 @@
 @import helper._
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Panel Agente</title>
+
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
     </head>
     <body>
-        <div class="botones" align="center">
-        @form(action = routes.AlumnoController.listAlumnos()) {
-            @helper.CSRF.formField
-            <button type="submit">Alumnos</button>
-        }
-        @form(action = routes.SocioController.listSocios()) {
-                @helper.CSRF.formField
-                <button type="submit">Socios</button>
-        }
-            @form(action = routes.SocioController.listSocios()) {
-                @helper.CSRF.formField
-                <button type="submit">Socios</button>
-            }
+        <div class="jumbotron">
+            <h1 align="center">Panel agente</h1>
+            <div align="center">
+                @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                    @helper.CSRF.formField
+                    <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                }
+            </div>
+
+            @*TODO Añadir rutas*@
+            <div class="row">
+                <div class="col-md-6" align="center">
+                    @b4.vertical.form(action = routes.AlumnoController.listAlumnos()) { implicit vfc =>
+                        @helper.CSRF.formField
+                        @b4.submit('class -> "btn btn-primary") { Alumnos }
+                    }
+                </div>
+                <div class="col-md-6" align="center">
+                    @b4.vertical.form(action = routes.SocioController.listSocios()) { implicit vfc =>
+                        @helper.CSRF.formField
+                        @b4.submit('class -> "btn btn-primary") { Socios }
+                    }
+                </div>
+            </div>
         </div>
     </body>
 </html>

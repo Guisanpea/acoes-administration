@@ -1,38 +1,64 @@
-@*
-Aqui pasamos el usuario que se va a modificar.
-Dentro de cada input estan los placeholders de los datos vigentes de ese socio.
-El boton guardar modifica los datos del usuario y devuelve la vista de lista de usuarios. El boton cancelar vuelve a la vista de lista de usuarios.
-*@
-@import helper._
-@import models.forms.ProyectoForm
 @import models.entities.Proyecto
+@import helper._
 @import play.data.Form
-
+@import models.forms.ProyectoForm
 @(proyectoForm: Form[ProyectoForm], proyectoId: Int)
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Modificar proyecto</title>
+        <title>Editar proyecto</title>
+
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
     </head>
     <body>
         @* Global errors are not tied to any particular form field *@
         @if(proyectoForm.hasGlobalErrors) {
             @for( error <- proyectoForm.globalErrors) {
                 <div>
-                    @error.toString
+                @error.toString
                 </div>
             }
         }
-        <div align="center">
-            @form(action = routes.ProyectoController.editProyecto(proyectoId)) {
-                @CSRF.formField
-                @inputText(proyectoForm("nombre"))
-                @inputText(proyectoForm("nombreTipoProyecto"))
-                @inputText(proyectoForm("regionAyuda"))
-                <button type="submit">Editar proyecto</button>
+
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-6">
+            @b4.vertical.form(action = routes.SessionController.login()) { implicit vfc =>
+                @helper.CSRF.formField
+            <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Volver atrás } </p>
             }
+            </div>
+            <div class="col-md-6" align="right">
+            @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                @helper.CSRF.formField
+            <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+            }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+            @b4.vertical.form(action = routes.ProyectoController.editProyecto(proyectoId)) { implicit vfc =>
+                @helper.CSRF.formField
+                @b4.text(proyectoForm("nombre"), '_label -> "Nombre")
+                @b4.text(proyectoForm("tipo_proyecto"), '_label -> "Tipo de proyecto")
+                @b4.text(proyectoForm("region_ayuda"), '_label -> "Región de ayuda")
+            }
+            </div>
+        </div>
+        @b4.vertical.form(action = routes.ProyectoController.editProyecto(proyectoId)) { implicit vfc =>
+            @helper.CSRF.formField
+        <div align="center"> @b4.submit('class -> "btn btn-primary") { Editar proyecto } </div>
+        }
     </div>
     </body>
 </html>

@@ -1,5 +1,6 @@
 @import helper._
 @import models.entities.Usuario
+@import b4.horizontal.fieldConstructor
 
 @(userForm: Form[Usuario], incorrectLogin: Boolean = false)
 
@@ -8,27 +9,41 @@
     <head>
         <meta charset="UTF-8">
         <title>Login</title>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
     </head>
+
     <body>
-        @if(flash().contains("message")) {
-            <p class="message">
-            @flash.get("message")
-            </p>
-        }
-        <div class="login-page">
-            <div class="form">
-            @form(action = routes.SessionController.login()) {
-                @helper.CSRF.formField
-                @inputText(userForm("email"))
-                @inputPassword(userForm("contrasena"))
-                <button type="submit">Login</button>
-            }
+        <div class="jumbotron">
+            <header class="p-1 mb-6">
+                @if(flash().contains("message")) {
+                    <p class="message">
+                    @flash.get("message")
+                    </p>
+                }
+            <div class="login-page" align="center">
+                <div class="col-sm-4" align="justify">
+                    @b4.vertical.form(action = routes.SessionController.login()) { implicit vfc =>
+                        @helper.CSRF.formField
+                        @b4.email(userForm("email"), '_label -> "Email")
+                        @b4.password(userForm("contrasena"), '_label -> "Password")
+                        <div align="center"> @b4.submit('class -> "btn btn-primary"){ Sign in } </div>
+                    }
+                        <p class="message">¿No se acuerda de la contraseña?
+                            <!--TODO Add route -->
+                            <a href="">Recuperar contraseña</a>
+                        </p>
+                </div>
             </div>
-            <p class="message">¿No se acuerda de la contraseña?
-                <!--TODO Add route -->
-                <a href="">Recuperar contraseña</a>
-            </p>
         </div>
+
         @if(incorrectLogin) {
             <div>
                 <p style="color: #ff0000;"> Ha introducido un usuario incorrecto </p>

@@ -12,6 +12,7 @@ import play.mvc.Security;
 import views.html.login;
 
 import com.sendgrid.*;
+import views.html.panel_agente;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -60,7 +61,7 @@ public class SessionController extends Controller {
         //TODO finish roles
         switch (user.getRol()) {
             case Agente:
-                return redirect(routes.SocioController.listSocios());
+                return ok(panel_agente.render());
             case GerenteSede:
                 return TODO;
             case GerenteRegional:

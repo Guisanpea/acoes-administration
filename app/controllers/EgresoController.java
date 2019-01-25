@@ -1,6 +1,7 @@
 package controllers;
 
 import models.entities.*;
+import models.forms.EgresoForm;
 import models.management.EgresoRepository;
 import play.data.Form;
 import play.data.FormFactory;
@@ -39,7 +40,7 @@ public class EgresoController extends Controller {
     }
 
     public Result renderCreateEgreso() {
-        Form<Egreso> egresoForm = formFactory.form(Egreso.class);
+        Form<EgresoForm> egresoForm = formFactory.form(EgresoForm.class);
         List<String> tipos = Arrays.stream(Egreso.TipoBeneficiario.values())
                 .map(Enum::name)
                 .collect(Collectors.toList());

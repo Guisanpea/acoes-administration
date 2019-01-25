@@ -3,33 +3,61 @@
 
 @(userList: List[Usuario])
 
-<h1>Panel de administración de usuarios</h1>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Usuarios</title>
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Rol</th>
-        <th>Acciones</th>
-    </tr>
-    @for(user <- userList) {
-        <tr>
-            <td>@user.getId</td>
-            <td>@user.getNombre</td>
-            <td>@user.getEmail</td>
-            <td>@user.getRol</td>
-            <td>
-            @form(action = routes.UserController.renderEditUser(user.getId)) {
-                @helper.CSRF.formField
-                <input type="hidden" name="userId" value="@user.getId" />
-                <button type="submit">Editar usuario"</button>
-            }
-            </td>
-        </tr>
-    }
-    @form(action = routes.UserController.renderCreateUser()) {
-        @helper.CSRF.formField
-        <button type="submit">Añadir usuario</button>
-    }
-</table>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+    </head>
+
+    <body>
+        <header class="p-1 mb-6">
+            <div class="row">
+                <div class="col-md-6">
+                    @b4.vertical.form(action = routes.UserController.renderCreateUser()) { implicit vfc =>
+                        @helper.CSRF.formField
+                        <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Añadir usuario } </p>
+                    }
+                </div>
+                <div class="col-md-6" align="right">
+                    @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                        @helper.CSRF.formField
+                        <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                    }
+                </div>
+            </div>
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                </tr>
+                @for(user <- userList) {
+                    <tr>
+                        <td>@user.getId</td>
+                        <td>@user.getNombre</td>
+                        <td>@user.getEmail</td>
+                        <td>@user.getRol</td>
+                        <td>
+                        @form(action = routes.UserController.renderEditUser(user.getId)) {
+                            @helper.CSRF.formField
+                            <input type="hidden" name="userId" value="@user.getId" />
+                            <button class="btn-secondary" type="submit">Editar</button>
+                        }
+                        </td>
+                    </tr>
+                }
+            </table>
+    </body>
+</html>

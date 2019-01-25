@@ -1,38 +1,80 @@
 @import helper._
 @import models.entities.Socio
+@import b4.horizontal.fieldConstructor
+
 @import models.forms.SocioForm
+
 @(socioForm: Form[SocioForm])
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Introducir Socio</title>
+        <title>Introducir socio</title>
+
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
     </head>
     <body>
-        @form(action = routes.SocioController.createSocio() ){
-            @CSRF.formField
-            @inputText(socioForm("nombre"))
-            @inputText(socioForm("apellidos"))
-            @inputText(socioForm("estado"))
-            @inputText(socioForm("nif"))
-            @inputText(socioForm("direccion"))
-            @inputText(socioForm("poblacion"))
-            @inputText(socioForm("codigoPostal"))
-            @inputText(socioForm("provincia"))
-            @inputText(socioForm("telefonoFijo"))
-            @inputText(socioForm("telefonoMovil"))
-            @inputText(socioForm("email"))
-            @inputText(socioForm("relacion"))
-            Certificado <input type="checkbox"
-            name="@socioForm("certificado").name"
-            value="@socioForm("certificado").value"><br>
-            @inputText(socioForm("sector"))
-            @inputDate(socioForm("fechaAlta"))
-            @inputDate(socioForm("fechaBaja"))
-            @inputText(socioForm("observaciones"))
-            @inputText(socioForm("contribucionEconomico"))
-            <button type="submit">Añadir socio</button>
-        }
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.SessionController.login()) { implicit vfc =>
+                    @helper.CSRF.formField
+                    <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Volver atrás } </p>
+                }
+                </div>
+                <div class="col-md-6" align="right">
+                @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                    @helper.CSRF.formField
+                    <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.SocioController.createSocio()) { implicit vfc =>
+                    @helper.CSRF.formField
+                    @b4.text(socioForm("nombre"), '_label -> "Nombre")
+                    @b4.select(socioForm("estado"), '_label -> "Estado") { implicit values => <optgroup>
+                        @b4.selectOption("opt_1-1", "Soltero")
+                        @b4.selectOption("opt_1-2", "Casado")
+                        @b4.selectOption("opt_1-2", "Divorciado")
+                    </optgroup>
+                    }
+                    @b4.text(socioForm("direccion"), '_label -> "Dirección")
+                    @b4.text(socioForm("codigoPostal"), '_label -> "Código postal")
+                    @b4.text(socioForm("telefonoFijo"), '_label -> "Teléfono fijo")
+                    @b4.text(socioForm("email"), '_label -> "Email")
+                    @b4.text(socioForm("sector"), '_label -> "Sector")
+                    @b4.text(socioForm("contribucionEconomico"), '_label -> "Contribución económica")
+                }
+                </div>
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.SocioController.createSocio()) { implicit vfc =>
+                    @helper.CSRF.formField
+                    @b4.text(socioForm("apellidos"), '_label -> "Apellidos")
+                    @b4.text(socioForm("nif"), '_label -> "DNI/NIF")
+                    @b4.text(socioForm("poblacion"), '_label -> "Población")
+                    @b4.text(socioForm("telefonoMovil"), '_label -> "Teléfono móvil")
+                    @b4.text(socioForm("relacion"), '_label -> "Relación")
+                    @b4.date(socioForm("fechaAlta"), '_label -> "Fecha de alta")
+                    @b4.date(socioForm("fechaBaja"), '_label -> "Fecha de baja")
+                    @b4.text(socioForm("observaciones"), '_label -> "Observaciones")
+                }
+                </div>
+            </div>
+            @b4.vertical.form(action = routes.SocioController.createSocio()) { implicit vfc =>
+                @helper.CSRF.formField
+                <div align="center"> @b4.submit('class -> "btn btn-primary") { Añadir socio } </div>
+            }
+        </div>
     </body>
 </html>

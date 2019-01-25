@@ -1,5 +1,6 @@
 @import helper._
 @import models.entities.Alumno
+@import b4.horizontal.fieldConstructor
 
 @(alumnoForm: Form[Alumno])
 
@@ -8,27 +9,70 @@
     <head>
         <meta charset="UTF-8">
         <title>Introducir Alumno</title>
+
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
     </head>
     <body>
-        @form(action = routes.AlumnoController.createAlumno() ){
-            @CSRF.formField
-            @inputText(alumnoForm("nombre"))
-            @inputText(alumnoForm("apellidos"))
-            @inputText(alumnoForm("estado"))
-            @inputText(alumnoForm("sexo"))
-            @inputDate(alumnoForm("fechaNacimiento"))
-            @inputDate(alumnoForm("fechaEntradaAcoes"))
-            @inputDate(alumnoForm("fechaAlta"))
-            @inputDate(alumnoForm("fechaSalidaAcoes"))
-            @inputText(alumnoForm("gradoCurso"))
-            @inputText(alumnoForm("coloniaProcedencia"))
-            @inputText(alumnoForm("coloniaActual"))
-            @inputText(alumnoForm("observaciones"))
-            Apadrinable <input type="checkbox"
-            name="apadrinable"
-            value="@alumnoForm("apadrinable")"><br>
-
-            <button type="submit">Añadir alumno</button>
-        }
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-6">
+                    @b4.vertical.form(action = routes.SessionController.login()) { implicit vfc =>
+                        @helper.CSRF.formField
+                        <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Volver atrás } </p>
+                    }
+                </div>
+                <div class="col-md-6" align="right">
+                    @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                        @helper.CSRF.formField
+                        <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                    }
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    @b4.vertical.form(action = routes.AlumnoController.createAlumno()) { implicit vfc =>
+                        @helper.CSRF.formField
+                        @b4.text(alumnoForm("nombre"), '_label -> "Nombre")
+                        @b4.select(alumnoForm("estado"), '_label -> "Estado") { implicit values => <optgroup>
+                            @b4.selectOption("opt_1-1", "Soltero")
+                            @b4.selectOption("opt_1-2", "Casado")
+                            @b4.selectOption("opt_1-2", "Divorciado")
+                        </optgroup>
+                        }
+                        @b4.date(alumnoForm("fechaNacimiento"), '_label -> "Fecha de nacimiento")
+                        @b4.date(alumnoForm("fechaAlta"), '_label -> "Fecha de alta")
+                        @b4.text(alumnoForm("gradoCurso"), '_label -> "Grado curso", 'placeholder -> "Introduzca un número")
+                        @b4.text(alumnoForm("coloniaActual"), '_label -> "Colonia actual")
+                    }
+                    </div>
+                    <div class="col-md-6">
+                    @b4.vertical.form(action = routes.AlumnoController.createAlumno()) { implicit vfc =>
+                        @helper.CSRF.formField
+                        @b4.text(alumnoForm("apellidos"), '_label -> "Apellidos")
+                        @b4.select(alumnoForm("sexo"), '_label -> "Sexo") { implicit values => <optgroup>
+                            @b4.selectOption("opt_1-1", "Hombre")
+                            @b4.selectOption("opt_1-2", "Mujer")
+                        </optgroup>
+                        }
+                        @b4.date(alumnoForm("fechaEntradaAcoes"), '_label -> "Fecha de entrada ACOES")
+                        @b4.date(alumnoForm("fechaSalidaAcoes"), '_label -> "Fecha de salida ACOES")
+                        @b4.text(alumnoForm("coloniaProcedencia"), '_label -> "Colonia de procedencia")
+                        @b4.text(alumnoForm("observaciones"), '_label -> "Observaciones")
+                    }
+                    </div>
+                </div>
+            @b4.vertical.form(action = routes.AlumnoController.createAlumno()) { implicit vfc =>
+                @helper.CSRF.formField
+                <div align="center"> @b4.submit('class -> "btn btn-primary") { Añadir alumno } </div>
+            }
+        </div>
     </body>
 </html>

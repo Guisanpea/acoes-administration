@@ -1,14 +1,13 @@
+@import models.entities.RegionAyuda
 @import helper._
-@import models.entities.Apadrinamiento
-
-@import models.forms.ApadrinamientoForm
-@(apadrinamientoForm: Form[ApadrinamientoForm], apadrinados: List[String], padrinos: List[String])
+@import play.data.Form
+@(regionayudaForm: Form[RegionAyuda], regionayudaId: Int)
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Introducir Alumno</title>
+        <title>Editar región de ayuda</title>
 
             <!-- Esto es lo necesario para "ejecutar" boostrap" -->
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
@@ -20,8 +19,16 @@
         <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
             <!-- Esto es lo necesario para "ejecutar" boostrap" -->
     </head>
-
     <body>
+        @* Global errors are not tied to any particular form field *@
+        @if(regionayudaForm.hasGlobalErrors) {
+            @for( error <- regionayudaForm.globalErrors) {
+                <div>
+                @error.toString
+                </div>
+            }
+        }
+
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-6">
@@ -37,38 +44,18 @@
                 }
                 </div>
             </div>
-            <div class="row">
+            @*<div class="row">
                 <div class="col-md-6">
-                @b4.vertical.form(action = routes.ApadrinamientoController.createApadrinamiento()) { implicit vfc =>
+                @b4.vertical.form(action = routes.RegionAyudaController.editRegionAyuda(regionayudaId)) { implicit vfc =>
                     @helper.CSRF.formField
-                    @b4.text(apadrinamientoForm("aportacion"), '_label -> "Nombre")
-                    @b4.date(apadrinamientoForm("fechaInicio"), '_label -> "Grado curso")
-                    @b4.date(apadrinamientoForm("fechaFin"), '_label -> "Colonia actual")
-                }
-                </div>
-                <div class="col-md-6">
-                @b4.vertical.form(action = routes.ApadrinamientoController.createApadrinamiento()) { implicit vfc =>
-                    @helper.CSRF.formField
-                    @b4.select(apadrinamientoForm("padrino"), options = options(apadrinados), '_label -> "Padrino")
-                    @select(apadrinamientoForm("apadrinado"), options = options(apadrinados), '_label -> "Apadrinado")
+                    @b4.text(regionayudaForm("nombre"), '_label -> "Nombre")
                 }
                 </div>
             </div>
-            @b4.vertical.form(action = routes.ApadrinamientoController.createApadrinamiento()) { implicit vfc =>
+            @b4.vertical.form(action = routes.RegionAyudaController.editRegionAyuda(regionayudaId)) { implicit vfc =>
                 @helper.CSRF.formField
-            <div align="center"> @b4.submit('class -> "btn btn-primary") { Añadir apadrinamiento } </div>
-            }
+            <div align="center"> @b4.submit('class -> "btn btn-primary") { Editar región de ayuda } </div>
+            }*@
         </div>
     </body>
-
-<body>
-    @form(action = routes.ApadrinamientoController.createApadrinamiento()) {
-        @CSRF.formField
-        @select(apadrinamientoForm("apadrinado"), options = options(apadrinados))
-        @select(apadrinamientoForm("padrino"), options = options(padrinos))
-        @inputText(apadrinamientoForm("aportacion"))
-        @inputDate(apadrinamientoForm("fechaInicio"))
-        @inputDate(apadrinamientoForm("fechaFin"))
-        <button type="submit">Añadir alumno</button>
-    }
-</body>
+</html>

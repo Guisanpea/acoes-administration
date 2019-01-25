@@ -1,7 +1,7 @@
 @import models.entities.Egreso
 @import helper._
-@import java.util
 @import models.forms.EgresoForm
+@import java.util
 @(egresoForm: Form[EgresoForm], tipos: List[String])
 
 <!DOCTYPE html>
@@ -9,25 +9,57 @@
     <head>
         <meta charset="UTF-8">
         <title>Introducir Egreso</title>
+
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-grid.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-reboot.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/footer.css")">
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" type="text/javascript"></script>
+            <!-- Esto es lo necesario para "ejecutar" boostrap" -->
     </head>
     <body>
-        <div align="center">
-            @form(action = routes.EgresoController.createEgreso() ){
-                @CSRF.formField
-                @inputDate(egresoForm("fecha"))
-                @inputText(egresoForm("concepto"))
-                @inputText(egresoForm("importe"))
-                @inputText(egresoForm("beneficiarioAlumnos"))
-                @inputText(egresoForm("beneficiarioColaboradores"))
-                @inputText(egresoForm("beneficiarioTerceros"))
-                @inputText(egresoForm("beneficiarioSocios"))
-                @select(egresoForm("tipoBeneficiario"), options = options(tipos))
-                @inputText(egresoForm("observaciones"))
-                @inputText(egresoForm("partida"))
-                @inputText(egresoForm("proyecto"))
-                @inputText(egresoForm("creador"))
-                @inputText(egresoForm("responsable"))
-                <button type="submit">Crear egreso</button>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.SessionController.login()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Volver atrás } </p>
+                }
+                </div>
+                <div class="col-md-6" align="right">
+                @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
+                    @helper.CSRF.formField
+                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.EgresoController.createEgreso()) { implicit vfc =>
+                    @helper.CSRF.formField @b4.date(egresoForm("fecha"), '_label -> "Fecha") @b4.text(egresoForm("importe"), '_label -> "Importe") @b4.text(egresoForm("beneficiarioColaboradores"), '_label -> "Beneficiario colaboradores") @b4.text(egresoForm("tipoBeneficiario"), '_label -> "Tipo beneficiario") @b4.text(egresoForm("proyecto"), '_label -> "Proyecto") @b4.text(egresoForm("Creador"), '_label -> "Creador") @b4.select(egresoForm("validado"), '_label -> "Validado") { implicit values => <optgroup>
+                    @b4.selectOption("opt_1-1", "Si") @b4.selectOption("opt_1-2", "No")
+                </optgroup>
+                }
+                }
+                </div>
+                <div class="col-md-6">
+                @b4.vertical.form(action = routes.EgresoController.createEgreso()) { implicit vfc =>
+                    @helper.CSRF.formField
+                    @b4.text(egresoForm("concepto"), '_label -> "Concepto")
+                    @b4.text(egresoForm("beneficiarioAlumnos"), '_label -> "Beneficiario alumnos")
+                    @b4.text(egresoForm("beneficiarioTerceros"), '_label -> "Beneficiario terceros")
+                    @b4.text(egresoForm("partida"), '_label -> "Partida")
+                    @b4.text(egresoForm("responsable"), '_label -> "Responsable")
+                    @b4.text(egresoForm("observaciones"), '_label -> "Observaciones")
+                }
+                </div>
+            </div>
+            @b4.vertical.form(action = routes.EgresoController.createEgreso()) { implicit vfc =>
+                @helper.CSRF.formField
+            <div align="center"> @b4.submit('class -> "btn btn-primary") { Añadir egreso } </div>
             }
         </div>
     </body>

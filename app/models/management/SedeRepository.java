@@ -29,6 +29,20 @@ public class SedeRepository extends AbstractRepository<Sede> {
         return em.createNamedQuery("Sede.findAll", Sede.class).getResultList();
     }
 
+    public CompletionStage<Sede> findById(int id) {
+        return supplyAsync(
+                () -> jpaWrapper( (em) -> findById(id, em) ),
+                executionContext
+        );
+    }
+
+    private Sede findById(int id, EntityManager em) {
+        return (Sede) JpaResultHelper.getSingleResultOrNull(
+                em.createNamedQuery("Sede.findById", Sede.class)
+                        .setParameter("id", id)
+        );
+    }
+
     public CompletionStage<Sede> findByNombre(String nombre) {
         return supplyAsync(
                 () -> jpaWrapper( (em) -> findByNombre(nombre, em) ),

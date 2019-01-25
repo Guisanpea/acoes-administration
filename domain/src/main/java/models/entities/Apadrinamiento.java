@@ -24,7 +24,6 @@ import java.util.Date;
     , @NamedQuery(name = "Apadrinamiento.findByFechaFin", query = "SELECT a FROM Apadrinamiento a WHERE a.fechaFin = :fechaFin")})
 @Getter
 @Setter
-@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

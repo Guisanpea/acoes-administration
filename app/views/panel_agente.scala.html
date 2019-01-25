@@ -15,6 +15,10 @@
                 @helper.CSRF.formField
                 <button type="submit">Socios</button>
         }
+            @form(action = routes.SocioController.listSocios()) {
+                @helper.CSRF.formField
+                <button type="submit">Socios</button>
+            }
         </div>
     </body>
 </html>

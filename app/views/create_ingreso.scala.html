@@ -2,7 +2,7 @@
 @import helper._
 @import java.util
 @import models.forms.IngresoForm
-@(ingresoForm: Form[IngresoForm], proyectos: List[String], partidas: List[String])
+@(ingresoForm: Form[IngresoForm], proyectosNames: List[String], partidasNames: List[String])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +19,8 @@
                 @inputText(ingresoForm("importe"))
                 @inputText(ingresoForm("emisor"))
                 @inputText(ingresoForm("observaciones"))
-                @select(ingresoForm("nombrePartida"), options = options(partidas))
-                @select(ingresoForm("nombreProyecto"), options = options(proyectos))
+                @select(ingresoForm("nombrePartida"), options = options(partidasNames))
+                @select(ingresoForm("nombreProyecto"), options = options(proyectosNames))
                 <button type="submit">Crear ingreso</button>
             }
         </div>

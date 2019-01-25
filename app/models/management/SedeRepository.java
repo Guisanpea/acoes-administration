@@ -1,5 +1,6 @@
 package models.management;
 
+import models.ResultHelpers.JpaResultHelper;
 import models.entities.Sede;
 import play.db.jpa.JPAApi;
 
@@ -26,5 +27,19 @@ public class SedeRepository extends AbstractRepository<Sede> {
 
     private List<Sede> list(EntityManager em) {
         return em.createNamedQuery("Sede.findAll", Sede.class).getResultList();
+    }
+
+    public CompletionStage<Sede> findByNombre(String nombre) {
+        return supplyAsync(
+                () -> jpaWrapper( (em) -> findByNombre(nombre, em) ),
+                executionContext
+        );
+    }
+
+    private Sede findByNombre(String nombre, EntityManager em) {
+        return (Sede) JpaResultHelper.getSingleResultOrNull(
+                em.createNamedQuery("Sede.findByNombre", Sede.class)
+                        .setParameter("nombre", nombre)
+        );
     }
 }

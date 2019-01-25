@@ -49,7 +49,6 @@ public class IngresoController extends Controller {
         this.ec = ec;
     }
 
-
     public CompletionStage<Result> listIngresos() {
         return ingresoRepository.list().thenApplyAsync(ingresoList ->
                     ok(index_ingresos.render(ingresoList))
@@ -74,23 +73,10 @@ public class IngresoController extends Controller {
         );
     }
 
-    //@SneakyThrows({ExecutionException.class, InterruptedException.class})
     public CompletionStage<Result> createIngreso() {
         IngresoForm ingresoForm = formFactory.form(IngresoForm.class).bindFromRequest().get();
-/*
-        String usuarioEmail = session("email");
-        Usuario usuario = usuarioRepository.findByEmail(usuarioEmail).toCompletableFuture().get();
-
         Ingreso ingreso = new Ingreso();
-        BeanUtils.copyProperties(ingresoForm, ingreso);
-        ingreso.setPartida(partida);
-        ingreso.setProyecto(proyecto);
-        ingreso.setCreador(usuario);
 
-        ingresoRepository.add(ingreso).toCompletableFuture().get();
-        return redirect(routes.SocioController.listSocios());
-*/
-        Ingreso ingreso = new Ingreso();
         BeanUtils.copyProperties(ingresoForm, ingreso);
         String usuarioEmail = session("email");
 
@@ -103,12 +89,26 @@ public class IngresoController extends Controller {
                         System.out.println(ingreso.getPartida());
                         System.out.println(ingreso.getProyecto());
                         System.out.println(ingreso.getCreador());
-                        return ingresoRepository.add(ingreso).thenApplyAsync(i -> {
-                                  return redirect(routes.SocioController.listSocios());
-                              }
-                              , ec.current());
+                        return ingresoRepository.add(ingreso).thenApplyAsync(i ->
+                                    redirect(routes.IngresoController.listIngresos())
+                              , ec.current()
+                        );
                     })
               )
+        );
+    }
+
+    public CompletionStage<Result> validateIngreso(Integer ingresoId) {
+        String userEmail = session("email");
+        return ingresoRepository.findById(ingresoId).thenCompose(ingreso ->
+              usuarioRepository.findByEmail(userEmail).thenCompose(user -> {
+                  ingreso.setValidado(true);
+                  ingreso.setResponsable(user);
+                  return ingresoRepository.update(ingreso).thenApplyAsync(i ->
+                              redirect(routes.IngresoController.listIngresos())
+                        , ec.current()
+                  );
+              })
         );
     }
 }

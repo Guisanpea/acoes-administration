@@ -26,13 +26,13 @@
                 <div class="col-md-6">
                 @b4.vertical.form(action = routes.IngresoController.renderCreateIngreso()) { implicit vfc =>
                     @helper.CSRF.formField
-                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Añadir ingreso } </p>
+                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary") { Añadir ingreso } </p>
                 }
                 </div>
                 <div class="col-md-6" align="right">
                 @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
                     @helper.CSRF.formField
-                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary") { Cerrar sesión } </p>
                 }
                 </div>
             </div>
@@ -51,6 +51,7 @@
                     <th>Creador</th>
                     <th>Validado</th>
                     <th>Responsable</th>
+                    <th>Validar</th>
                 </tr>
             </thead>
             @for(ingreso <- ingresoList) {
@@ -65,6 +66,10 @@
                     <td>@ingreso.getCreador</td>
                     <td>@ingreso.isValidado</td>
                     <td>@ingreso.getResponsable</td>
+                    @b4.vertical.form(action = routes.IngresoController.validateIngreso(ingreso.getId)) { implicit vfc =>
+                        @CSRF.formField
+                        <td>@b4.submit('class -> "btn btn-warning") { Validar }</td>
+                    }
                 </tr>
             }
         </table>

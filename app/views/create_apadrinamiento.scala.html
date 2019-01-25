@@ -27,48 +27,30 @@
                 <div class="col-md-6">
                 @b4.vertical.form(action = routes.SessionController.login()) { implicit vfc =>
                     @helper.CSRF.formField
-                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Volver atrás } </p>
+                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary") { Volver atrás } </p>
                 }
                 </div>
                 <div class="col-md-6" align="right">
                 @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
                     @helper.CSRF.formField
-                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
-                }
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                @b4.vertical.form(action = routes.ApadrinamientoController.createApadrinamiento()) { implicit vfc =>
-                    @helper.CSRF.formField
-                    @b4.text(apadrinamientoForm("aportacion"), '_label -> "Nombre")
-                    @b4.date(apadrinamientoForm("fechaInicio"), '_label -> "Grado curso")
-                    @b4.date(apadrinamientoForm("fechaFin"), '_label -> "Colonia actual")
-                }
-                </div>
-                <div class="col-md-6">
-                @b4.vertical.form(action = routes.ApadrinamientoController.createApadrinamiento()) { implicit vfc =>
-                    @helper.CSRF.formField
-                    @b4.select(apadrinamientoForm("padrino"), options = options(apadrinados), '_label -> "Padrino")
-                    @select(apadrinamientoForm("apadrinado"), options = options(apadrinados), '_label -> "Apadrinado")
+                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary") { Cerrar sesión } </p>
                 }
                 </div>
             </div>
             @b4.vertical.form(action = routes.ApadrinamientoController.createApadrinamiento()) { implicit vfc =>
-                @helper.CSRF.formField
-            <div align="center"> @b4.submit('class -> "btn btn-primary") { Añadir apadrinamiento } </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @helper.CSRF.formField
+                        @b4.text(apadrinamientoForm("aportacion"), '_label -> "Aportacion")
+                        @b4.date(apadrinamientoForm("fechaInicio"), '_label -> "Fecha de Inicio")
+                    </div>
+                    <div class="col-md-6">
+                        @helper.CSRF.formField
+                        @b4.select(apadrinamientoForm("nombrePadrino"), options = options(padrinos), '_label -> "Padrino")
+                        @b4.select(apadrinamientoForm("nombreApadrinado"), options = options(apadrinados), '_label -> "Apadrinado")
+                    </div>
+                </div>
+                <div align="center"> @b4.submit('class -> "btn btn-primary") { Añadir apadrinamiento } </div>
             }
         </div>
     </body>
-
-<body>
-    @form(action = routes.ApadrinamientoController.createApadrinamiento()) {
-        @CSRF.formField
-        @select(apadrinamientoForm("apadrinado"), options = options(apadrinados))
-        @select(apadrinamientoForm("padrino"), options = options(padrinos))
-        @inputText(apadrinamientoForm("aportacion"))
-        @inputDate(apadrinamientoForm("fechaInicio"))
-        @inputDate(apadrinamientoForm("fechaFin"))
-        <button type="submit">Añadir alumno</button>
-    }
-</body>

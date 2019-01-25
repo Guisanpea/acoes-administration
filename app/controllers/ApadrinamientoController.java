@@ -65,29 +65,28 @@ public class ApadrinamientoController extends Controller {
         );
     }
 
-    public CompletionStage<Result> createApadrinamiento() {
+    public Result createApadrinamiento() {
+        return TODO;
+        /*
         ApadrinamientoForm apadrinamientoForm = formFactory.form(ApadrinamientoForm.class).bindFromRequest().get();
         Apadrinamiento apadrinamiento = new Apadrinamiento();
+
         BeanUtils.copyProperties(apadrinamientoForm, apadrinamiento);
 
         String usuarioEmail = session("email");
         return usuarioRepository.findByEmail(usuarioEmail).thenCompose(usuario ->
               socioRepository.findByNombre(apadrinamientoForm.nombrePadrino).thenCompose(socio ->
                     alumnoRepository.findByNombre(apadrinamientoForm.nombreApadrinado).thenCompose(alumno -> {
-                        apadrinamiento.setAlumno(alumno);
-                        apadrinamiento.setSocio(socio);
-                        return apadrinamientoRepository.add(apadrinamiento).thenCompose(a -> {
-                                  AdministracionApadrinamiento am = new AdministracionApadrinamiento();
-                                  am.setApadrinamiento(a);
-                                  return administracionApadrinamientoRepository.add(am).thenApplyAsync(adm ->
-                                              redirect(routes.SocioController.listSocios())
-                                        , ec.current()
-                                  );
-                              }
+                        apadrinamiento.setApadrinado(alumno);
+                        apadrinamiento.setPadrino(socio);
+                        return apadrinamientoRepository.add(apadrinamiento).thenApplyAsync(a ->
+                              redirect(routes.SocioController.listSocios())
+                              , ec.current()
                         );
                     })
               )
         );
+        */
     }
 
     /*

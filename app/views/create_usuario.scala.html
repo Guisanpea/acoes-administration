@@ -27,40 +27,29 @@
                 <div class="col-md-6">
                 @b4.vertical.form(action = routes.SessionController.login()) { implicit vfc =>
                     @helper.CSRF.formField
-                    <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Volver atrás } </p>
+                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary") { Volver atrás } </p>
                 }
                 </div>
                 <div class="col-md-6" align="right">
                 @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
                     @helper.CSRF.formField
-                    <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
-                }
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                @b4.vertical.form(action = routes.UserController.createUser()) { implicit vfc =>
-                    @helper.CSRF.formField
-                    @b4.text(userForm("nombre"), '_label -> "Nombre")
-                    @b4.select(userForm("rol"), '_label -> "Rol") { implicit values => <optgroup>
-                        @b4.selectOption("opt_1-1", "Agente")
-                        @b4.selectOption("opt_1-2", "Responsable económino")
-                        @b4.selectOption("opt_1-2", "Responsable regional")
-                    </optgroup>
-                    }
-                }
-                </div>
-                <div class="col-md-6">
-                @b4.vertical.form(action = routes.UserController.createUser()) { implicit vfc =>
-                    @helper.CSRF.formField
-                    @b4.text(userForm("email"), '_label -> "Email")
-                    @b4.text(userForm("contrasena"), '_label -> "Contraseña")
+                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary") { Cerrar sesión } </p>
                 }
                 </div>
             </div>
             @b4.vertical.form(action = routes.UserController.createUser()) { implicit vfc =>
-                @helper.CSRF.formField
-                <div align="center"> @b4.submit('class -> "btn btn-primary") { Añadir usuario } </div>
+                <div class="row">
+                <div class="col-md-6">
+                    @helper.CSRF.formField
+                    @b4.text(userForm("nombre"), '_label -> "Nombre")
+                    @b4.select(userForm("rol"), options = options(roles), '_label -> "Rol")
+                </div>
+                <div class="col-md-6">
+                    @b4.text(userForm("email"), '_label -> "Email")
+                    @b4.password(userForm("contrasena"), '_label -> "Contraseña")
+                </div>
+            </div>
+            <div align="center"> @b4.submit('class -> "btn btn-primary") { Añadir usuario } </div>
             }
         </div>
     </body>

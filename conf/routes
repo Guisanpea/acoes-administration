@@ -76,6 +76,8 @@ GET         /ingresos/new                 controllers.IngresoController.renderCr
 
 POST        /ingreso                      controllers.IngresoController.createIngreso()
 
+POST        /ingreso/:id/validate         controllers.IngresoController.validateIngreso(id: Integer)
+
 GET         /egresos                      controllers.EgresoController.listEgresos()
 
 GET         /egresos/new                  controllers.EgresoController.renderCreateEgreso()

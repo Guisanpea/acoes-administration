@@ -1,15 +1,11 @@
 package models.forms;
 
+import models.entities.Egreso;
+
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class EgresoForm {
-        public enum TipoBeneficiario {
-            Alumno,
-            Colaborador,
-            Tercero,
-            Socio
-        }
         @NotNull
         public Date fecha;
         @NotNull
@@ -17,7 +13,7 @@ public class EgresoForm {
         @NotNull
         public double importe;
         @NotNull
-        public TipoBeneficiario tipoBeneficiario;
+        public Egreso.TipoBeneficiario tipoBeneficiario;
         public String observaciones;
         @NotNull
         public String partida;
@@ -25,5 +21,5 @@ public class EgresoForm {
         public String nombreBeneficiarioColaborador;
         public String nombreProyecto;
         public String nombreBeneficiarioSocio;
-        public String beneficiarioTercero;
+        public String nombreBeneficiarioTercero;
 }

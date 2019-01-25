@@ -1,6 +1,7 @@
 @import helper._
 @import models.entities.Egreso
 
+@import models.entities.Egreso.TipoBeneficiario
 @(egresoList: List[Egreso])
 
 <!DOCTYPE html>
@@ -26,32 +27,30 @@
                 <div class="col-md-6">
                 @b4.vertical.form(action = routes.EgresoController.renderCreateEgreso()) { implicit vfc =>
                     @helper.CSRF.formField
-                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary"){ Añadir egreso } </p>
+                <p class="col-sm-4" align="left"> @b4.submit('class -> "btn btn-primary") { Añadir egreso } </p>
                 }
                 </div>
                 <div class="col-md-6" align="right">
                 @b4.vertical.form(action = routes.SessionController.index()) { implicit vfc =>
                     @helper.CSRF.formField
-                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary"){ Cerrar sesión } </p>
+                <p class="col-md-6"> @b4.submit('class -> "btn btn-secondary") { Cerrar sesión } </p>
                 }
                 </div>
             </div>
+        </header>
         <table class="table table-striped">
             <tr>
                 <th>Id</th>
                 <th>Fecha</th>
                 <th>Concepto</th>
                 <th>Importe</th>
-                <th>Alumno</th>
-                <th>Colaborador</th>
-                <th>Tercero</th>
-                <th>Socio</th>
+                <th>Beneficiario</th>
                 <th>Tipo de Beneficiario</th>
                 <th>Observaciones</th>
                 <th>Partida</th>
                 <th>Proyecto</th>
                 <th>Creador</th>
-                <th>Válido</th>
+                <th>Validado</th>
                 <th>Responsable</th>
             </tr>
             @for(egreso <- egresoList) {
@@ -60,10 +59,18 @@
                     <td>@egreso.getFecha</td>
                     <td>@egreso.getConcepto</td>
                     <td>@egreso.getImporte</td>
-                    <td>@egreso.getBeneficiarioAlumno</td>
-                    <td>@egreso.getBeneficiarioColaborador</td>
-                    <td>@egreso.getBeneficiarioTercero</td>
-                    <td>@egreso.getBeneficiarioSocio</td>
+                    @if(TipoBeneficiario.Alumno.equals(egreso.getTipoBeneficiario)){
+                        <td>@egreso.getBeneficiarioAlumno</td>
+                    }
+                    @if(TipoBeneficiario.Colaborador.equals(egreso.getTipoBeneficiario)){
+                        <td>@egreso.getBeneficiarioColaborador</td>
+                    }
+                    @if(TipoBeneficiario.Tercero.equals(egreso.getTipoBeneficiario)){
+                        <td>@egreso.getBeneficiarioTercero</td>
+                    }
+                    @if(TipoBeneficiario.Socio.equals(egreso.getTipoBeneficiario)){
+                        <td>@egreso.getBeneficiarioSocio</td>
+                    }
                     <td>@egreso.getTipoBeneficiario</td>
                     <td>@egreso.getObservaciones</td>
                     <td>@egreso.getPartida</td>
@@ -72,7 +79,7 @@
                     <td>@egreso.isValidado</td>
                     <td>@egreso.getResponsable</td>
                 </tr>
-            </table>
             }
+        </table>
     </body>
 

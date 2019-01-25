@@ -68,10 +68,9 @@ public class Egreso implements Serializable {
     @Size(max = 100)
     @Column(name = "observaciones")
     private String observaciones;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "partida")
-    private int partida;
+    @JoinColumn(name = "partida", referencedColumnName = "id")
+    @ManyToOne
+    private Partida partida;
     @Basic(optional = false)
     @NotNull
     @Column(name = "validado")

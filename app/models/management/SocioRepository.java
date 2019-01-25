@@ -28,6 +28,7 @@ public class SocioRepository extends AbstractRepository<Socio> {
     private List<Socio> list(EntityManager em) {
         return em.createNamedQuery("Socio.findAll", Socio.class).getResultList();
     }
+
     public CompletionStage<Socio> findById(int id) {
         return supplyAsync(
               () -> jpaWrapper( (em) -> findById(id, em) ),
@@ -39,6 +40,20 @@ public class SocioRepository extends AbstractRepository<Socio> {
         return (Socio) JpaResultHelper.getSingleResultOrNull(
               em.createNamedQuery("Socio.findByNumeroDeSocio", Socio.class)
                     .setParameter("numeroDeSocio", id)
+        );
+    }
+
+    public CompletionStage<Socio> findByNombre(String nombre) {
+        return supplyAsync(
+              () -> jpaWrapper( (em) -> findByNombre(nombre, em) ),
+              executionContext
+        );
+    }
+
+    private Socio findByNombre(String nombre, EntityManager em) {
+        return (Socio) JpaResultHelper.getSingleResultOrNull(
+              em.createNamedQuery("Socio.findByNombre", Socio.class)
+                    .setParameter("nombre", nombre)
         );
     }
 }

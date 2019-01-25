@@ -42,4 +42,18 @@ public class AlumnoRepository extends AbstractRepository<Alumno> {
                     .setParameter("codigo", id)
         );
     }
+
+    public CompletionStage<Alumno> findByNombre(String nombre) {
+        return supplyAsync(
+              () -> jpaWrapper( (em) -> findByNombre(nombre, em)),
+              executionContext
+        );
+    }
+
+    private Alumno findByNombre(String nombre, EntityManager em) {
+        return (Alumno) JpaResultHelper.getSingleResultOrNull(
+              em.createNamedQuery("Alumno.findByNombre", Alumno.class)
+                    .setParameter("nombre", nombre)
+        );
+    }
 }

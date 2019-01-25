@@ -25,13 +25,13 @@
             @inputText(socioForm("email"))
             @inputText(socioForm("relacion"))
             Certificado <input type="checkbox"
-            name="@socioForm("certificado").name"
-            value="@socioForm("certificado").value"><br>
+            name="@socioForm("certificado").getName"
+            value="true"><br>
             @inputText(socioForm("sector"))
             @inputDate(socioForm("fechaAlta"))
             @inputDate(socioForm("fechaBaja"))
             @inputText(socioForm("observaciones"))
-            @inputText(socioForm("contribucionEconomico"))
+            @inputText(socioForm("contribucionEconomica"))
             <button type="submit">Añadir socio</button>
         }
     </body>

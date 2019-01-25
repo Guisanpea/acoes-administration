@@ -48,6 +48,10 @@
                 <div class="col-md-6">
                 @b4.vertical.form(action = routes.EgresoController.createEgreso()) { implicit vfc =>
                     @helper.CSRF.formField
+                    Validado <input type="checkbox"
+                    name="@egresoForm("validado").name"
+                        value="true"
+                        @if(egresoForm("validado").value.contains("true")){checked="checked"}>
                     @b4.text(egresoForm("concepto"), '_label -> "Concepto")
                     @b4.text(egresoForm("beneficiarioAlumnos"), '_label -> "Beneficiario alumnos")
                     @b4.text(egresoForm("beneficiarioTerceros"), '_label -> "Beneficiario terceros")
